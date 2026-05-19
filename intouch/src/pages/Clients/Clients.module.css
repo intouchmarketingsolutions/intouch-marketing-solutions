@@ -930,6 +930,11 @@
   .ctaSub { font-size: 0.92rem; }
   .filterHeader { gap: 1rem; }
   .sectionTitle { font-size: 1.4rem; }
+  .gemWrap { width: 260px; height: 260px; }
+  .gemSvg { width: 260px; height: 260px; }
+  .gemGlow { width: 300px; }
+  .aurora { inset: -160px; }
+  .heroMain { padding: 0 4% 4rem; }
 }
 
 @media (max-width: 380px) {

@@ -935,9 +935,9 @@
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
 
   /* Stack service rows on mobile */
-  .row { height: auto; flex-direction: column !important; }
+  .row { height: auto; flex-direction: column !important; overflow: visible; }
   .rowReverse { flex-direction: column !important; }
-  .imgWrap { flex: 0 0 auto; width: 100%; height: 220px; }
+  .imgWrap { flex: 0 0 auto; width: 100%; height: 220px; overflow: hidden; }
   .content { padding: 1.8rem 1.5rem; }
 
   /* Hide decorative elements */

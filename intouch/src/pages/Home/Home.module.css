@@ -918,7 +918,7 @@
   .statItem:last-child { border-bottom: none; }
 
   .previewGrid { padding: 0 12px; gap: 1.2rem; }
-  .prevCard { height: auto; min-height: 300px; }
+  .prevCard { height: auto; min-height: 300px; overflow: visible; }
 
   .benefitsCard { padding: 1.8rem 1.2rem; }
   .ctaText { padding: 1.8rem 1.4rem; }
