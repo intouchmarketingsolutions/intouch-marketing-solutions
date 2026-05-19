@@ -917,8 +917,22 @@
 
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .heroStatIcon { width: 38px; height: 38px; font-size: 0.9rem; }
+  .heroStatText strong { font-size: 0.8rem; }
+  .heroStatText span { font-size: 0.7rem; }
+  .heroTitle { font-size: 1.8rem; }
+  .heroCta { font-size: 0.85rem; padding: 0.8rem 1.8rem; }
+  .filterSection { padding: 2.5rem 4% 1.5rem; }
+  .gridSection { padding: 1.5rem 4% 3rem; }
+  .testiGrid { grid-template-columns: 1fr; }
+  .cta { padding: 5rem 5%; }
+  .ctaTitle { font-size: 2rem; letter-spacing: -0.5px; }
+  .ctaSub { font-size: 0.92rem; }
+  .filterHeader { gap: 1rem; }
+  .sectionTitle { font-size: 1.4rem; }
 }
 
 @media (max-width: 380px) {
   .grid { grid-template-columns: 1fr; }
+  .heroTitle { font-size: 1.5rem; }
 }

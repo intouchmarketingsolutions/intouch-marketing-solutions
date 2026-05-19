@@ -934,6 +934,21 @@
   .whyInner { grid-template-columns: 1fr; gap: 2rem; }
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
 
+  /* Stack service rows on mobile */
+  .row { height: auto; flex-direction: column !important; }
+  .rowReverse { flex-direction: column !important; }
+  .imgWrap { flex: 0 0 auto; width: 100%; height: 220px; }
+  .content { padding: 1.8rem 1.5rem; }
+
+  /* Hide decorative elements */
+  .cubeLeft  { display: none; }
+  .cubeRight { display: none; }
+  .ring      { display: none; }
+  .cubeSmall { display: none; }
+  .dot1, .dot2, .dot3 { display: none; }
+
+  .listWrap { padding: 2rem 4% 3rem; }
+
   .procSection { padding: 2.5rem 4%; }
   .procCirclesRow, .procNumsRow, .procCardsRow { flex-direction: column; align-items: center; }
   .procCircleCol, .procNum, .procNumMid, .procCard, .procCardMid { flex: unset; width: 100%; max-width: 320px; }
@@ -946,4 +961,7 @@
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .whyStatNum { font-size: 2rem; }
   .whyStatIcon { width: 54px; height: 54px; }
+  .imgWrap { height: 180px; }
+  .content { padding: 1.4rem 1.2rem; }
+  .heroTitle { letter-spacing: -0.5px; }
 }

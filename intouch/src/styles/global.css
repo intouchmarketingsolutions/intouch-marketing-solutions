@@ -358,11 +358,8 @@ select.form-control option {
 }
 
 @media (max-width: 480px) {
-  .heading {
-    font-size: 1.8rem;
-  }
-
-  .page-hero {
-    padding: 3rem 5% 2rem;
-  }
+  .heading { font-size: 1.8rem; }
+  .sub { max-width: 100%; font-size: 0.95rem; }
+  .page-hero { padding: 3rem 4% 2rem; }
+  .btn { padding: 0.7rem 1.5rem; font-size: 0.88rem; }
 }

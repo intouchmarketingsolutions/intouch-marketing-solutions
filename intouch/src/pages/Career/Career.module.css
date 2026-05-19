@@ -264,9 +264,19 @@
 @media (max-width: 768px) {
   .perksGrid { grid-template-columns: 1fr 1fr; }
   .jobsGrid { grid-template-columns: 1fr; }
+  .perks { padding: 4rem 5%; }
+  .jobs { padding: 4rem 5%; }
+  .apply { padding: 4rem 5%; }
 }
 
 @media (max-width: 480px) {
   .perksGrid { grid-template-columns: 1fr; }
-  .formWrap { padding: 1.5rem; }
+  .formWrap { padding: 1.2rem; }
+  .perks { padding: 3rem 4%; }
+  .jobs { padding: 3rem 4%; }
+  .apply { padding: 3rem 4%; }
+  .jobTop { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  .perk { padding: 1.5rem 1.2rem; }
+  .perkIcon { font-size: 2rem; }
+  .jobCard { padding: 1.5rem; }
 }

@@ -128,3 +128,18 @@
   line-height: 1.72;
   font-style: italic;
 }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .section { padding: 3rem 0 4rem; }
+  .card { width: 280px; padding: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 2.5rem 0 3rem; }
+  .card { width: calc(100vw - 48px); max-width: 300px; padding: 1.4rem; }
+  .text { font-size: 0.82rem; }
+  .avatar { width: 40px; height: 40px; font-size: 0.9rem; }
+}

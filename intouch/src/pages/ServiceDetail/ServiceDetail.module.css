@@ -235,4 +235,13 @@
   .grid { grid-template-columns: 1fr; gap: 2rem; }
   .heroContent h1 { font-size: 2rem; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
+  .hero { height: 55vh; }
+}
+
+@media (max-width: 480px) {
+  .hero { height: 50vh; min-height: 340px; padding-bottom: 2.5rem; }
+  .heroContent h1 { font-size: 1.7rem; letter-spacing: -0.5px; }
+  .heroContent p { font-size: 0.92rem; }
+  .ctaBox { padding: 1.5rem; gap: 1rem; }
+  .notFound { padding: 3rem 5%; }
 }

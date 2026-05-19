@@ -478,3 +478,16 @@
 
   .ctaStrip { padding: 2rem 4%; }
 }
+
+@media (max-width: 480px) {
+  .ctaInner { padding: 1.6rem 1.2rem; gap: 1.2rem; }
+  .ctaHeading { font-size: 1.1rem; }
+  .ctaBadge { font-size: 0.65rem; }
+  .ctaBtn { padding: 0.8rem 1.6rem; font-size: 0.85rem; width: 100%; justify-content: center; }
+  .logoImg { height: 44px; }
+  .desc { font-size: 0.85rem; }
+  .bgOrb1, .bgOrb2 { display: none; }
+  .copy { font-size: 0.78rem; }
+  .bottomLinks a { font-size: 0.76rem; }
+  .map iframe { height: 120px; }
+}
