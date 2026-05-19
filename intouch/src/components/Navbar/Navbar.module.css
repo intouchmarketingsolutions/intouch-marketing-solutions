@@ -240,7 +240,7 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--text);
+  background: #1e293b;
   border-radius: 1px;
   transition: var(--ease);
 }

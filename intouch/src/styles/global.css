@@ -235,12 +235,13 @@ img { max-width: 100%; display: block; }
   transform: translateY(0);
 }
 
-/* Mobile: reduce animation shift to prevent layout confusion */
+/* Mobile: vertical-only animations prevent horizontal overflow */
 @media (max-width: 768px) {
   .fade-up { transform: translateY(20px); }
+  /* Safety net for any component using global fromLeft/fromRight classes */
   .slide-in.fromLeft,
   .slide-in.fromRight { transform: translateY(20px) !important; }
-  .slide-in.visible   { transform: translateY(0) !important; }
+  .slide-in.visible   { opacity: 1; transform: translate(0, 0) !important; }
 }
 
 /* delay helpers */

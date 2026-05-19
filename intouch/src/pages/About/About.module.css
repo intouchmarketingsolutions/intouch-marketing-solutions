@@ -373,7 +373,7 @@
   .videoBox { height: 280px; }
   .orbit { display: none; }
   .featuresWrap { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .whyRow { flex-direction: column; gap: 2rem; padding: 1.5rem; }
+  .whyRow { flex-direction: column; gap: 2rem; padding: 1.5rem; margin-bottom: 2.5rem; }
   .whyImg { max-width: 100%; }
   .whyImg img { height: 240px; }
   .intro { padding: 5rem 5%; }
@@ -397,7 +397,7 @@
   .why { padding: 3.5rem 4%; }
   .videoBox { height: 200px; }
   .featuresWrap { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-  .whyRow { padding: 1.2rem; gap: 1.5rem; }
+  .whyRow { padding: 1.2rem; gap: 1.5rem; margin-bottom: 1.5rem; }
   .whyContent h3 { font-size: 1.2rem; }
   .whyContent p { font-size: 0.9rem; }
   .whyImg img { height: 180px; }

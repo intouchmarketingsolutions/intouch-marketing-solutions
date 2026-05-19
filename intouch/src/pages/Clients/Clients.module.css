@@ -920,6 +920,10 @@
   .heroStatItem { flex: 0 0 100%; border-right: none; padding: 1.2rem 1.5rem; }
   .heroTitle { font-size: 2rem; }
   .heroBadge { font-size: 0.65rem; }
+  .gemWrap { width: 280px; height: 280px; }
+  .gemSvg  { width: 280px; height: 280px; }
+  .gemGlow { width: 340px; }
+  .aurora  { inset: -170px; }
 }
 
 @media (max-width: 480px) {
