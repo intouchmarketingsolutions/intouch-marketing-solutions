@@ -1,0 +1,238 @@
+/* PAGE */
+.page {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  height: 65vh;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4rem;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(7,5,15,0.92) 0%,
+    rgba(7,5,15,0.6) 60%,
+    rgba(168,85,247,0.25) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 0 5%;
+  max-width: 760px;
+}
+
+.heroContent h1 {
+  font-family: var(--ff-head);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 60%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroContent p {
+  color: rgba(241,245,249,0.65);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+/* =========================
+   ABOUT SECTION
+========================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 5%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.imageBox img {
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  transition: transform 0.4s ease;
+}
+
+.imageBox img:hover { transform: scale(1.02); }
+
+.text h2 {
+  font-family: var(--ff-head);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.3px;
+}
+
+.text p {
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   FEATURES LIST
+========================= */
+.features {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  transition: var(--ease);
+}
+
+.featureItem:hover {
+  border-color: rgba(168,85,247,0.3);
+  color: var(--text);
+  background: rgba(168,85,247,0.05);
+}
+
+.featureItem::before {
+  content: '✦';
+  color: #a855f7;
+  font-size: 0.7rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* =========================
+   TAGS SECTION
+========================= */
+.tagsSection {
+  border-top: 1px solid var(--border2);
+  padding-top: 3rem;
+  margin-top: 1rem;
+}
+
+.tagsSection h3 {
+  font-family: var(--ff-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.78rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tags span {
+  background: rgba(168,85,247,0.1);
+  border: 1px solid rgba(168,85,247,0.25);
+  color: #c084fc;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: var(--ease);
+}
+
+.tags span:hover {
+  background: rgba(168,85,247,0.2);
+  border-color: rgba(168,85,247,0.5);
+}
+
+/* =========================
+   CTA BOX
+========================= */
+.ctaBox {
+  max-width: 1100px;
+  margin: 0 auto 6rem;
+  padding: 3rem 3.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #0ea5a4, #a855f7, #ec4899);
+}
+
+.ctaBox h3 {
+  font-family: var(--ff-head);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.ctaBox p {
+  color: var(--text2);
+  font-size: 0.9rem;
+  max-width: 420px;
+}
+
+/* NOT FOUND */
+.notFound {
+  padding: 6rem;
+  text-align: center;
+  color: var(--text2);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; gap: 2rem; }
+  .heroContent h1 { font-size: 2rem; }
+  .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
+}
