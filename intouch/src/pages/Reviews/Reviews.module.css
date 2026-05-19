@@ -132,9 +132,15 @@
 /* =========================
    RESPONSIVE
 ========================= */
+@media (max-width: 1024px) {
+  .card { width: 300px; }
+}
+
 @media (max-width: 768px) {
   .section { padding: 3rem 0 4rem; }
   .card { width: 280px; padding: 1.6rem; }
+  .name { font-size: 0.9rem; }
+  .role { font-size: 0.74rem; }
 }
 
 @media (max-width: 480px) {
@@ -142,4 +148,5 @@
   .card { width: calc(100vw - 48px); max-width: 300px; padding: 1.4rem; }
   .text { font-size: 0.82rem; }
   .avatar { width: 40px; height: 40px; font-size: 0.9rem; }
+  .trackWrap { padding: 0.3rem 0; margin-bottom: 1.2rem; }
 }

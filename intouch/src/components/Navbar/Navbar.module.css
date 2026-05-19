@@ -329,8 +329,13 @@
   .links { display: none; }
   .ham { display: flex; }
   .ctaBtn { display: none; }
+  .nav { padding: 0 20px; }
+}
 
-  .nav {
-    padding: 0 20px;
-  }
+@media (max-width: 480px) {
+  .nav { padding: 0 16px; }
+  .logo img { height: 32px; }
+  .drawer { padding: 1.2rem 4% 1.8rem; }
+  .dlink { font-size: 0.95rem; padding: 0.7rem 0; }
+  .drawerCta { font-size: 0.85rem; padding: 0.65rem 1.2rem; }
 }

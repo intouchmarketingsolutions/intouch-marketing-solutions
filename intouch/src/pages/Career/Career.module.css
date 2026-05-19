@@ -261,22 +261,32 @@
 /* =========================
    RESPONSIVE
 ========================= */
+@media (max-width: 1024px) {
+  .perksGrid { grid-template-columns: repeat(3, 1fr); }
+  .jobsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
   .perksGrid { grid-template-columns: 1fr 1fr; }
   .jobsGrid { grid-template-columns: 1fr; }
   .perks { padding: 4rem 5%; }
   .jobs { padding: 4rem 5%; }
   .apply { padding: 4rem 5%; }
+  .jobDesc { font-size: 0.85rem; }
 }
 
 @media (max-width: 480px) {
-  .perksGrid { grid-template-columns: 1fr; }
+  .perksGrid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
   .formWrap { padding: 1.2rem; }
   .perks { padding: 3rem 4%; }
   .jobs { padding: 3rem 4%; }
   .apply { padding: 3rem 4%; }
   .jobTop { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-  .perk { padding: 1.5rem 1.2rem; }
+  .perk { padding: 1.5rem 1rem; }
   .perkIcon { font-size: 2rem; }
+  .perk h4 { font-size: 0.92rem; }
+  .perk p { font-size: 0.82rem; }
   .jobCard { padding: 1.5rem; }
+  .jobMeta span { font-size: 0.75rem; }
+  .badge { font-size: 0.65rem; }
 }

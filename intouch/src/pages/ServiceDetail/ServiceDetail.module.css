@@ -231,17 +231,28 @@
 /* =========================
    RESPONSIVE
 ========================= */
+@media (max-width: 1024px) {
+  .container { padding: 4rem 5%; }
+  .ctaBox { padding: 2.5rem 2.5rem; }
+}
+
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; gap: 2rem; }
   .heroContent h1 { font-size: 2rem; }
+  .heroContent p { max-width: 100%; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
   .hero { height: 55vh; }
+  .tags { gap: 0.4rem; }
 }
 
 @media (max-width: 480px) {
   .hero { height: 50vh; min-height: 340px; padding-bottom: 2.5rem; }
   .heroContent h1 { font-size: 1.7rem; letter-spacing: -0.5px; }
-  .heroContent p { font-size: 0.92rem; }
-  .ctaBox { padding: 1.5rem; gap: 1rem; }
+  .heroContent p { font-size: 0.9rem; }
+  .container { padding: 3rem 4%; }
+  .ctaBox { padding: 1.5rem; gap: 1rem; margin-bottom: 4rem; }
+  .ctaBox h3 { font-size: 1.2rem; }
+  .ctaBox p { font-size: 0.85rem; }
   .notFound { padding: 3rem 5%; }
+  .featureItem { font-size: 0.85rem; padding: 0.8rem 1rem; }
 }

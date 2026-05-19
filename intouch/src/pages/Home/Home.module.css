@@ -179,7 +179,7 @@
 ========================= */
 .statsBar {
   background: var(--bg);
-  padding: 2.5rem 60px 0;
+  padding: 2.5rem 5% 0;
   position: relative;
 }
 
@@ -391,7 +391,7 @@
 .previewGrid {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 5%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.8rem;
@@ -559,7 +559,7 @@
 .benefitsWrap {
   max-width: 1280px;
   margin: 3rem auto 0;
-  padding: 0 40px;
+  padding: 0 5%;
 }
 
 .benefitsCard {
@@ -832,12 +832,16 @@
    RESPONSIVE
 ========================= */
 
+/* Large tablet */
+@media (max-width: 1024px) {
+  .previewGrid { grid-template-columns: repeat(2, 1fr); }
+  .benefitsGrid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .casesGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* Tablet */
 @media (max-width: 900px) {
-  .heroContent {
-    padding: 0 32px;
-  }
-
+  .heroContent { padding: 0 32px; }
   .orb1 { width: 260px; height: 260px; left: -100px; }
   .orb2 { display: none; }
   .cube3 { display: none; }
@@ -846,65 +850,48 @@
 /* Mobile */
 @media (max-width: 768px) {
   .hero { height: 70vh; min-height: 480px; }
-  .benefitsWrap { padding: 0 16px; }
-  .benefitsGrid { grid-template-columns: 1fr; gap: 2rem; }
+
+  .heroContent { padding: 0 24px; }
+  .heroSub { max-width: 100%; }
+
+  .benefitsWrap { padding: 0 4%; }
+  .benefitsGrid { grid-template-columns: 1fr; gap: 1.5rem; }
   .benefitsCard { padding: 2rem 1.5rem; }
-  .videoHeading {
-    font-size: 1.8rem;
-  }
+  .benefitDesc { max-width: 100%; }
+  .videoHeading { font-size: 1.8rem; }
 
   .ctaBox {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 2rem 1.5rem;
+    padding: 2rem 4%;
   }
+  .ctaText { padding: 2rem 1.8rem; }
+  .ctaSub { max-width: 100%; }
 
-  .statsBar {
-    padding: 1.5rem 16px 0;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  .statsBar { padding: 1.5rem 4% 0; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
   .statItem {
     padding: 1.4rem 1.2rem;
     border-right: none;
     border-bottom: 1px solid var(--border2);
   }
-
-  .statItem:nth-child(odd) {
-    border-right: 1px solid var(--border2);
-  }
-
+  .statItem:nth-child(odd) { border-right: 1px solid var(--border2); }
   .statItem:last-child,
-  .statItem:nth-last-child(2):nth-child(odd) {
-    border-bottom: none;
-  }
-
-  .statIcon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .statNum {
-    font-size: 1.6rem;
-  }
+  .statItem:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+  .statIcon { width: 44px; height: 44px; }
+  .statNum { font-size: 1.6rem; }
 
   .orb1 { width: 200px; height: 200px; left: -80px; }
   .orb3 { display: none; }
   .cube1 { display: none; }
   .cube2 { display: none; }
 
-  .preview {
-    padding: 3rem 0 4rem;
-  }
+  .preview { padding: 3rem 0 4rem; }
+  .previewGrid { padding: 0 4%; grid-template-columns: 1fr; gap: 1.2rem; }
+  .prevCard { height: auto; min-height: 280px; overflow: visible; }
 
-  .previewGrid {
-    padding: 0 16px;
-    grid-template-columns: 1fr;
-  }
+  .sectionSub { max-width: 100%; margin-bottom: 2.5rem; }
 }
 
 /* Small mobile */
@@ -913,17 +900,22 @@
   .heroContent { padding: 0 20px; }
   .heroTitle { font-size: 2.1rem; }
   .heroSub { font-size: 0.95rem; }
-  .heroBtns { flex-direction: column; align-items: flex-start; }
+  .heroBtns { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 
   .statsGrid { grid-template-columns: 1fr; }
   .statItem { border-right: none !important; border-bottom: 1px solid var(--border2); }
   .statItem:last-child { border-bottom: none; }
+  .statItem { padding: 1.2rem 1rem; }
+  .statNum { font-size: 1.5rem; }
 
-  .previewGrid { padding: 0 12px; gap: 1.2rem; }
-  .prevCard { height: auto; min-height: 300px; overflow: visible; }
+  .previewGrid { padding: 0 4%; gap: 1rem; }
+  .prevCard { height: auto; min-height: 260px; overflow: visible; padding: 2rem 1.6rem; }
 
-  .benefitsCard { padding: 1.8rem 1.2rem; }
-  .ctaText { padding: 1.8rem 1.4rem; }
+  .benefitsCard { padding: 1.5rem 1rem; }
+  .benefitsGrid { grid-template-columns: 1fr; }
+  .benefitsTitle { font-size: 1.2rem; letter-spacing: 1px; }
+  .ctaText { padding: 1.6rem 1.2rem; }
+  .ctaHeading { font-size: 1.6rem; }
   .processDesc { padding-right: 0; }
 
   .orb1 { display: none; }
@@ -1622,26 +1614,32 @@
 @media (max-width: 1024px) {
   .processGrid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   .processLine { display: none; }
-  .casesGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .processSection, .testimonialSection, .casesSection, .glowCta { padding: 4rem 0; }
-  .processGrid { grid-template-columns: 1fr; }
+  .processGrid { grid-template-columns: 1fr; gap: 1.5rem; }
   .casesGrid { grid-template-columns: 1fr; }
-  .tCard { padding: 2rem 1.8rem; }
+  .tCard { padding: 1.8rem 1.4rem; }
   .tMiniRow { display: none; }
   .glowCtaTitle { font-size: 2.2rem; }
-  .glowCtaBtns { flex-direction: column; align-items: center; }
-  .glowCtaTrust { gap: 1rem; }
-  .tCard { padding: 1.8rem 1.4rem; }
+  .glowCtaBtns { flex-direction: column; align-items: center; gap: 0.75rem; }
+  .glowCtaTrust { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .glowCtaTrustItem { font-size: 0.78rem; }
   .tText { font-size: 0.95rem; }
+  .tMeta { flex-wrap: wrap; gap: 0.8rem; }
+  .tStars { margin-left: 0; }
+  .caseTop { flex-wrap: wrap; gap: 0.8rem; }
 }
 
 @media (max-width: 480px) {
+  .processSection, .testimonialSection, .casesSection, .glowCta { padding: 3rem 0; }
   .glowCtaTitle { font-size: 1.8rem; letter-spacing: -0.5px; }
-  .glowCtaSub { font-size: 0.92rem; }
-  .glowCtaPrimary, .glowCtaSecondary { width: 100%; justify-content: center; padding: 0.9rem 1.5rem; }
-  .tCard { padding: 1.4rem 1.2rem; }
-  .tText { font-size: 0.9rem; }
+  .glowCtaSub { font-size: 0.9rem; max-width: 100%; }
+  .glowCtaPrimary, .glowCtaSecondary { width: 100%; justify-content: center; padding: 0.85rem 1.5rem; font-size: 0.9rem; }
+  .tCard { padding: 1.2rem 1rem; }
+  .tText { font-size: 0.88rem; }
+  .tQuote { font-size: 1.8rem; margin-bottom: 1rem; }
+  .processStep { padding: 1.5rem 1.2rem 1.5rem 0; }
+  .processTitle { font-size: 1rem; }
 }

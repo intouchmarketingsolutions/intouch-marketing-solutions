@@ -930,6 +930,8 @@
 }
 
 @media (max-width: 768px) {
+  .hero { padding: 5rem 5% 3rem; }
+  .heroTitle { font-size: clamp(2.2rem, 7vw, 4rem); }
   .whySection { padding: 2.5rem 5%; }
   .whyInner { grid-template-columns: 1fr; gap: 2rem; }
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
@@ -960,8 +962,14 @@
 @media (max-width: 480px) {
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .whyStatNum { font-size: 2rem; }
-  .whyStatIcon { width: 54px; height: 54px; }
+  .whyStatIcon { width: 48px; height: 48px; }
   .imgWrap { height: 180px; }
   .content { padding: 1.4rem 1.2rem; }
-  .heroTitle { letter-spacing: -0.5px; }
+  .heroTitle { letter-spacing: -0.5px; font-size: clamp(2rem, 8vw, 3.5rem); }
+  .heroSub { font-size: 0.95rem; }
+  .hero { padding: 5rem 4% 3rem; }
+  .cubeBanner { height: 360px; }
+  .desc { max-width: 100%; }
+  .whySub { max-width: 100%; }
+  .ctaBtn { white-space: normal; text-align: center; }
 }

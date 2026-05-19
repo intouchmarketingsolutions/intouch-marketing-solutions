@@ -899,17 +899,24 @@
 @media (max-width: 860px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .filterHeader { flex-direction: column; align-items: flex-start; }
-  /* Hero collapses to single column on tablet */
-  .heroContent { flex: 0 0 70%; max-width: 70%; }
-  .heroStats { flex-wrap: wrap; }
-  .heroStatItem { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(99,102,241,0.12); }
+  .heroStats { flex-wrap: wrap; justify-content: center; }
+  .heroStatItem { flex: 0 0 45%; border-right: none; border-bottom: 1px solid rgba(99,102,241,0.12); }
   .heroStatItem:nth-child(odd) { border-right: 1px solid rgba(99,102,241,0.12); }
+  .heroMain { padding: 0 5% 4rem; }
+}
+
+@media (max-width: 768px) {
+  .heroTitle { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+  .galleryCard { width: 240px; height: 155px; }
+  .testimonials { padding: 4rem 4%; }
+  .testiGrid { grid-template-columns: 1fr; }
+  .cta { padding: 4rem 5%; }
+  .ctaTitle { font-size: clamp(1.6rem, 5vw, 2.5rem); }
 }
 
 @media (max-width: 600px) {
   .galleryCard { width: 200px; height: 130px; }
-  .heroContent { flex: 0 0 100%; max-width: 100%; }
-  .heroMain { padding-top: calc(var(--nav-h) + 2rem); }
+  .heroMain { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
   .heroStatItem { flex: 0 0 100%; border-right: none; padding: 1.2rem 1.5rem; }
   .heroTitle { font-size: 2rem; }
   .heroBadge { font-size: 0.65rem; }
@@ -925,16 +932,20 @@
   .filterSection { padding: 2.5rem 4% 1.5rem; }
   .gridSection { padding: 1.5rem 4% 3rem; }
   .testiGrid { grid-template-columns: 1fr; }
-  .cta { padding: 5rem 5%; }
-  .ctaTitle { font-size: 2rem; letter-spacing: -0.5px; }
-  .ctaSub { font-size: 0.92rem; }
-  .filterHeader { gap: 1rem; }
-  .sectionTitle { font-size: 1.4rem; }
-  .gemWrap { width: 260px; height: 260px; }
-  .gemSvg { width: 260px; height: 260px; }
-  .gemGlow { width: 300px; }
-  .aurora { inset: -160px; }
-  .heroMain { padding: 0 4% 4rem; }
+  .testimonials { padding: 3rem 4%; }
+  .cta { padding: 3rem 4%; }
+  .ctaTitle { font-size: 1.8rem; letter-spacing: -0.5px; }
+  .ctaSub { font-size: 0.9rem; max-width: 100%; }
+  .filterHeader { gap: 1rem; flex-direction: column; align-items: flex-start; }
+  .sectionTitle { font-size: 1.3rem; }
+  .gemWrap { width: 240px; height: 240px; }
+  .gemSvg { width: 240px; height: 240px; }
+  .gemGlow { width: 280px; }
+  .aurora { inset: -140px; }
+  .heroMain { padding: 0 4% 3.5rem; }
+  .heroBadge { font-size: 0.6rem; letter-spacing: 1.5px; }
+  .testiCard { padding: 1.5rem; }
+  .quote { font-size: 0.9rem; }
 }
 
 @media (max-width: 380px) {
