@@ -845,6 +845,7 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .hero { height: 70vh; min-height: 480px; }
   .benefitsWrap { padding: 0 16px; }
   .benefitsGrid { grid-template-columns: 1fr; gap: 2rem; }
   .benefitsCard { padding: 2rem 1.5rem; }
@@ -908,6 +909,7 @@
 
 /* Small mobile */
 @media (max-width: 480px) {
+  .hero { height: 60vh; min-height: 420px; }
   .heroContent { padding: 0 20px; }
   .heroTitle { font-size: 2.1rem; }
   .heroSub { font-size: 0.95rem; }
