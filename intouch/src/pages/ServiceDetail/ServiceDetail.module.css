@@ -166,8 +166,6 @@
   height: auto;
   object-fit: contain;
   mix-blend-mode: screen;
-  filter: drop-shadow(0 0 60px rgba(99,102,241,0.5))
-          drop-shadow(0 0 120px rgba(14,165,164,0.25));
   animation: heroFloat 5s ease-in-out infinite;
 }
 
