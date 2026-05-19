@@ -51,14 +51,20 @@
 
 .heroTitle {
   font-family: var(--ff-head);
-  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+  font-size: clamp(1.9rem, 3vw, 2.9rem);
   font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
+  line-height: 1.12;
+  letter-spacing: -1px;
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.heroTitle span {
+.heroTitleStatic {
+  color: var(--text);
+}
+
+.heroTitleService {
   background: linear-gradient(135deg, #0ea5a4 0%, #6366f1 50%, #a855f7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -579,7 +585,7 @@
 
 @media (max-width: 480px) {
   .hero { padding: calc(var(--nav-h) + 1.5rem) 4% 3rem; gap: 2.5rem; min-height: unset; }
-  .heroTitle { font-size: 2.2rem; letter-spacing: -0.5px; }
+  .heroTitle { font-size: 1.75rem; letter-spacing: -0.5px; }
   .heroAccent { font-size: 0.85rem; }
   .heroDesc { font-size: 0.95rem; }
   .heroBtns { flex-direction: column; }

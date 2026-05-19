@@ -79,7 +79,8 @@ export default function ServiceDetail() {
           <span className={styles.heroAccent}>{service.desc}</span>
 
           <h1 className={styles.heroTitle}>
-            <span>{service.title}</span>
+            <span className={styles.heroTitleStatic}>Smart, Scalable &amp;<br />High&#8209;Performance</span>
+            <span className={styles.heroTitleService}>{service.title}</span>
           </h1>
 
           <p className={styles.heroDesc}>
