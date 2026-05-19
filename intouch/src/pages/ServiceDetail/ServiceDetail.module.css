@@ -50,25 +50,27 @@
 }
 
 .heroTitle {
-  font-family: var(--ff-head);
-  font-size: clamp(1.9rem, 3vw, 2.9rem);
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.1rem);
   font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -1px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
 }
 
 .heroTitleStatic {
-  color: var(--text);
+  color: #ffffff;
+  font-weight: 800;
 }
 
 .heroTitleService {
-  background: linear-gradient(135deg, #0ea5a4 0%, #6366f1 50%, #a855f7 100%);
+  background: linear-gradient(135deg, #0ea5a4 0%, #6366f1 55%, #a855f7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 800;
 }
 
 .heroDesc {
@@ -150,7 +152,7 @@
 
 /* Right image column */
 .heroRight {
-  flex: 0 0 460px;
+  flex: 0 0 500px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -159,12 +161,13 @@
 }
 
 .heroImg {
-  width: 100%;
-  max-width: 460px;
+  width: 110%;
+  max-width: 520px;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 50px rgba(99,102,241,0.35))
-          drop-shadow(0 0 100px rgba(14,165,164,0.15));
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 60px rgba(99,102,241,0.5))
+          drop-shadow(0 0 120px rgba(14,165,164,0.25));
   animation: heroFloat 5s ease-in-out infinite;
 }
 
@@ -556,9 +559,9 @@
    RESPONSIVE
 ========================= */
 @media (max-width: 1200px) {
-  .hero { padding: calc(var(--nav-h) + 3rem) 5% 4.5rem; gap: 4rem; }
-  .heroRight { flex: 0 0 400px; }
-  .heroImg { max-width: 400px; }
+  .hero { padding: calc(var(--nav-h) + 3rem) 5% 4.5rem; gap: 3.5rem; }
+  .heroRight { flex: 0 0 420px; }
+  .heroImg { max-width: 440px; width: 110%; }
   .projectsGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
