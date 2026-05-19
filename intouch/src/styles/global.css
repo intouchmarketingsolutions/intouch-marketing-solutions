@@ -226,13 +226,21 @@ img { max-width: 100%; display: block; }
 ========================= */
 .fade-up {
   opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fade-up.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Mobile: reduce animation shift to prevent layout confusion */
+@media (max-width: 768px) {
+  .fade-up { transform: translateY(20px); }
+  .slide-in.fromLeft,
+  .slide-in.fromRight { transform: translateY(20px) !important; }
+  .slide-in.visible   { transform: translateY(0) !important; }
 }
 
 /* delay helpers */
