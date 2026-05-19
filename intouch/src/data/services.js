@@ -28,7 +28,7 @@ export const SERVICES = [
     id: 1,
     title: "Web Development",
     desc: "High-performance websites built for scalability and conversions.",
-    tags: ["React", "Frontend", "Backend"],
+    tags: ["React", "Next.js", "JavaScript", "TypeScript", "Node.js", "Tailwind CSS", "MongoDB", "SQL", "AWS"],
     img: webImg
   },
   {
