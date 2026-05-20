@@ -86,13 +86,6 @@ export default function Home() {
             <span>Brand</span><br />
             <span className={styles.heroTitleBlue}>Online</span>
           </h1>
-
-          
-        </div>
-
-        <div className={styles.scrollHint}>
-          <FaArrowDown size={14} />
-          Scroll
         </div>
       </section>
 

@@ -1,41 +1,120 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { FaMapMarkerAlt, FaBriefcase, FaCloudUploadAlt } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
-import { JOBS } from '../../data/jobs'
 import styles from './Career.module.css'
 
+// Firebase
+import { collection, getDocs, addDoc, query, orderBy, serverTimestamp } from 'firebase/firestore'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { db, storage } from '../../admin/firebase/config'
+
+// Fallback static jobs (shown if Firestore is empty / offline)
+import { JOBS as STATIC_JOBS } from '../../data/jobs'
+
 const PERKS = [
-  { icon:'🚀', title:'Fast Growth',        desc:'Rapid career advancement in a high-growth agency environment.' },
-  { icon:'💰', title:'Competitive Pay',    desc:'Industry-leading salaries and performance bonuses.' },
-  { icon:'🎓', title:'Learning Culture',   desc:'Courses, certifications, and mentorship fully funded.' },
-  { icon:'🏠', title:'Flexible Work',      desc:'Hybrid options and flexible schedules that fit your life.' },
+  { icon:'🚀', title:'Fast Growth',      desc:'Rapid career advancement in a high-growth agency environment.' },
+  { icon:'💰', title:'Competitive Pay',  desc:'Industry-leading salaries and performance bonuses.' },
+  { icon:'🎓', title:'Learning Culture', desc:'Courses, certifications, and mentorship fully funded.' },
+  { icon:'🏠', title:'Flexible Work',    desc:'Hybrid options and flexible schedules that fit your life.' },
 ]
+
+const BLANK = { name: '', email: '', phone: '', experience: '', message: '' }
 
 export default function Career() {
   useFadeUp()
-  const formRef = useRef(null)
-  const [position, setPosition] = useState('')
-  const [fileName, setFileName]  = useState('')
+  const formRef  = useRef(null)
+  const fileRef  = useRef(null)
+
+  const [jobs,      setJobs]      = useState([])
+  const [position,  setPosition]  = useState('')
+  const [resumeFile, setResumeFile] = useState(null)
+  const [fileName,  setFileName]  = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({ name:'', email:'', phone:'', message:'' })
+  const [submitting, setSubmitting] = useState(false)
+  const [progress,  setProgress]  = useState(0)
+  const [error,     setError]     = useState('')
+  const [form,      setForm]      = useState(BLANK)
+
+  // Load jobs from Firestore
+  useEffect(() => {
+    async function loadJobs() {
+      try {
+        const snap = await getDocs(query(collection(db, 'jobs'), orderBy('createdAt', 'desc')))
+        if (snap.empty) {
+          setJobs(STATIC_JOBS)
+        } else {
+          setJobs(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+        }
+      } catch {
+        setJobs(STATIC_JOBS)
+      }
+    }
+    loadJobs()
+  }, [])
 
   const handleApply = (title) => {
     setPosition(title)
-    formRef.current?.scrollIntoView({ behavior:'smooth', block:'start' })
+    setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
   }
 
   const handleFile = (e) => {
-    setFileName(e.target.files[0]?.name || '')
+    const file = e.target.files[0]
+    if (!file) return
+    setResumeFile(file)
+    setFileName(file.name)
   }
 
-  const handleSubmit = (e) => {
+  const uploadResume = (file) => new Promise((resolve, reject) => {
+    const storageRef = ref(storage, `resumes/${Date.now()}_${file.name}`)
+    const task = uploadBytesResumable(storageRef, file)
+    task.on(
+      'state_changed',
+      snap => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      reject,
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref)
+        resolve({ url, path: storageRef.fullPath })
+      }
+    )
+  })
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
     if (!form.name || !form.email || !position) {
-      alert('Please fill in all required fields.')
+      setError('Please fill in all required fields and select a position.')
       return
     }
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      let resumeUrl = null, resumePath = null
+      if (resumeFile) {
+        const result = await uploadResume(resumeFile)
+        resumeUrl  = result.url
+        resumePath = result.path
+      }
+      await addDoc(collection(db, 'applications'), {
+        name:       form.name,
+        email:      form.email,
+        phone:      form.phone,
+        experience: form.experience,
+        message:    form.message,
+        position,
+        resumeUrl:  resumeUrl ?? null,
+        resumePath: resumePath ?? null,
+        createdAt:  serverTimestamp(),
+      })
+      setSubmitted(true)
+    } catch (err) {
+      console.error(err)
+      setError('Something went wrong. Please try again or email us directly.')
+    } finally {
+      setSubmitting(false)
+      setProgress(0)
+    }
   }
+
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
   return (
     <div className="page-wrap">
@@ -52,7 +131,7 @@ export default function Career() {
         </div>
         <div className={styles.perksGrid}>
           {PERKS.map((p, i) => (
-            <div key={p.title} className={`${styles.perk} fade-up`} style={{transitionDelay:`${i*0.1}s`}}>
+            <div key={p.title} className={`${styles.perk} fade-up`} style={{ transitionDelay: `${i * 0.1}s` }}>
               <span className={styles.perkIcon}>{p.icon}</span>
               <h4>{p.title}</h4>
               <p>{p.desc}</p>
@@ -67,22 +146,35 @@ export default function Career() {
           <span className="tag fade-up">Open Positions</span>
           <h2 className="heading fade-up">Current <span>Job Openings</span></h2>
         </div>
-        <div className={styles.jobsGrid}>
-          {JOBS.map((j, i) => (
-            <div key={j.title} className={`${styles.jobCard} fade-up`} style={{transitionDelay:`${i*0.1}s`}}>
-              <div className={styles.jobTop}>
-                <h3>{j.title}</h3>
-                <span className={styles.badge}>{j.type}</span>
+        {jobs.length === 0 ? (
+          <p style={{ textAlign: 'center', color: 'var(--text2)', padding: '2rem' }}>
+            No open positions right now. Check back soon!
+          </p>
+        ) : (
+          <div className={styles.jobsGrid}>
+            {jobs.map((j, i) => (
+              <div key={j.id ?? j.title} className={`${styles.jobCard} fade-up`} style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className={styles.jobTop}>
+                  <h3>{j.title}</h3>
+                  <span className={styles.badge}>{j.type}</span>
+                </div>
+                <div className={styles.jobMeta}>
+                  <span><FaMapMarkerAlt /> {j.location}</span>
+                  <span><FaBriefcase /> {j.experience}</span>
+                </div>
+                <p className={styles.jobDesc}>{j.description ?? j.desc}</p>
+                {j.salary && (
+                  <p style={{ fontSize: '0.82rem', color: 'var(--primary)', fontWeight: 600, margin: '0.4rem 0' }}>
+                    💰 {j.salary}
+                  </p>
+                )}
+                <button className="btn btn-primary" onClick={() => handleApply(j.title)}>
+                  Apply Now →
+                </button>
               </div>
-              <div className={styles.jobMeta}>
-                <span><FaMapMarkerAlt /> {j.location}</span>
-                <span><FaBriefcase /> {j.experience}</span>
-              </div>
-              <p className={styles.jobDesc}>{j.desc}</p>
-              <button className="btn btn-primary" onClick={() => handleApply(j.title)}>Apply Now →</button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Apply Form */}
@@ -91,53 +183,96 @@ export default function Career() {
           <span className="tag fade-up">Apply Now</span>
           <h2 className="heading fade-up">Send Your <span>Application</span></h2>
         </div>
+
         <div className={`${styles.formWrap} fade-up`}>
           {submitted ? (
             <div className="success-box">
-              <span style={{fontSize:'3rem'}}>✅</span>
+              <span style={{ fontSize: '3rem' }}>✅</span>
               <h3>Application Submitted!</h3>
-              <p>Thank you! We'll review your application and get back to you within 3 business days.</p>
+              <p>Thank you, {form.name}! We'll review your application and respond within 3 business days.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              {error && (
+                <div style={{
+                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                  color: '#f87171', borderRadius: 8, padding: '0.65rem 1rem',
+                  fontSize: '0.84rem', marginBottom: '1rem',
+                }}>
+                  ⚠ {error}
+                </div>
+              )}
+
               <div className="form-row">
                 <div className="form-group">
                   <label>Full Name *</label>
-                  <input className="form-control" placeholder="Your full name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required />
+                  <input className="form-control" placeholder="Your full name"
+                    value={form.name} onChange={e => set('name', e.target.value)} required />
                 </div>
                 <div className="form-group">
                   <label>Email Address *</label>
-                  <input type="email" className="form-control" placeholder="you@email.com" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} required />
+                  <input type="email" className="form-control" placeholder="you@email.com"
+                    value={form.email} onChange={e => set('email', e.target.value)} required />
                 </div>
               </div>
+
               <div className="form-row">
                 <div className="form-group">
                   <label>Phone Number</label>
-                  <input type="tel" className="form-control" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} />
+                  <input type="tel" className="form-control" placeholder="+91 XXXXX XXXXX"
+                    value={form.phone} onChange={e => set('phone', e.target.value)} />
                 </div>
                 <div className="form-group">
                   <label>Position Applied For *</label>
-                  <select className="form-control" value={position} onChange={e=>setPosition(e.target.value)} required>
+                  <select className="form-control" value={position}
+                    onChange={e => setPosition(e.target.value)} required>
                     <option value="">Select a position</option>
-                    {JOBS.map(j => <option key={j.title}>{j.title}</option>)}
-                    <option>Other</option>
+                    {jobs.map(j => <option key={j.id ?? j.title} value={j.title}>{j.title}</option>)}
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
+
               <div className="form-group">
-                <label>Upload Resume</label>
+                <label>Years of Experience</label>
+                <input className="form-control" placeholder="e.g. 2 years, Fresher"
+                  value={form.experience} onChange={e => set('experience', e.target.value)} />
+              </div>
+
+              <div className="form-group">
+                <label>Upload Resume (PDF)</label>
                 <label className={styles.fileLabel} htmlFor="resume">
                   <FaCloudUploadAlt />
                   <span>{fileName || 'Click to upload resume (PDF, DOC)'}</span>
                 </label>
-                <input id="resume" type="file" accept=".pdf,.doc,.docx" style={{display:'none'}} onChange={handleFile} />
+                <input id="resume" type="file" accept=".pdf,.doc,.docx"
+                  ref={fileRef} style={{ display: 'none' }} onChange={handleFile} />
+                {submitting && resumeFile && (
+                  <div style={{ marginTop: 6 }}>
+                    <div style={{ fontSize: '0.76rem', color: 'var(--text2)', marginBottom: 4 }}>
+                      Uploading… {progress}%
+                    </div>
+                    <div style={{ height: 4, borderRadius: 4, background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+                      <div style={{
+                        height: '100%', width: `${progress}%`, borderRadius: 4,
+                        background: 'var(--primary)', transition: 'width 0.2s',
+                      }} />
+                    </div>
+                  </div>
+                )}
               </div>
+
               <div className="form-group">
                 <label>Cover Message</label>
-                <textarea className="form-control" rows={4} placeholder="Tell us why you'd be a great fit..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})} />
+                <textarea className="form-control" rows={4}
+                  placeholder="Tell us why you'd be a great fit..."
+                  value={form.message} onChange={e => set('message', e.target.value)} />
               </div>
-              <button type="submit" className="btn btn-primary" style={{width:'100%',justifyContent:'center'}}>
-                📨 Submit Application
+
+              <button type="submit" className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center' }}
+                disabled={submitting}>
+                {submitting ? '⏳ Submitting...' : '📨 Submit Application'}
               </button>
             </form>
           )}
