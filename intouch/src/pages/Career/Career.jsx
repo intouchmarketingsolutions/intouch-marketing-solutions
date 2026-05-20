@@ -15,7 +15,7 @@ const PERKS = [
 const BLANK = { name: '', email: '', phone: '', experience: '', message: '' }
 
 export default function Career() {
-  useFadeUp()
+  useFadeUp(jobs)
   const formRef  = useRef(null)
   const fileRef  = useRef(null)
 
