@@ -4,7 +4,6 @@ import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Career.module.css'
 
 import { supabase } from '../../admin/supabase/client'
-import { JOBS as STATIC_JOBS } from '../../data/jobs'
 
 const PERKS = [
   { icon:'🚀', title:'Fast Growth',      desc:'Rapid career advancement in a high-growth agency environment.' },
@@ -20,24 +19,24 @@ export default function Career() {
   const formRef  = useRef(null)
   const fileRef  = useRef(null)
 
-  const [jobs,       setJobs]       = useState([])
-  const [position,   setPosition]   = useState('')
-  const [resumeFile, setResumeFile] = useState(null)
-  const [fileName,   setFileName]   = useState('')
-  const [submitted,  setSubmitted]  = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [progress,   setProgress]   = useState(0)
-  const [error,      setError]      = useState('')
-  const [form,       setForm]       = useState(BLANK)
+  const [jobs,        setJobs]        = useState([])
+  const [jobsLoading, setJobsLoading] = useState(true)
+  const [position,    setPosition]    = useState('')
+  const [resumeFile,  setResumeFile]  = useState(null)
+  const [fileName,    setFileName]    = useState('')
+  const [submitted,   setSubmitted]   = useState(false)
+  const [submitting,  setSubmitting]  = useState(false)
+  const [progress,    setProgress]    = useState(0)
+  const [error,       setError]       = useState('')
+  const [form,        setForm]        = useState(BLANK)
 
   useEffect(() => {
     async function loadJobs() {
       try {
-        const { data } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
-        setJobs(data?.length ? data : STATIC_JOBS)
-      } catch {
-        setJobs(STATIC_JOBS)
-      }
+        const { data, error } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
+        if (!error && data) setJobs(data)
+      } catch {}
+      finally { setJobsLoading(false) }
     }
     loadJobs()
   }, [])
@@ -132,10 +131,24 @@ export default function Career() {
           <span className="tag fade-up">Open Positions</span>
           <h2 className="heading fade-up">Current <span>Job Openings</span></h2>
         </div>
-        {jobs.length === 0 ? (
+        {jobsLoading ? (
           <p style={{ textAlign: 'center', color: 'var(--text2)', padding: '2rem' }}>
-            No open positions right now. Check back soon!
+            Loading positions…
           </p>
+        ) : jobs.length === 0 ? (
+          <div style={{
+            textAlign: 'center', padding: '3rem 1rem',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px dashed rgba(255,255,255,0.12)',
+            borderRadius: '16px', maxWidth: 480, margin: '0 auto',
+          }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
+            <h3 style={{ color: '#fff', fontWeight: 700, marginBottom: '0.5rem' }}>No Open Positions Found</h3>
+            <p style={{ color: 'var(--text2)', fontSize: '0.9rem' }}>
+              We don't have any openings right now, but we're always growing.<br />
+              Send your CV to <a href="mailto:intouchmarketingsolution01@gmail.com" style={{ color: 'var(--primary)' }}>intouchmarketingsolution01@gmail.com</a>
+            </p>
+          </div>
         ) : (
           <div className={styles.jobsGrid}>
             {jobs.map((j, i) => (
