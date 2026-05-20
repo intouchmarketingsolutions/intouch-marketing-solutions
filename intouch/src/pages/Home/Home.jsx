@@ -87,11 +87,6 @@ export default function Home() {
             <span className={styles.heroTitleBlue}>Online</span>
           </h1>
 
-          <p className={styles.heroSub}>
-            We help businesses grow their brand, reach the right audience, and
-            achieve real results through creative marketing solutions.
-          </p>
-
           
         </div>
 
