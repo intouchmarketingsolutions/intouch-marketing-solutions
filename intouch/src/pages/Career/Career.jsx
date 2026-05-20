@@ -15,12 +15,13 @@ const PERKS = [
 const BLANK = { name: '', email: '', phone: '', experience: '', message: '' }
 
 export default function Career() {
-  useFadeUp(jobs)
   const formRef  = useRef(null)
   const fileRef  = useRef(null)
 
   const [jobs,        setJobs]        = useState([])
   const [jobsLoading, setJobsLoading] = useState(true)
+
+  useFadeUp(jobs)
   const [position,    setPosition]    = useState('')
   const [resumeFile,  setResumeFile]  = useState(null)
   const [fileName,    setFileName]    = useState('')
