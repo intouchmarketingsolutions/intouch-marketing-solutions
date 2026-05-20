@@ -860,11 +860,10 @@
     height: 100vh; /* fallback */
     min-height: 480px;
   }
-  /* Show full video, no crop — bars blend with dark bg */
+  /* Cover fills the full viewport — no dark bars above/below */
   .video {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
-    background: var(--bg2);
   }
   /* Heavier overlay so text stays readable over the contained video */
   .overlay {
@@ -933,7 +932,6 @@
     height: 100vh;
     min-height: 480px;
   }
-  /* Inherit contain from 768px — no override needed */
   .video { object-position: center center; }
 
   /* Give heroContent room below for scroll hint */
