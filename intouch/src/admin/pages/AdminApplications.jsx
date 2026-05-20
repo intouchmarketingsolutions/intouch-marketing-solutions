@@ -1,44 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import {
-  collection, getDocs, deleteDoc, doc, query, orderBy,
-} from 'firebase/firestore'
-import { db } from '../firebase/config'
+import { supabase } from '../supabase/client'
 import AdminLayout from '../components/AdminLayout'
 
 export default function AdminApplications() {
-  const [apps,    setApps]    = useState([])
-  const [loading, setLoading] = useState(true)
-  const [selected, setSelected] = useState(null) // detail view
+  const [apps,     setApps]     = useState([])
+  const [loading,  setLoading]  = useState(true)
+  const [selected, setSelected] = useState(null)
   const [confirm,  setConfirm]  = useState(null)
 
   const fetchApps = async () => {
     setLoading(true)
-    try {
-      const snap = await getDocs(query(collection(db, 'applications'), orderBy('createdAt', 'desc')))
-      setApps(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
+    const { data } = await supabase.from('applications').select('*').order('created_at', { ascending: false })
+    setApps(data ?? [])
+    setLoading(false)
   }
 
   useEffect(() => { fetchApps() }, [])
 
   const handleDelete = async () => {
     if (!confirm) return
-    try {
-      await deleteDoc(doc(db, 'applications', confirm))
-      setConfirm(null)
-      if (selected?.id === confirm) setSelected(null)
-      fetchApps()
-    } catch (err) {
-      console.error(err)
-    }
+    await supabase.from('applications').delete().eq('id', confirm)
+    setConfirm(null)
+    if (selected?.id === confirm) setSelected(null)
+    fetchApps()
   }
 
-  const fmt = (ts) => ts?.toDate
-    ? ts.toDate().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  const fmt = (iso) => iso
+    ? new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
     : '—'
 
   return (
@@ -76,19 +64,13 @@ export default function AdminApplications() {
                   <td style={{ fontWeight: 600 }}>{app.name}</td>
                   <td style={{ color: 'var(--a-text2)' }}>{app.email}</td>
                   <td style={{ color: 'var(--a-text2)' }}>{app.phone || '—'}</td>
-                  <td>
-                    <span className="a-badge a-badge-teal">{app.position || '—'}</span>
-                  </td>
+                  <td><span className="a-badge a-badge-teal">{app.position || '—'}</span></td>
                   <td style={{ color: 'var(--a-text2)' }}>{app.experience || '—'}</td>
-                  <td style={{ color: 'var(--a-text2)', fontSize: '0.78rem' }}>{fmt(app.createdAt)}</td>
+                  <td style={{ color: 'var(--a-text2)', fontSize: '0.78rem' }}>{fmt(app.created_at)}</td>
                   <td>
                     <div className="actions">
-                      <button className="a-btn a-btn-ghost a-btn-sm" onClick={() => setSelected(app)}>
-                        👁 View
-                      </button>
-                      <button className="a-btn a-btn-danger a-btn-sm" onClick={() => setConfirm(app.id)}>
-                        🗑
-                      </button>
+                      <button className="a-btn a-btn-ghost a-btn-sm" onClick={() => setSelected(app)}>👁 View</button>
+                      <button className="a-btn a-btn-danger a-btn-sm" onClick={() => setConfirm(app.id)}>🗑</button>
                     </div>
                   </td>
                 </tr>
@@ -98,7 +80,6 @@ export default function AdminApplications() {
         </div>
       )}
 
-      {/* ── Detail Modal ── */}
       {selected && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setSelected(null)}>
           <div className="a-modal a-modal-lg">
@@ -108,7 +89,6 @@ export default function AdminApplications() {
             </div>
 
             <div className="a-modal-body">
-              {/* Quick header */}
               <div style={{
                 display: 'flex', alignItems: 'center', gap: '1rem',
                 padding: '1rem 1.25rem',
@@ -128,32 +108,16 @@ export default function AdminApplications() {
                   <div style={{ fontWeight: 700, color: '#fff', fontSize: '1rem' }}>{selected.name}</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--a-text2)' }}>{selected.email}</div>
                 </div>
-                <span className="a-badge a-badge-teal" style={{ marginLeft: 'auto' }}>
-                  {selected.position}
-                </span>
+                <span className="a-badge a-badge-teal" style={{ marginLeft: 'auto' }}>{selected.position}</span>
               </div>
 
-              {/* Detail grid */}
               <div className="a-app-detail-grid">
-                <div className="a-app-detail-item">
-                  <label>Phone</label>
-                  <span>{selected.phone || '—'}</span>
-                </div>
-                <div className="a-app-detail-item">
-                  <label>Experience</label>
-                  <span>{selected.experience || '—'}</span>
-                </div>
-                <div className="a-app-detail-item">
-                  <label>Applied For</label>
-                  <span>{selected.position || '—'}</span>
-                </div>
-                <div className="a-app-detail-item">
-                  <label>Date Applied</label>
-                  <span>{fmt(selected.createdAt)}</span>
-                </div>
+                <div className="a-app-detail-item"><label>Phone</label><span>{selected.phone || '—'}</span></div>
+                <div className="a-app-detail-item"><label>Experience</label><span>{selected.experience || '—'}</span></div>
+                <div className="a-app-detail-item"><label>Applied For</label><span>{selected.position || '—'}</span></div>
+                <div className="a-app-detail-item"><label>Date Applied</label><span>{fmt(selected.created_at)}</span></div>
               </div>
 
-              {/* Cover message */}
               {selected.message && (
                 <div className="a-form-group">
                   <label>Cover Message</label>
@@ -172,16 +136,10 @@ export default function AdminApplications() {
                 </div>
               )}
 
-              {/* Resume */}
               <div className="a-form-group">
                 <label>Resume</label>
-                {selected.resumeUrl ? (
-                  <a
-                    href={selected.resumeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="a-resume-link"
-                  >
+                {selected.resume_url ? (
+                  <a href={selected.resume_url} target="_blank" rel="noreferrer" className="a-resume-link">
                     📄 Download / View Resume
                   </a>
                 ) : (
@@ -191,10 +149,7 @@ export default function AdminApplications() {
             </div>
 
             <div className="a-modal-footer">
-              <button className="a-btn a-btn-danger" onClick={() => {
-                setConfirm(selected.id)
-                setSelected(null)
-              }}>
+              <button className="a-btn a-btn-danger" onClick={() => { setConfirm(selected.id); setSelected(null) }}>
                 🗑 Delete Application
               </button>
               <button className="a-btn a-btn-ghost" onClick={() => setSelected(null)}>Close</button>
@@ -203,7 +158,6 @@ export default function AdminApplications() {
         </div>
       )}
 
-      {/* ── Delete Confirm ── */}
       {confirm && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setConfirm(null)}>
           <div className="a-modal a-confirm">

@@ -3,12 +3,7 @@ import { FaMapMarkerAlt, FaBriefcase, FaCloudUploadAlt } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Career.module.css'
 
-// Firebase
-import { collection, getDocs, addDoc, query, orderBy, serverTimestamp } from 'firebase/firestore'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { db, storage } from '../../admin/firebase/config'
-
-// Fallback static jobs (shown if Firestore is empty / offline)
+import { supabase } from '../../admin/supabase/client'
 import { JOBS as STATIC_JOBS } from '../../data/jobs'
 
 const PERKS = [
@@ -25,26 +20,21 @@ export default function Career() {
   const formRef  = useRef(null)
   const fileRef  = useRef(null)
 
-  const [jobs,      setJobs]      = useState([])
-  const [position,  setPosition]  = useState('')
+  const [jobs,       setJobs]       = useState([])
+  const [position,   setPosition]   = useState('')
   const [resumeFile, setResumeFile] = useState(null)
-  const [fileName,  setFileName]  = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [fileName,   setFileName]   = useState('')
+  const [submitted,  setSubmitted]  = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [progress,  setProgress]  = useState(0)
-  const [error,     setError]     = useState('')
-  const [form,      setForm]      = useState(BLANK)
+  const [progress,   setProgress]   = useState(0)
+  const [error,      setError]      = useState('')
+  const [form,       setForm]       = useState(BLANK)
 
-  // Load jobs from Firestore
   useEffect(() => {
     async function loadJobs() {
       try {
-        const snap = await getDocs(query(collection(db, 'jobs'), orderBy('createdAt', 'desc')))
-        if (snap.empty) {
-          setJobs(STATIC_JOBS)
-        } else {
-          setJobs(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-        }
+        const { data } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
+        setJobs(data?.length ? data : STATIC_JOBS)
       } catch {
         setJobs(STATIC_JOBS)
       }
@@ -64,19 +54,17 @@ export default function Career() {
     setFileName(file.name)
   }
 
-  const uploadResume = (file) => new Promise((resolve, reject) => {
-    const storageRef = ref(storage, `resumes/${Date.now()}_${file.name}`)
-    const task = uploadBytesResumable(storageRef, file)
-    task.on(
-      'state_changed',
-      snap => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-      reject,
-      async () => {
-        const url = await getDownloadURL(task.snapshot.ref)
-        resolve({ url, path: storageRef.fullPath })
-      }
-    )
-  })
+  const uploadResume = async (file) => {
+    const ext  = file.name.split('.').pop()
+    const path = `${Date.now()}.${ext}`
+    setProgress(10)
+    const { error } = await supabase.storage.from('resumes').upload(path, file, { upsert: false })
+    if (error) throw error
+    setProgress(90)
+    const { data: { publicUrl } } = supabase.storage.from('resumes').getPublicUrl(path)
+    setProgress(100)
+    return { url: publicUrl, path }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -87,23 +75,23 @@ export default function Career() {
     }
     setSubmitting(true)
     try {
-      let resumeUrl = null, resumePath = null
+      let resume_url = null, resume_path = null
       if (resumeFile) {
         const result = await uploadResume(resumeFile)
-        resumeUrl  = result.url
-        resumePath = result.path
+        resume_url  = result.url
+        resume_path = result.path
       }
-      await addDoc(collection(db, 'applications'), {
-        name:       form.name,
-        email:      form.email,
-        phone:      form.phone,
-        experience: form.experience,
-        message:    form.message,
+      const { error } = await supabase.from('applications').insert({
+        name:        form.name,
+        email:       form.email,
+        phone:       form.phone,
+        experience:  form.experience,
+        message:     form.message,
         position,
-        resumeUrl:  resumeUrl ?? null,
-        resumePath: resumePath ?? null,
-        createdAt:  serverTimestamp(),
+        resume_url,
+        resume_path,
       })
+      if (error) throw error
       setSubmitted(true)
     } catch (err) {
       console.error(err)
@@ -124,7 +112,6 @@ export default function Career() {
         <p className="sub fade-up">We're always looking for talented, passionate people to join the Intouch family.</p>
       </div>
 
-      {/* Perks */}
       <section className={styles.perks}>
         <div className="center">
           <h2 className="heading fade-up">Why Work <span>With Us?</span></h2>
@@ -140,7 +127,6 @@ export default function Career() {
         </div>
       </section>
 
-      {/* Jobs */}
       <section className={styles.jobs}>
         <div className="center">
           <span className="tag fade-up">Open Positions</span>
@@ -177,7 +163,6 @@ export default function Career() {
         )}
       </section>
 
-      {/* Apply Form */}
       <section className={styles.apply} ref={formRef}>
         <div className="center">
           <span className="tag fade-up">Apply Now</span>

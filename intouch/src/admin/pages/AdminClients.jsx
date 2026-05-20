@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import {
-  collection, getDocs, addDoc, deleteDoc,
-  doc, serverTimestamp, query, orderBy,
-} from 'firebase/firestore'
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
-import { db, storage } from '../firebase/config'
+import { supabase } from '../supabase/client'
 import AdminLayout from '../components/AdminLayout'
 
 const BLANK = { name: '', website: '', industry: '' }
@@ -23,14 +18,9 @@ export default function AdminClients() {
 
   const fetchClients = async () => {
     setLoading(true)
-    try {
-      const snap = await getDocs(query(collection(db, 'clients'), orderBy('createdAt', 'desc')))
-      setClients(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
+    const { data } = await supabase.from('clients').select('*').order('created_at', { ascending: false })
+    setClients(data ?? [])
+    setLoading(false)
   }
 
   useEffect(() => { fetchClients() }, [])
@@ -50,19 +40,17 @@ export default function AdminClients() {
     setPreview(URL.createObjectURL(file))
   }
 
-  const uploadLogo = (file) => {
-    return new Promise((resolve, reject) => {
-      const storageRef = ref(storage, `clients/logos/${Date.now()}_${file.name}`)
-      const task = uploadBytesResumable(storageRef, file)
-      task.on('state_changed',
-        snap => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-        reject,
-        async () => {
-          const url = await getDownloadURL(task.snapshot.ref)
-          resolve({ url, path: storageRef.fullPath })
-        }
-      )
-    })
+  const uploadLogo = async (file) => {
+    const ext  = file.name.split('.').pop()
+    const path = `${Date.now()}.${ext}`
+
+    setProgress(10)
+    const { error } = await supabase.storage.from('client-logos').upload(path, file, { upsert: false })
+    if (error) throw error
+    setProgress(100)
+
+    const { data: { publicUrl } } = supabase.storage.from('client-logos').getPublicUrl(path)
+    return { url: publicUrl, path }
   }
 
   const handleSave = async (e) => {
@@ -70,18 +58,13 @@ export default function AdminClients() {
     if (!form.name.trim()) return
     setSaving(true)
     try {
-      let logoUrl = null, logoPath = null
+      let logo_url = null, logo_path = null
       if (logoFile) {
         const result = await uploadLogo(logoFile)
-        logoUrl  = result.url
-        logoPath = result.path
+        logo_url  = result.url
+        logo_path = result.path
       }
-      await addDoc(collection(db, 'clients'), {
-        ...form,
-        logoUrl:   logoUrl ?? null,
-        logoPath:  logoPath ?? null,
-        createdAt: serverTimestamp(),
-      })
+      await supabase.from('clients').insert({ ...form, logo_url, logo_path })
       setModal(false)
       fetchClients()
     } catch (err) {
@@ -96,10 +79,10 @@ export default function AdminClients() {
     if (!confirm) return
     try {
       const client = clients.find(c => c.id === confirm)
-      if (client?.logoPath) {
-        try { await deleteObject(ref(storage, client.logoPath)) } catch (_) {}
+      if (client?.logo_path) {
+        await supabase.storage.from('client-logos').remove([client.logo_path])
       }
-      await deleteDoc(doc(db, 'clients', confirm))
+      await supabase.from('clients').delete().eq('id', confirm)
       setConfirm(null)
       fetchClients()
     } catch (err) {
@@ -129,17 +112,15 @@ export default function AdminClients() {
         <div className="a-clients-grid">
           {clients.map(client => (
             <div key={client.id} className="a-client-card">
-              {client.logoUrl ? (
-                <img src={client.logoUrl} alt={client.name} className="a-client-logo" />
+              {client.logo_url ? (
+                <img src={client.logo_url} alt={client.name} className="a-client-logo" />
               ) : (
                 <div className="a-client-logo-placeholder">
                   {client.name.slice(0, 1).toUpperCase()}
                 </div>
               )}
               <div className="a-client-name">{client.name}</div>
-              {client.industry && (
-                <span className="a-badge a-badge-indigo">{client.industry}</span>
-              )}
+              {client.industry && <span className="a-badge a-badge-indigo">{client.industry}</span>}
               {client.website && (
                 <a href={client.website} target="_blank" rel="noreferrer" className="a-client-website">
                   🔗 Visit Site
@@ -157,7 +138,6 @@ export default function AdminClients() {
         </div>
       )}
 
-      {/* ── Add Client Modal ── */}
       {modal && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setModal(false)}>
           <div className="a-modal">
@@ -210,10 +190,7 @@ export default function AdminClients() {
                     <div style={{ fontSize: '0.76rem', color: 'var(--a-text2)', marginBottom: 4 }}>
                       Uploading logo… {progress}%
                     </div>
-                    <div style={{
-                      height: 4, borderRadius: 4, background: 'var(--a-border)',
-                      overflow: 'hidden',
-                    }}>
+                    <div style={{ height: 4, borderRadius: 4, background: 'var(--a-border)', overflow: 'hidden' }}>
                       <div style={{
                         height: '100%', width: `${progress}%`,
                         background: 'var(--a-teal)', transition: 'width 0.2s ease',
@@ -224,9 +201,7 @@ export default function AdminClients() {
               </div>
 
               <div className="a-modal-footer">
-                <button type="button" className="a-btn a-btn-ghost" onClick={() => setModal(false)}>
-                  Cancel
-                </button>
+                <button type="button" className="a-btn a-btn-ghost" onClick={() => setModal(false)}>Cancel</button>
                 <button type="submit" className="a-btn a-btn-primary" disabled={saving}>
                   {saving ? '⏳ Saving...' : '+ Add Client'}
                 </button>
@@ -236,7 +211,6 @@ export default function AdminClients() {
         </div>
       )}
 
-      {/* ── Delete Confirm ── */}
       {confirm && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setConfirm(null)}>
           <div className="a-modal a-confirm">

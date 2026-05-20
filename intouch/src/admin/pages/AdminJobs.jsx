@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  collection, getDocs, addDoc, updateDoc, deleteDoc,
-  doc, serverTimestamp, orderBy, query,
-} from 'firebase/firestore'
-import { db } from '../firebase/config'
+import { supabase } from '../supabase/client'
 import AdminLayout from '../components/AdminLayout'
 
 const BLANK = {
@@ -16,29 +12,20 @@ export default function AdminJobs() {
   const [loading, setLoading] = useState(true)
   const [saving,  setSaving]  = useState(false)
   const [modal,   setModal]   = useState(false)
-  const [confirm, setConfirm] = useState(null) // id to delete
-  const [editing, setEditing] = useState(null) // job doc id
+  const [confirm, setConfirm] = useState(null)
+  const [editing, setEditing] = useState(null)
   const [form,    setForm]    = useState(BLANK)
 
   const fetchJobs = async () => {
     setLoading(true)
-    try {
-      const snap = await getDocs(query(collection(db, 'jobs'), orderBy('createdAt', 'desc')))
-      setJobs(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
+    const { data } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
+    setJobs(data ?? [])
+    setLoading(false)
   }
 
   useEffect(() => { fetchJobs() }, [])
 
-  const openAdd = () => {
-    setEditing(null)
-    setForm(BLANK)
-    setModal(true)
-  }
+  const openAdd = () => { setEditing(null); setForm(BLANK); setModal(true) }
 
   const openEdit = (job) => {
     setEditing(job.id)
@@ -54,37 +41,28 @@ export default function AdminJobs() {
     e.preventDefault()
     if (!form.title.trim() || !form.description.trim()) return
     setSaving(true)
-    try {
-      if (editing) {
-        await updateDoc(doc(db, 'jobs', editing), { ...form, updatedAt: serverTimestamp() })
-      } else {
-        await addDoc(collection(db, 'jobs'), { ...form, createdAt: serverTimestamp() })
-      }
-      setModal(false)
-      fetchJobs()
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setSaving(false)
+    if (editing) {
+      await supabase.from('jobs').update({ ...form, updated_at: new Date().toISOString() }).eq('id', editing)
+    } else {
+      await supabase.from('jobs').insert({ ...form })
     }
+    setSaving(false)
+    setModal(false)
+    fetchJobs()
   }
 
   const handleDelete = async () => {
     if (!confirm) return
-    try {
-      await deleteDoc(doc(db, 'jobs', confirm))
-      setConfirm(null)
-      fetchJobs()
-    } catch (err) {
-      console.error(err)
-    }
+    await supabase.from('jobs').delete().eq('id', confirm)
+    setConfirm(null)
+    fetchJobs()
   }
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
   const TYPE_COLORS = {
-    'Full-Time': 'a-badge-teal',
-    'Part-Time': 'a-badge-indigo',
+    'Full-Time':  'a-badge-teal',
+    'Part-Time':  'a-badge-indigo',
     'Internship': 'a-badge-purple',
     'Freelance':  'a-badge-yellow',
   }
@@ -123,21 +101,15 @@ export default function AdminJobs() {
                 <tr key={job.id}>
                   <td style={{ fontWeight: 600 }}>{job.title}</td>
                   <td>
-                    <span className={`a-badge ${TYPE_COLORS[job.type] ?? 'a-badge-indigo'}`}>
-                      {job.type}
-                    </span>
+                    <span className={`a-badge ${TYPE_COLORS[job.type] ?? 'a-badge-indigo'}`}>{job.type}</span>
                   </td>
                   <td style={{ color: 'var(--a-text2)' }}>{job.location}</td>
                   <td style={{ color: 'var(--a-text2)' }}>{job.experience}</td>
                   <td style={{ color: 'var(--a-text2)' }}>{job.salary || '—'}</td>
                   <td>
                     <div className="actions">
-                      <button className="a-btn a-btn-ghost a-btn-sm" onClick={() => openEdit(job)}>
-                        ✏️ Edit
-                      </button>
-                      <button className="a-btn a-btn-danger a-btn-sm" onClick={() => setConfirm(job.id)}>
-                        🗑 Delete
-                      </button>
+                      <button className="a-btn a-btn-ghost a-btn-sm" onClick={() => openEdit(job)}>✏️ Edit</button>
+                      <button className="a-btn a-btn-danger a-btn-sm" onClick={() => setConfirm(job.id)}>🗑 Delete</button>
                     </div>
                   </td>
                 </tr>
@@ -147,7 +119,6 @@ export default function AdminJobs() {
         </div>
       )}
 
-      {/* ── Add / Edit Modal ── */}
       {modal && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setModal(false)}>
           <div className="a-modal a-modal-lg">
@@ -214,9 +185,7 @@ export default function AdminJobs() {
               </div>
 
               <div className="a-modal-footer">
-                <button type="button" className="a-btn a-btn-ghost" onClick={() => setModal(false)}>
-                  Cancel
-                </button>
+                <button type="button" className="a-btn a-btn-ghost" onClick={() => setModal(false)}>Cancel</button>
                 <button type="submit" className="a-btn a-btn-primary" disabled={saving}>
                   {saving ? '⏳ Saving...' : editing ? '✅ Update Job' : '+ Create Job'}
                 </button>
@@ -226,7 +195,6 @@ export default function AdminJobs() {
         </div>
       )}
 
-      {/* ── Delete Confirm ── */}
       {confirm && (
         <div className="a-modal-overlay" onClick={e => e.target === e.currentTarget && setConfirm(null)}>
           <div className="a-modal a-confirm">
