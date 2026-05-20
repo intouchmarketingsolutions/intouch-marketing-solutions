@@ -854,25 +854,25 @@
 
 /* ─── Mobile (≤ 768px) ─── */
 @media (max-width: 768px) {
-  /* Hero — shorter, prevent URL-bar jump */
+  /* Hero — full viewport height, no cap */
   .hero {
     height: 100svh;
     height: 100vh; /* fallback */
-    min-height: 520px;
-    max-height: 780px;
+    min-height: 480px;
   }
-  /* Show more of the landscape video on portrait screens */
+  /* Show full video, no crop — bars blend with dark bg */
   .video {
-    object-fit: cover;
-    object-position: 70% center;
+    object-fit: contain;
+    object-position: center center;
+    background: var(--bg2);
   }
-  /* Slightly heavier overlay so text stays readable */
+  /* Heavier overlay so text stays readable over the contained video */
   .overlay {
     background: linear-gradient(
       160deg,
-      rgba(5,12,31,0.88) 0%,
-      rgba(5,12,31,0.72) 55%,
-      rgba(5,12,31,0.45) 100%
+      rgba(5,12,31,0.85) 0%,
+      rgba(5,12,31,0.65) 55%,
+      rgba(5,12,31,0.35) 100%
     );
   }
   /* Hide overflowing particle dots (box-shadows extend 250px offscreen) */
@@ -932,10 +932,9 @@
     height: 100svh;
     height: 100vh;
     min-height: 480px;
-    max-height: 720px;
   }
-  /* Shift video right so the interesting part (graphs) stays visible */
-  .video { object-position: 65% center; }
+  /* Inherit contain from 768px — no override needed */
+  .video { object-position: center center; }
 
   /* Give heroContent room below for scroll hint */
   .heroContent { padding: 2rem 20px 5.5rem; }
