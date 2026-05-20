@@ -181,7 +181,6 @@ export default function Career() {
 
       <section className={styles.apply} ref={formRef}>
         <div className="center">
-          <span className="tag fade-up">Apply Now</span>
           <h2 className="heading fade-up">Send Your <span>Application</span></h2>
         </div>
 
