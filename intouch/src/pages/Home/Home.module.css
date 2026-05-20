@@ -854,8 +854,7 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  /* 56.25vw = 100vw × (9/16) — matches the video's exact 16:9 ratio so it fills edge-to-edge */
-  .hero { height: 56.25vw; min-height: 280px; max-height: 460px; }
+  .hero { height: 68vw; min-height: 340px; max-height: 520px; }
 
   .heroContent { padding: 0 24px; }
   .heroSub { max-width: 100%; }
@@ -909,7 +908,7 @@
 
 /* Small mobile */
 @media (max-width: 480px) {
-  .hero { height: 56.25vw; min-height: 260px; max-height: 380px; }
+  .hero { height: 68vw; min-height: 300px; max-height: 440px; }
   .heroContent { padding: 0 20px; }
   .heroTitle { font-size: 2.1rem; }
   .heroSub { font-size: 0.95rem; }
