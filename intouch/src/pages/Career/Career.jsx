@@ -272,7 +272,7 @@ export default function Career() {
               <button type="submit" className="btn btn-primary"
                 style={{ width: '100%', justifyContent: 'center' }}
                 disabled={submitting}>
-                {submitting ? '⏳ Submitting...' : '📨 Submit Application'}
+                {submitting ? '⏳ Submitting...' : ' Submit '}
               </button>
             </form>
           )}
