@@ -898,6 +898,7 @@
   .orb3 { display: none; }
   .cube1 { display: none; }
   .cube2 { display: none; }
+  .overlay::after { display: none; }
 
   .preview { padding: 3rem 0 4rem; }
   .previewGrid { padding: 0 4%; grid-template-columns: 1fr; gap: 1.2rem; }

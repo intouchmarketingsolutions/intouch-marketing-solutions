@@ -934,7 +934,16 @@
 }
 
 @media (max-width: 900px) {
+  .whyInner { grid-template-columns: 1fr; gap: 2rem; }
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 2rem; }
+  .whySub { max-width: 100%; }
+  .procCircleCol { flex: 0 0 120px; }
+  .procCircle { width: 64px; height: 64px; }
+  .procCircleMid { width: 72px; height: 72px; }
+  .procNum, .procNumMid { flex: 0 0 120px; }
+  .procCard, .procCardMid { flex: 0 0 120px; padding: 1rem 0.5rem; }
+  .procStepTitle { font-size: 0.8rem; }
+  .procStepDesc { font-size: 0.7rem; }
 }
 
 @media (max-width: 768px) {

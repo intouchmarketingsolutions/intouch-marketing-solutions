@@ -179,7 +179,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(10px);
 
-  width: 860px;
+  width: min(860px, 90vw);
   background: var(--bg3);
   border: 1px solid var(--border2);
   border-radius: 16px;
