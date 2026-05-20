@@ -94,10 +94,25 @@ function OrbCanvas() {
     const el = mountRef.current
     if (!el) return
 
+    // Skip on mobile — too heavy, causes hang
+    if (window.innerWidth < 768) return
+
+    // Check WebGL support before starting
+    try {
+      const test = document.createElement('canvas')
+      const gl = test.getContext('webgl') || test.getContext('experimental-webgl')
+      if (!gl) return
+    } catch { return }
+
     const W = el.clientWidth  || 800
     const H = el.clientHeight || 700
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    let renderer, composer, raf
+    let cleanup = () => {}
+
+    try {
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setSize(W, H)
     el.appendChild(renderer.domElement)
@@ -307,7 +322,7 @@ function OrbCanvas() {
     }
     window.addEventListener('resize', onResize)
 
-    return () => {
+    cleanup = () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
       icoGeo.dispose(); edgeGeo.dispose(); ptGeo.dispose()
@@ -315,6 +330,12 @@ function OrbCanvas() {
       renderer.dispose()
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement)
     }
+
+    } catch (err) {
+      console.warn('Three.js canvas failed:', err)
+    }
+
+    return () => cleanup()
   }, [])
 
   return <div ref={mountRef} className={styles.orbCanvas} />

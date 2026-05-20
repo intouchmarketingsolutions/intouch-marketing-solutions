@@ -161,17 +161,11 @@
 }
 
 .heroImg {
-  width: 110%;
-  max-width: 520px;
+  width: 115%;
+  max-width: 560px;
   height: auto;
   object-fit: contain;
   mix-blend-mode: screen;
-  animation: heroFloat 5s ease-in-out infinite;
-}
-
-@keyframes heroFloat {
-  0%, 100% { transform: translateY(0px);   }
-  50%       { transform: translateY(-18px); }
 }
 
 /* =========================

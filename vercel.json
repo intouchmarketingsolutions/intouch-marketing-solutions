@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd intouch && npm install && npm run build",
+  "outputDirectory": "intouch/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
