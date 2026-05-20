@@ -854,7 +854,7 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .hero { height: 70vh; min-height: 480px; }
+  .hero { height: 55vh; min-height: 380px; }
 
   .heroContent { padding: 0 24px; }
   .heroSub { max-width: 100%; }
@@ -901,7 +901,7 @@
 
 /* Small mobile */
 @media (max-width: 480px) {
-  .hero { height: 60vh; min-height: 420px; }
+  .hero { height: 50vh; min-height: 340px; }
   .heroContent { padding: 0 20px; }
   .heroTitle { font-size: 2.1rem; }
   .heroSub { font-size: 0.95rem; }
