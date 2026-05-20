@@ -51,7 +51,7 @@ export default function Footer() {
             <li><Link to="/reviews">Reviews</Link></li>
             <li><Link to="/clients">Our Clients</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/contact">Career</Link></li>
+            <li><Link to="/career">Career</Link></li>
           </ul>
         </div>
 
