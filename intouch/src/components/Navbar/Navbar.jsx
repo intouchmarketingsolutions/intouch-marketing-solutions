@@ -111,6 +111,12 @@ export default function Navbar() {
               Reviews
             </NavLink>
           </li>
+
+          <li>
+            <NavLink to="/career" className={styles.link} onClick={closeMenu}>
+              Career
+            </NavLink>
+          </li>
         </ul>
 
         {/* RIGHT: CTA + HAMBURGER */}
@@ -137,6 +143,7 @@ export default function Navbar() {
         <NavLink to="/services" className={styles.dlink} onClick={closeMenu}>Services</NavLink>
         <NavLink to="/reviews" className={styles.dlink} onClick={closeMenu}>Reviews</NavLink>
         <NavLink to="/clients" className={styles.dlink} onClick={closeMenu}>Clients</NavLink>
+        <NavLink to="/career" className={styles.dlink} onClick={closeMenu}>Career</NavLink>
         <Link to="/contact" className={styles.drawerCta} onClick={closeMenu}>
           Get Free Quote <FaArrowRight size={12} />
         </Link>
