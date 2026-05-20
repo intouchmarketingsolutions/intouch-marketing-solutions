@@ -31,16 +31,20 @@ export default function Career() {
   const [form,        setForm]        = useState(BLANK)
 
   useEffect(() => {
-    const timer = setTimeout(() => setJobsLoading(false), 5000)
+    const SUPABASE_URL = 'https://egmtwupmzeqijntbkknq.supabase.co'
+    const ANON_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnbXR3dXBtemVxaWpudGJra25xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTQzNjQsImV4cCI6MjA5NDgzMDM2NH0.aLknX6AsNhZarcG109DLF8v0skAzYWWJuJdMBraBA1k'
+
     async function loadJobs() {
       try {
-        const { data, error } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
-        if (!error && data) setJobs(data)
+        const res  = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=*&order=created_at.desc`, {
+          headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
+        })
+        const data = await res.json()
+        if (Array.isArray(data)) setJobs(data)
       } catch {}
-      finally { clearTimeout(timer); setJobsLoading(false) }
+      finally { setJobsLoading(false) }
     }
     loadJobs()
-    return () => clearTimeout(timer)
   }, [])
 
   const handleApply = (title) => {
