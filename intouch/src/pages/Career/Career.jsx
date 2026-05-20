@@ -31,14 +31,16 @@ export default function Career() {
   const [form,        setForm]        = useState(BLANK)
 
   useEffect(() => {
+    const timer = setTimeout(() => setJobsLoading(false), 5000)
     async function loadJobs() {
       try {
         const { data, error } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
         if (!error && data) setJobs(data)
       } catch {}
-      finally { setJobsLoading(false) }
+      finally { clearTimeout(timer); setJobsLoading(false) }
     }
     loadJobs()
+    return () => clearTimeout(timer)
   }, [])
 
   const handleApply = (title) => {
