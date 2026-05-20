@@ -105,11 +105,7 @@ export default function Career() {
 
   return (
     <div className="page-wrap">
-      <div className="page-hero">
-        <span className="tag fade-up">Join Our Team</span>
-        <h1 className="heading fade-up">Build Your Career <span>With Us</span></h1>
-        <p className="sub fade-up">We're always looking for talented, passionate people to join the Intouch family.</p>
-      </div>
+    
 
       <section className={styles.perks}>
         <div className="center">
@@ -128,7 +124,7 @@ export default function Career() {
 
       <section className={styles.jobs}>
         <div className="center">
-          <span className="tag fade-up">Open Positions</span>
+
           <h2 className="heading fade-up">Current <span>Job Openings</span></h2>
         </div>
         {jobsLoading ? (
@@ -164,7 +160,7 @@ export default function Career() {
                 <p className={styles.jobDesc}>{j.description ?? j.desc}</p>
                 {j.salary && (
                   <p style={{ fontSize: '0.82rem', color: 'var(--primary)', fontWeight: 600, margin: '0.4rem 0' }}>
-                    💰 {j.salary}
+                        {j.salary}
                   </p>
                 )}
                 <button className="btn btn-primary" onClick={() => handleApply(j.title)}>
