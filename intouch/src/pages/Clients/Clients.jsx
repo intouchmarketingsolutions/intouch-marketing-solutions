@@ -41,8 +41,12 @@ import lAnand   from '../../assets/Anand logo27.png'
 import lNeo     from '../../assets/neo  logo27.png'
 import lMec     from '../../assets/MEC.png'
 import lMsdc    from '../../assets/MSDC  logo27.png'
+import lBm      from  '../../assets/BM.png'
+import lParvaa  from  '../../assets/Parvaa concepts luxe interiors CMYK.png'
+import lbrown   from  '../../assets/Untitled design (5).png'
+import lsara    from  '../../assets/Sara_logo.png'
 
-const LOGOS = [lBallas, lTimora, lKoppas, lSwadesh, lHero, lVidya, lDream, lShenoy, lSun, lAadi, lBmr, lKanark, lNovelty, lSagar, lAnand, lNeo, lMec, lMsdc]
+const LOGOS = [lBallas, lTimora, lKoppas, lSwadesh, lHero, lVidya, lDream, lShenoy, lSun, lAadi, lBmr, lKanark, lNovelty, lSagar, lAnand, lNeo, lMec, lMsdc, lBm, lParvaa, lbrown, lsara]
 
 const RATINGS = [
   { name: 'Google',     score: '5.0' },
@@ -373,7 +377,7 @@ export default function Clients() {
   useFadeUp()
   const [active, setActive] = useState('All')
   const filtered = active === 'All' ? CLIENTS : CLIENTS.filter(c => c.category === active)
-
+  
   return (
     <div className={styles.page}>
 
@@ -433,7 +437,7 @@ export default function Clients() {
           </div>
         </div>
 
-        {/* Row 2 – scroll right */}
+        {/* Row 2 – scroll right */}  
         <div className={`${styles.galleryRow} ${styles.galleryRowReverse}`}>
           <div className={`${styles.galleryTrack} ${styles.galleryTrackReverse}`}>
             {[...ROW2, ...ROW2].map((src, i) => (
@@ -445,19 +449,90 @@ export default function Clients() {
         </div>
       </section>
 
-      {/* ══════════════ LOGO MARQUEE ══════════════ */}
-      <section className={styles.logoSection}>
-        <p className={styles.logoLabel}>Trusted by 120+ brands across India</p>
-        <div className={styles.logoTrackWrap}>
-          <div className={styles.logoTrack}>
-            {[...LOGOS, ...LOGOS].map((src, i) => (
-              <div key={i} className={styles.logoItem}>
-                <img src={src} alt="" loading="lazy"/>
-              </div>
-            ))}
-          </div>
+{/* ══════════════ PREMIUM TRUST SECTION ══════════════ */}
+
+<section className={styles.trustSection}>
+
+  <div className={styles.trustGlow}></div>
+
+  <div className={styles.trustHeader}>
+
+    <h2 className={styles.trustTitle}>
+      <span>50+</span> Brands Across Karnataka
+    </h2>
+
+    <p className={styles.trustDesc}>
+      We are proud to be the growth partner for ambitious brands and startups
+      across diverse industries.
+    </p>
+
+    <div className={styles.trustStats}>
+
+      <div className={styles.trustStat}>
+        <div className={styles.statIcon}>🚀</div>
+
+        <div>
+          <strong>50+</strong>
+          <span>Campaigns Delivered</span>
         </div>
-      </section>
+      </div>
+
+      <div className={styles.statDivider}></div>
+
+      <div className={styles.trustStat}>
+        <div className={styles.statIcon}>📈</div>
+
+        <div>
+          <strong>30+</strong>
+          <span>Industries Served</span>
+        </div>
+      </div>
+
+      <div className={styles.statDivider}></div>
+
+      <div className={styles.trustStat}>
+        <div className={styles.statIcon}>🎯</div>
+
+        <div>
+          <strong>3x</strong>
+          <span>Average ROI Growth</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {/* ROW 1 */}
+  <div className={styles.logoMarquee}>
+
+    <div className={styles.logoTrack}>
+
+      {[...LOGOS, ...LOGOS].map((src, i) => (
+        <div key={i} className={styles.logoCard}>
+          <img src={src} alt="" />
+        </div>
+      ))}
+
+    </div>
+
+  </div>
+
+  {/* ROW 2 */}
+  <div className={`${styles.logoMarquee} ${styles.reverseRow}`}>
+
+    <div className={`${styles.logoTrack} ${styles.reverseTrack}`}>
+
+      {[...LOGOS.slice().reverse(), ...LOGOS.slice().reverse()].map((src, i) => (
+        <div key={i} className={styles.logoCard}>
+          <img src={src} alt="" />
+        </div>
+      ))}
+
+    </div>
+
+  </div>
+
+</section>
 
       {/* ══════════════ FILTER + CLIENT GRID ══════════════ */}
       <section className={styles.filterSection} id="clients-grid">

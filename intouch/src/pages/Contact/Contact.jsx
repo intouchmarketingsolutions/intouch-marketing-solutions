@@ -30,7 +30,7 @@ export default function Contact() {
   return (
     <div className="page-wrap">
       <div className="page-hero">
-        <span className="tag fade-up">Get In Touch</span>
+        
         <h1 className="heading fade-up">Let's <span>Work Together</span></h1>
         <p className="sub fade-up">Ready to grow your brand? Fill out the form and we'll respond via WhatsApp instantly.</p>
       </div>

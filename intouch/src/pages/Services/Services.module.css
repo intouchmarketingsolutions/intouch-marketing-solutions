@@ -954,7 +954,7 @@
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
   .procSection { padding: 2.5rem 4%; }
   .procCirclesRow, .procNumsRow, .procCardsRow { flex-direction: column; align-items: center; }
-  .procCircleCol, .procNum, .procNumMid, .procCard, .procCardMid { flex: unset; width: 100%; max-width: 320px; }
+  .procCircleCol, .procNum, .procNumMid, .procCard, .procCardMid { flex: 1; width: 100%; max-width: 100%; }
   .procConnector, .procSpacer { display: none; }
   .procNumsRow { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
   .procNum, .procNumMid { width: auto; flex: unset; }
@@ -964,12 +964,12 @@
   .whyStats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .whyStatNum { font-size: 2rem; }
   .whyStatIcon { width: 48px; height: 48px; }
-  .imgWrap { height: 180px; }
-  .content { padding: 1.4rem 1.2rem; }
+  .imgWrap { aspect-ratio: 16 / 9;   height: auto; }
+  .content { padding: 1rem; }
   .heroTitle { letter-spacing: -0.5px; font-size: clamp(2rem, 8vw, 3.5rem); }
   .heroSub { font-size: 0.95rem; }
   .hero { padding: 5rem 4% 3rem; }
-  .cubeBanner { height: 360px; }
+  .cubeBanner { height: 240px; }
   .desc { max-width: 100%; }
   .whySub { max-width: 100%; }
   .ctaBtn { white-space: normal; text-align: center; }

@@ -178,7 +178,7 @@ export default function Home() {
           <div className={styles.ctaText}>
             <h2 className={styles.ctaHeading}>
               Ready to <span>Level Up?</span>
-            </h2>
+            </h2> 
             <p className={styles.ctaSub}>
               Let's grow your business together — a free consultation is just one click away.
             </p>
@@ -187,9 +187,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
       </section>
-
     </div>
   )
 }

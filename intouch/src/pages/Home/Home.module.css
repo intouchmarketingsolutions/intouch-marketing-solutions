@@ -69,7 +69,7 @@
 
 .heroContent {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: left;
   width: 100%;
   max-width: 1280px;
@@ -828,7 +828,6 @@
   max-width: 460px;
 }
 
-
 /* =========================
    RESPONSIVE
 ========================= */
@@ -875,7 +874,6 @@
   .ctaText { padding: 2rem 1.8rem; }
   .ctaSub { max-width: 100%; }
 
-  .statsBar { padding: 0; }
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0;

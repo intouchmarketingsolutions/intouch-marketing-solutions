@@ -5,7 +5,7 @@ import styles from './ChatBot.module.css'
 const BOT = {
   service:  'We offer Web Development, Graphic Design, Social Media Marketing, SEO, Video Editing, Ads, Content Writing & Ads Shoots. Which interests you? 🚀',
   price:    'Our pricing is tailored to your scope and budget. Contact us for a free consultation and quote!',
-  contact:  '📞 +91 98765 43210\n📧 hello@intouchmarketing.in\n📍 Udupi, Karnataka\n🕒 Mon–Sat, 9AM–6PM',
+  contact:  '📞 +91 98765 43210\n📧 hello@intouchmarketing.in\n Udupi, Karnataka\n🕒 Mon–Sat, 9AM–6PM',
   seo:      'Our SEO covers technical audits, on-page optimisation, link building and monthly reporting.',
   social:   'We manage Instagram, Facebook, LinkedIn & more — content creation, scheduling, and paid campaigns.',
   web:      'We build custom websites with React, WordPress & Shopify — fast, responsive, conversion-optimised.',
