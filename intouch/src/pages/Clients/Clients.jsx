@@ -465,41 +465,6 @@ export default function Clients() {
       We are proud to be the growth partner for ambitious brands and startups
       across diverse industries.
     </p>
-
-    <div className={styles.trustStats}>
-
-      <div className={styles.trustStat}>
-        <div className={styles.statIcon}>🚀</div>
-
-        <div>
-          <strong>50+</strong>
-          <span>Campaigns Delivered</span>
-        </div>
-      </div>
-
-      <div className={styles.statDivider}></div>
-
-      <div className={styles.trustStat}>
-        <div className={styles.statIcon}>📈</div>
-
-        <div>
-          <strong>30+</strong>
-          <span>Industries Served</span>
-        </div>
-      </div>
-
-      <div className={styles.statDivider}></div>
-
-      <div className={styles.trustStat}>
-        <div className={styles.statIcon}>🎯</div>
-
-        <div>
-          <strong>3x</strong>
-          <span>Average ROI Growth</span>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   {/* ROW 1 */}

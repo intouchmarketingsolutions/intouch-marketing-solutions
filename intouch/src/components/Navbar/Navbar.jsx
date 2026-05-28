@@ -107,8 +107,8 @@ export default function Navbar() {
           </li>
 
           <li>
-            <NavLink to="/reviews" className={styles.link} onClick={closeMenu}>
-              Reviews
+            <NavLink to="/contact" className={styles.link} onClick={closeMenu}>
+              Contact
             </NavLink>
           </li>
 

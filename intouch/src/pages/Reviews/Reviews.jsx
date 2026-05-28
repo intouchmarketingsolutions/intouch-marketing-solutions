@@ -68,13 +68,9 @@ export default function Reviews() {
       {/* Hero */}
       <div className="page-hero">
         <h1 className="heading fade-up">
-          Our <span>Clients Say</span>
+          Our <span>Clients</span>
         </h1>
 
-        <p className="sub fade-up">
-          Real feedback from real clients who've experienced
-          the Intouch difference.
-        </p>
       </div>
 
       {/* Reviews */}
