@@ -75,6 +75,13 @@
   max-width: 1280px;
   padding: 0 80px;
 }
+.heroSub{
+  max-width:650px;
+  margin-top:24px;
+  font-size:1.2rem;
+  line-height:1.8;
+  color:rgba(255,255,255,.85);
+}
 
 .heroTitleBlue {
   background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
@@ -175,13 +182,15 @@
   50%       { transform: translateX(-50%) translateY(6px); }
 }
 
+
 /* =========================
    STATS BAR
 ========================= */
-.statsBar {
-  background: var(--bg);
-  padding: 2.5rem 5% 0;
-  position: relative;
+.statsBar{
+  padding:40px 5%;
+  background:#071128;
+  border-top:1px solid rgba(255,255,255,.05);
+  border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .statsGrid {  
@@ -744,11 +753,11 @@
    CTA BOX
 ========================= */
 .ctaBox {
-  max-width: 1280px;
-  margin: 3.5rem auto 0;
+  max-width: 1160px;
+  margin: 3rem auto 0;
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 2rem;
 }
@@ -826,6 +835,59 @@
   font-size: 0.95rem;
   line-height: 1.65;
   max-width: 460px;
+}
+
+.trustSection {
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding: 2rem 1.75rem 2.25rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.trustBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(168,85,247,0.35);
+  background: rgba(99,102,241,0.08);
+  color: #c4b5fd;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.trustTitle {
+  margin: 0.3rem 0 0;
+  font-family: var(--ff-head);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.trustTitle span {
+  background: linear-gradient(135deg, #0ea5a4, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.trustSub {
+  margin: 0;
+  max-width: 720px;
+  color: rgba(241,245,249,0.78);
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 /* =========================
@@ -1620,6 +1682,173 @@
   color: #0ea5a4;
 }
 
+/* =========================
+   VIDEO SHOWCASE
+========================= */
+
+.showcaseSection{
+  padding:120px 5%;
+  background:#070c1f;
+  position:relative;
+  overflow:hidden;
+}
+
+.showcaseContent{
+  max-width:1280px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:80px;
+  align-items:center;
+}
+
+.showcaseBadge{
+  display:inline-block;
+
+  padding:10px 18px;
+
+  border-radius:50px;
+
+  background:rgba(99,102,241,.12);
+
+  border:1px solid rgba(99,102,241,.3);
+
+  color:#a5b4fc;
+
+  font-size:.8rem;
+
+  font-weight:700;
+
+  letter-spacing:1px;
+}
+
+.showcaseTitle{
+  margin-top:20px;
+
+  font-size:clamp(2.4rem,5vw,4.5rem);
+
+  line-height:1.1;
+
+  color:white;
+}
+
+.showcaseTitle span{
+  background:linear-gradient(
+    135deg,
+    #0ea5a4,
+    #6366f1
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.showcaseDesc{
+  margin-top:20px;
+
+  color:#94a3b8;
+
+  line-height:1.8;
+
+  font-size:1rem;
+}
+
+.featureList{
+  margin-top:30px;
+
+  display:grid;
+
+  gap:14px;
+}
+
+.featureItem{
+  color:white;
+
+  padding:14px 18px;
+
+  border-radius:14px;
+
+  background:rgba(255,255,255,.03);
+
+  border:1px solid rgba(255,255,255,.08);
+}
+
+/* RIGHT SIDE */
+
+.showcaseRight{
+  position:relative;
+
+  min-height:50px;
+}
+
+.videoMain{
+  width:100%;
+  height:600px;   /* Change this value */
+
+  border-radius:30px;
+
+  object-fit:cover;
+
+  box-shadow:
+  0 30px 80px rgba(99,102,241,.25);
+
+  transition:.4s;
+}
+
+.videoMain:hover{
+  transform:scale(1.02);
+}
+
+.videoFloating{
+  position:absolute;
+
+  width:25%;
+
+  bottom:10px;
+
+  right:0px;
+
+  border-radius:24px;
+
+  object-fit:cover;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  backdrop-filter:blur(20px);
+
+  box-shadow:
+  0 20px 60px rgba(14,165,164,.25);
+
+  transition:.4s;
+}
+
+.videoFloating:hover{
+  transform:scale(1.05);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.showcaseContent{
+  grid-template-columns:1fr;
+  gap:50px;
+}
+
+.showcaseRight{
+  min-height:auto;
+}
+
+.videoFloating{
+  position:relative;
+  width:100%;
+  right:auto;
+  bottom:auto;
+  margin-top:20px;
+}
+
+}
 /* =========================
    NEW SECTIONS RESPONSIVE
 ========================= */

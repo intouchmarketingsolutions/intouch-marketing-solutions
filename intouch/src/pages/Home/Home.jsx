@@ -9,6 +9,8 @@ import showcaseVideo from '../../assets/Intouch-css.mp4'
 import cardWeb    from '../../assets/web-development.jpg'
 import cardDesign from '../../assets/Graphic-Design.png'
 import cardSocial from '../../assets/social-media.png'
+import video1  from  '../../assets/intouch01.mp4'
+import video2  from  '../../assets/intouch02.mp4'
 
 import g1 from '../../assets/Untitled design_20251124_110506_0000.png'
 import g2 from '../../assets/20251117_144505_0000.png'
@@ -21,21 +23,33 @@ import g7 from '../../assets/social-media.png'
 const GALLERY = [g1, g2, g3, g4, g5, g6, g7]
 
 const BENEFITS = [
-  { Icon: FaLightbulb, title: 'Creative Strategies',   desc: 'We craft innovative, brand-specific campaigns that cut through the noise and make your business impossible to ignore.' },
-  { Icon: FaRocket,    title: 'Speed & Reliability',   desc: 'Fast turnarounds without compromising quality — our team is always ready to deliver on time, every time.' },
-  { Icon: FaDollarSign, title: 'Measurable ROI',       desc: 'Every campaign is backed by data. We track what works and optimise continuously so your marketing budget goes further.' },
+{
+  Icon: FaChartLine,
+  title: 'Data Driven Marketing',
+  desc: 'Every decision is backed by analytics and performance data.'
+},
+{
+  Icon: FaRocket,
+  title: 'Fast Execution',
+  desc: 'Quick delivery without compromising quality.'
+},
+{
+  Icon: FaUsers,
+  title: 'Dedicated Support',
+  desc: 'A team focused entirely on your business growth.'
+}
 ]
 
 const STATS = [
-  { value: 120, suffix: '+', label: 'Happy Clients',       Icon: FaUsers },
-  { value: 25,  suffix: '+', label: 'Projects Delivered',  Icon: FaBriefcase },
-  { value: 20,  suffix: '+', label: 'Team Members',        Icon: FaUserTie },
-  { value: 3,   suffix: 'x', label: 'Avg. ROI Growth',     Icon: FaChartLine },
+  { value: 120, suffix: '+', label: 'Clients Served', Icon: FaUsers },
+  { value: 500, suffix: '+', label: 'Campaigns Delivered', Icon: FaBriefcase },
+  { value: 20, suffix: '+', label: 'Industries Served', Icon: FaUserTie },
+  { value: 3, suffix: 'x', label: 'Average ROI Growth', Icon: FaChartLine }
 ]
 
 const PREVIEW = [
-  { Icon: FaGlobe,      title: 'Web Development',       desc: 'Custom websites that convert visitors into loyal, paying customers.',  id: 1,  cardImg: cardWeb    },
-  { Icon: FaPaintBrush, title: 'Graphic Design',         desc: 'Brand identities and visuals that make you impossible to ignore.',      id: 10, cardImg: cardDesign },
+  { Icon: FaGlobe,      title: 'Web Development',       desc: 'SEO Optimized websites that convert visitors into customers.',  id: 1,  cardImg: cardWeb    },
+  { Icon: FaPaintBrush, title: 'Graphic Design',         desc: 'Brand identities and creatives that increase engagement.',      id: 10, cardImg: cardDesign },
   { Icon: FaBullhorn,   title: 'Social Media Marketing', desc: 'Platform-native campaigns that build audiences and drive revenue.',     id: 6,  cardImg: cardSocial },
 ]
 
@@ -82,10 +96,14 @@ export default function Home() {
 
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
-            We Grow Your<br />
-            <span>Brand</span><br />
-            <span className={styles.heroTitleBlue}>Online</span>
-          </h1>
+  Digital Marketing Agency<br />
+  <span>That Delivers</span><br />
+  <span className={styles.heroTitleBlue}>Real Growth</span>
+</h1>
+
+<p className={styles.heroSub}>
+  Helping businesses across India increase leads, sales and brand visibility through SEO, Web Development, Social Media Marketing and Paid Advertising.
+</p>
         </div>
       </section>
 
@@ -156,6 +174,62 @@ export default function Home() {
         </div>
       </section>
 
+      <section className={styles.showcaseSection}>
+
+  <div className={styles.showcaseContent}>
+
+    <div className={styles.showcaseLeft}>
+
+      <span className={styles.showcaseBadge}>
+        WHY CHOOSE INTOUCH
+      </span>
+
+      <h2 className={styles.showcaseTitle}>
+        Turning Ideas Into
+        <span> Digital Growth</span>
+      </h2>
+
+      <p className={styles.showcaseDesc}>
+        At Intouch Marketing Solutions, we help businesses grow online with creative marketing, professional websites, and result-driven strategies. Our goal is simple — attract more customers, increase brand visibility, and generate quality leads for your business.
+
+Whether you're a startup or an established company, we provide customized digital solutions that help you stand out, connect with your audience, and achieve real business growth.
+
+      </p>
+
+      
+
+    </div>
+
+    <div className={styles.showcaseRight}>
+
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className={styles.videoMain}
+      >
+        <source src={video2} type="video/mp4" />
+      </video>
+
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className={styles.videoFloating}
+      >
+        <source src={video1} type="video/mp4" />
+      </video>
+
+    </div>
+
+  </div>
+
+</section>
+
+      
+
       {/* ================= GALLERY + CTA ================= */}
       <section className={styles.videoCtaSection}>
 
@@ -177,16 +251,31 @@ export default function Home() {
         <div className={`${styles.ctaBox} fade-up`}>
           <div className={styles.ctaText}>
             <h2 className={styles.ctaHeading}>
-              Ready to <span>Level Up?</span>
-            </h2> 
-            <p className={styles.ctaSub}>
-              Let's grow your business together — a free consultation is just one click away.
-            </p>
+  Ready To <span>Generate More Leads?</span>
+</h2>
+
+<p className={styles.ctaSub}>
+  Book a free consultation and discover how we can grow your business with proven digital marketing strategies.
+</p>
             <Link to="/contact" className="btn btn-primary">
               Start Your Project →
             </Link>
           </div>
         </div>
+        <section className={styles.trustSection}>
+  <div className={styles.trustBadge}>
+    ⭐⭐⭐⭐⭐ 
+  </div>
+
+  <h2 className={styles.trustTitle}>
+    Trusted By <span>120+ Brands</span>
+  </h2>
+
+  <p className={styles.trustSub}>
+    Helping businesses grow through SEO, Social Media,
+    Web Development and Digital Advertising.
+  </p>
+</section>
       </section>
     </div>
   )
