@@ -251,17 +251,20 @@ Whether you're a startup or an established company, we provide customized digita
         <div className={`${styles.ctaBox} fade-up`}>
           <div className={styles.ctaText}>
             <h2 className={styles.ctaHeading}>
-  Ready To <span>Generate More Leads?</span>
-</h2>
+              Ready To <span>Grow Your Business?</span>
+            </h2>
 
-<p className={styles.ctaSub}>
-  Book a free consultation and discover how we can grow your business with proven digital marketing strategies.
-</p>
+            <p className={styles.ctaSub}>
+              Book a free consultation and discover how we can grow your business with proven digital marketing strategies.
+            </p>
+
             <Link to="/contact" className="btn btn-primary">
-              Start Your Project →
+              Get Free Consultation →
             </Link>
           </div>
         </div>
+
+
         <section className={styles.trustSection}>
   <div className={styles.trustBadge}>
     ⭐⭐⭐⭐⭐ 
