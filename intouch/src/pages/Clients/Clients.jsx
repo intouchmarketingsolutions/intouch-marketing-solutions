@@ -9,7 +9,7 @@ import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Clients.module.css'
 
 /* ── gallery images (service work samples) ── */
-import img1 from '../../assets/web-development.jpg'
+import img1 from '../../assets/graphic design/g1.jpg'
 import img2 from '../../assets/Graphic-Design.png'
 import img3 from '../../assets/social-media.png'
 import img4 from '../../assets/digital-marketing.png'
@@ -18,9 +18,15 @@ import img6 from '../../assets/seo.png'
 import img7 from '../../assets/branding.png'
 import img8 from '../../assets/uiux.png'
 import img9 from '../../assets/ecommerce.png'
-import img10 from '../../assets/ad-creative.png'
+
 import img11 from '../../assets/content-writing.png'
 import img12 from '../../assets/google-ads.png'
+import img13 from '../../assets/graphic design/g2.jpg'
+import img14 from '../../assets/graphic design/g3.jpg'
+import img15 from '../../assets/graphic design/g4.jpg'
+import img16 from '../../assets/graphic design/g5.jpg'
+import img17 from '../../assets/graphic design/g6.jpg'
+import img18 from '../../assets/graphic design/g7.jpeg'
 
 /* ── real client logos ── */
 import lBallas  from '../../assets/ballas.png'
@@ -55,8 +61,8 @@ const RATINGS = [
   { name: 'Trustpilot', score: '5.0' },
 ]
 
-const ROW1 = [img1, img2, img3, img4, img5, img6]
-const ROW2 = [img7, img8, img9, img10, img11, img12]
+const ROW1 = [img1, img2, img3, img4, img5, img6, img13, img14, img15]
+const ROW2 = [img7, img8, img9, img11, img12, img16, img17, img18]
 
 const CATEGORIES = ['All', 'Technology', 'Food & Retail', 'Hospitality', 'Industrial', 'Media']
 const CATEGORY_ICONS = {
@@ -498,29 +504,6 @@ export default function Clients() {
   </div>
 
 </section>
-
-      {/* ══════════════ FILTER + CLIENT GRID ══════════════ */}
-      <section className={styles.filterSection} id="clients-grid">
-        <div className={styles.filterHeader}>
-          <h2 className={styles.sectionTitle}>Featured <span>Clients</span></h2>
-          <div className={styles.filterBar}>
-            {CATEGORIES.map(cat => (
-              <button key={cat}
-                className={`${styles.filterBtn} ${active === cat ? styles.filterActive : ''}`}
-                onClick={() => setActive(cat)}>
-                {cat !== 'All' && CATEGORY_ICONS[cat]} {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.gridSection}>
-        <div className={styles.grid}>
-          {filtered.map((client, i) => <ClientCard key={client.name} client={client} index={i}/>)}
-        </div>
-        {filtered.length === 0 && <p className={styles.empty}>No clients in this category yet.</p>}
-      </section>
 
       {/* ══════════════ TESTIMONIALS ══════════════ */}
       <section className={styles.testimonials}>

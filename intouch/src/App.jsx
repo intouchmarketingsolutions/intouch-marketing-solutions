@@ -15,6 +15,7 @@ import Reviews      from './pages/Reviews/Reviews'
 import Clients      from './pages/Clients/Clients'
 import Career       from './pages/Career/Career'
 import Contact      from './pages/Contact/Contact'
+import StartProject from './pages/StartProject/StartProject'
 
 // Admin — completely isolated
 import { AuthProvider }     from './admin/context/AuthContext'
@@ -46,6 +47,7 @@ function PublicLayout() {
         <Route path="/clients"      element={<Clients />} />
         <Route path="/career"       element={<Career />} />
         <Route path="/contact"      element={<Contact />} />
+        <Route path="/start-project" element={<StartProject />} />
         <Route path="*"             element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />

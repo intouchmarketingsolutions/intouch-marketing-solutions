@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FaArrowRight } from 'react-icons/fa'
 import styles from './Navbar.module.css'
@@ -9,6 +9,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   const [mega, setMega] = useState(false)
+  const megaCloseTimer = useRef(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -20,6 +21,15 @@ export default function Navbar() {
     setOpen(false)
     setDropdown(false)
     setMega(false)
+  }
+
+  const openMega = () => {
+    clearTimeout(megaCloseTimer.current)
+    setMega(true)
+  }
+
+  const closeMega = () => {
+    megaCloseTimer.current = setTimeout(() => setMega(false), 180)
   }
 
   return (
@@ -70,11 +80,15 @@ export default function Navbar() {
           {/* MEGA MENU */}
           <li
             className={styles.mega}
-            onMouseEnter={() => setMega(true)}
-            onMouseLeave={() => setMega(false)}
+            onMouseEnter={openMega}
+            onMouseLeave={closeMega}
           >
             <span className={styles.link}>Services ▾</span>
-            <div className={`${styles.megaMenu} ${mega ? styles.show : ''}`}>
+            <div
+              className={`${styles.megaMenu} ${mega ? styles.show : ''}`}
+              onMouseEnter={openMega}
+              onMouseLeave={closeMega}
+            >
               <div className={styles.megaCol}>
                 <h4>Web Solutions</h4>
                 <NavLink to="/services/1" onClick={closeMenu}>Website Development</NavLink>
