@@ -26,7 +26,7 @@ import img14 from '../../assets/graphic design/g3.jpg'
 import img15 from '../../assets/graphic design/g4.jpg'
 import img16 from '../../assets/graphic design/g5.jpg'
 import img17 from '../../assets/graphic design/g6.jpg'
-import img18 from '../../assets/graphic design/g7.jpeg'
+import img18 from '../../assets/graphic design/g7.jpg'
 
 /* ── real client logos ── */
 import lBallas  from '../../assets/ballas.png'
