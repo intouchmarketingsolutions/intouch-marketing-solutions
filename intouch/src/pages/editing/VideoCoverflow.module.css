@@ -266,21 +266,33 @@
 
 @media (max-width: 720px) {
   .showcase {
-    min-height: 520px;
-    margin-top: 20px;
+    min-height: 470px;
+    margin-top: 8px;
+    overflow: hidden;
   }
 
   .stage {
-    height: 488px;
+    height: 430px;
+    width: 100%;
   }
 
   .card {
+    left: calc(50% - 120px);
+    top: 28px;
+    width: 240px;
+    height: 340px;
     border-radius: 18px;
+  }
+
+  .videoShell video {
+    object-fit: contain;
+    background: #020617;
   }
 
   .navButton {
     width: 46px;
     height: 46px;
+    top: 45%;
   }
 
   .prevButton {
@@ -294,29 +306,31 @@
 
 @media (max-width: 520px) {
   .showcase {
-    min-height: 455px;
-    overflow: visible;
+    min-height: 410px;
+    margin-top: 4px;
   }
 
   .stage {
-    height: 420px;
+    height: 382px;
   }
 
   .card {
-    left: calc(50% - 112px);
-    width: 224px;
-    height: 318px;
+    left: calc(50% - 100px);
+    top: 22px;
+    width: 200px;
+    height: 292px;
   }
 
   .playButton {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
   }
 
   .cardMeta {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    gap: 10px;
   }
 
   .cardMeta h3 {
@@ -327,21 +341,30 @@
   .cardMeta span {
     font-size: 0.68rem;
   }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dots {
+    bottom: 12px;
+  }
 }
 
 @media (max-width: 380px) {
   .showcase {
-    min-height: 410px;
+    min-height: 380px;
   }
 
   .stage {
-    height: 382px;
+    height: 352px;
   }
 
   .card {
-    left: calc(50% - 96px);
-    width: 192px;
-    height: 278px;
+    left: calc(50% - 88px);
+    width: 176px;
+    height: 258px;
     border-radius: 16px;
   }
 
