@@ -11,6 +11,7 @@ import Home         from './pages/Home/Home'
 import About        from './pages/About/About'
 import Services     from './pages/Services/Services'
 import ServiceDetail from './pages/ServiceDetail/ServiceDetail'
+import VideoEditingPage from './pages/editing/VideoEditingPage';
 import Reviews      from './pages/Reviews/Reviews'
 import Clients      from './pages/Clients/Clients'
 import Career       from './pages/Career/Career'
@@ -42,13 +43,17 @@ function PublicLayout() {
         <Route path="/"             element={<Home />} />
         <Route path="/about"        element={<About />} />
         <Route path="/services"     element={<Services />} />
-        <Route path="/services/:id" element={<ServiceDetail />} />
+        <Route
+  path="/services/:id"
+  element={<ServiceDetail />}
+/>
         <Route path="/reviews"      element={<Reviews />} />
         <Route path="/clients"      element={<Clients />} />
         <Route path="/career"       element={<Career />} />
         <Route path="/contact"      element={<Contact />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="*"             element={<Navigate to="/" replace />} />
+        <Route path="/services/video-editing" element={<VideoEditingPage />}/>
       </Routes>
       <Footer />
       <ChatBot />

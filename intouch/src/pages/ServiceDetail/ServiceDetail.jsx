@@ -19,7 +19,7 @@ import useFadeUp from '../../hooks/useFadeUp'
 import heroImg from '../../assets/web1.png'
 import projectImg from '../../assets/projects/project.png'
 import GraphicDesignPage from './GraphicDesignPage'
-import VideoEditingPage from './VideoEditingPage'
+import VideoEditingPage from "../editing/VideoEditingPage";
 import BrandingPage from './BrandingPage'
 import SocialMediaPage from './SocialMediaPage'
 import AdShotsPage from './AdShotsPage'
