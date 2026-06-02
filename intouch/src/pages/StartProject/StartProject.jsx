@@ -4,9 +4,10 @@ import { FaArrowRight, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaRupeeSign, FaUs
 import { SERVICES } from '../../data/services'
 import useFadeUp from '../../hooks/useFadeUp'
 import styles from './StartProject.module.css'
+import { validateEmail, validatePhone, validatePrice } from '../../utils/validation'
 
-const WA_NUMBER = '917483649426'
-const EMAIL_TO = 'intouchmarketingsolution01@gmail.com'
+const WA_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '917483649426'
+const EMAIL_TO = import.meta.env.VITE_EMAIL_TO || 'intouchmarketingsolution01@gmail.com'
 
 const BLANK = {
   projectName: '',
@@ -61,9 +62,54 @@ export default function StartProject() {
     event.preventDefault()
     setError('')
 
-    const required = ['projectName', 'ownerName', 'mobile', 'address', 'category', 'description', 'requirements', 'price']
-    if (required.some(key => !String(form[key]).trim())) {
-      setError('Please fill in all project details before submitting.')
+    // Validate all required fields
+    if (!form.projectName.trim()) {
+      setError('Please enter a project name.')
+      return
+    }
+
+    if (!form.ownerName.trim()) {
+      setError('Please enter the owner name.')
+      return
+    }
+
+    if (!form.mobile.trim()) {
+      setError('Please enter a mobile number.')
+      return
+    }
+
+    if (!validatePhone(form.mobile)) {
+      setError('Please enter a valid phone number.')
+      return
+    }
+
+    if (!form.address.trim()) {
+      setError('Please enter an address.')
+      return
+    }
+
+    if (!form.category.trim()) {
+      setError('Please select a project category.')
+      return
+    }
+
+    if (!form.description.trim()) {
+      setError('Please provide a project description.')
+      return
+    }
+
+    if (!form.requirements.trim()) {
+      setError('Please enter project requirements.')
+      return
+    }
+
+    if (!form.price.trim()) {
+      setError('Please enter a budget/price.')
+      return
+    }
+
+    if (!validatePrice(form.price)) {
+      setError('Please enter a valid price/budget amount.')
       return
     }
 

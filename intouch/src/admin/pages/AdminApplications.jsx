@@ -7,22 +7,39 @@ export default function AdminApplications() {
   const [loading,  setLoading]  = useState(true)
   const [selected, setSelected] = useState(null)
   const [confirm,  setConfirm]  = useState(null)
+  const [error,    setError]    = useState('')
 
   const fetchApps = async () => {
     setLoading(true)
-    const { data } = await supabase.from('applications').select('*').order('created_at', { ascending: false })
-    setApps(data ?? [])
-    setLoading(false)
+    try {
+      const { data, error: err } = await supabase.from('applications').select('*').order('created_at', { ascending: false })
+      if (err) throw err
+      setApps(data ?? [])
+      setError('')
+    } catch (err) {
+      console.error('Error fetching applications:', err)
+      setError('Failed to load applications. Please refresh.')
+      setApps([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => { fetchApps() }, [])
 
   const handleDelete = async () => {
     if (!confirm) return
-    await supabase.from('applications').delete().eq('id', confirm)
-    setConfirm(null)
-    if (selected?.id === confirm) setSelected(null)
-    fetchApps()
+    try {
+      const { error: err } = await supabase.from('applications').delete().eq('id', confirm)
+      if (err) throw err
+      setConfirm(null)
+      if (selected?.id === confirm) setSelected(null)
+      setError('')
+      fetchApps()
+    } catch (err) {
+      console.error(err)
+      setError(err.message || 'Failed to delete application. Please try again.')
+    }
   }
 
   const fmt = (iso) => iso

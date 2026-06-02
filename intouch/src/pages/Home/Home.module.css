@@ -905,6 +905,7 @@
   .previewGrid { grid-template-columns: repeat(2, 1fr); }
   .benefitsGrid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   .casesGrid { grid-template-columns: repeat(2, 1fr); }
+  .heroContent { padding: 0 40px; }
 }
 
 /* Tablet */
@@ -915,12 +916,23 @@
   .cube3 { display: none; }
 }
 
+/* Landscape Tablet */
+@media (max-width: 800px) {
+  .hero { height: 70vw; }
+  .heroContent { padding: 0 28px; }
+  .heroTitle { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+  .heroSub { font-size: 1rem; }
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   .hero { height: 68vw; min-height: 320px; max-height: 500px; margin-top: var(--nav-h); }
 
   .heroContent { padding: 0 24px; }
-  .heroSub { max-width: 100%; }
+  .heroTitle { font-size: 2.4rem; }
+  .heroSub { max-width: 100%; font-size: 1rem; }
+  .heroBtns { flex-direction: column; align-items: stretch; gap: 0.8rem; }
+  .heroBtns .btn { width: 100%; justify-content: center; }
 
   .benefitsWrap { padding: 0 4%; }
   .benefitsGrid { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -964,36 +976,112 @@
 
   .preview { padding: 3rem 0 4rem; }
   .previewGrid { padding: 0 4%; grid-template-columns: 1fr; gap: 1.2rem; }
-  .prevCard { height: auto; min-height: 280px; overflow: visible; }
+  .prevCard { height: auto; min-height: 280px; overflow: visible; padding: 2rem 1.6rem; }
+  .prevIcon { width: 60px; height: 60px; margin-bottom: 1.2rem; }
+  .prevCard h3 { font-size: 1.1rem; }
+  .prevCard p { font-size: 0.88rem; }
 
-  .sectionSub { max-width: 100%; margin-bottom: 2.5rem; }
+  .sectionSub { max-width: 100%; margin-bottom: 2.5rem; font-size: 0.95rem; }
+}
+
+/* Medium Mobile */
+@media (max-width: 600px) {
+  .hero { height: 70vw; min-height: 300px; max-height: 450px; }
+  .heroContent { padding: 0 20px; }
+  .heroTitle { font-size: 2.2rem; letter-spacing: -0.5px; }
+  .heroSub { font-size: 0.96rem; line-height: 1.6; }
+  .heroBadge { font-size: 0.62rem; padding: 0.4rem 1rem; }
+
+  .statsGrid { grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--border2); }
+  .statItem { padding: 1.3rem 1rem; gap: 0.8rem; }
+  .statIcon { width: 40px; height: 40px; font-size: 0.9rem; }
+  .statNum { font-size: 1.55rem; }
+  .statLabel { font-size: 0.75rem; }
+
+  .benefitsCard { padding: 1.8rem 1.3rem; }
+  .benefitsTitle { font-size: 1.15rem; }
+  .benefitsGrid { gap: 1.2rem; }
+
+  .previewGrid { gap: 1rem; padding: 0 3%; }
+  .prevCard { padding: 1.8rem 1.4rem; min-height: 270px; }
+  .prevIcon { width: 54px; height: 54px; }
+  .prevCard h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+  .prevCard p { font-size: 0.85rem; }
+  .learnMore { font-size: 0.85rem; }
+  
+  .previewHeader { margin-bottom: 2.8rem; padding: 0 3%; }
+  .sectionSub { font-size: 0.92rem; }
 }
 
 /* Small mobile */
 @media (max-width: 480px) {
   .hero { height: 68vw; min-height: 280px; max-height: 420px; margin-top: var(--nav-h); }
-  .heroContent { padding: 0 20px; }
-  .heroTitle { font-size: 2.1rem; }
-  .heroSub { font-size: 0.95rem; }
-  .heroBtns { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .heroContent { padding: 0 16px; }
+  .heroTitle { font-size: 1.95rem; }
+  .heroSub { font-size: 0.9rem; line-height: 1.5; }
+  .heroBtns { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .heroBtns .btn { width: 100%; padding: 0.65rem 1.2rem; }
+  .heroBadge { font-size: 0.58rem; padding: 0.35rem 0.9rem; margin-bottom: 1rem; }
 
-  .statsGrid { grid-template-columns: repeat(2, 1fr); }
-  .statItem { padding: 1.2rem 0.9rem; gap: 0.7rem; }
-  .statIcon { width: 38px; height: 38px; font-size: 0.85rem; }
-  .statNum  { font-size: 1.45rem; }
-  .statLabel { font-size: 0.74rem; }
+  .statsBar { padding: 2rem 0; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .statItem { padding: 1rem 0.8rem; gap: 0.6rem; flex-direction: column; align-items: center; text-align: center; justify-content: center; border-right: none !important; border-bottom: 1px solid var(--border2); }
+  .statItem:nth-child(odd)  { border-right: none; }
+  .statItem:last-child,
+  .statItem:nth-child(n-2) { border-bottom: none; }
+  .statIcon { width: 36px; height: 36px; font-size: 0.8rem; margin-bottom: 0.4rem; }
+  .statNum  { font-size: 1.35rem; }
+  .statLabel { font-size: 0.7rem; margin-top: 0.3rem; }
 
-  .previewGrid { padding: 0 4%; gap: 1rem; }
-  .prevCard { height: auto; min-height: 260px; overflow: visible; padding: 2rem 1.6rem; }
+  .benefitsCard { padding: 1.4rem 1rem; }
+  .benefitsGrid { grid-template-columns: 1fr; gap: 1rem; }
+  .benefitsTitle { font-size: 1.1rem; letter-spacing: 0.5px; }
+  .benefitsWrap { padding: 0 3%; }
 
-  .benefitsCard { padding: 1.5rem 1rem; }
-  .benefitsGrid { grid-template-columns: 1fr; }
-  .benefitsTitle { font-size: 1.2rem; letter-spacing: 1px; }
-  .ctaText { padding: 1.6rem 1.2rem; }
-  .ctaHeading { font-size: 1.6rem; }
+  .ctaText { padding: 1.4rem 1rem; }
+  .ctaHeading { font-size: 1.55rem; }
   .processDesc { padding-right: 0; }
 
-  .orb1 { display: none; }
+  .previewGrid { padding: 0 3%; gap: 0.9rem; }
+  .prevCard { height: auto; min-height: 250px; overflow: visible; padding: 1.6rem 1.2rem; }
+  .prevIcon { width: 50px; height: 50px; margin-bottom: 1rem; font-size: 1.3rem; }
+  .prevCard h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .prevCard p { font-size: 0.82rem; line-height: 1.5; }
+  .learnMore { font-size: 0.8rem; }
+
+  .previewHeader { margin-bottom: 2.2rem; padding: 0 2%; }
+  .sectionSub { font-size: 0.88rem; }
+
+  .orb1 { width: 150px; height: 150px; left: -60px; top: 10%; }
+  .overlay::after { display: none; }
+  .cube1 { display: none; }
+  .cube2 { display: none; }
+  .cube3 { display: none; }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 380px) {
+  .hero { height: 70vw; min-height: 270px; }
+  .heroContent { padding: 0 12px; }
+  .heroTitle { font-size: 1.75rem; line-height: 1.2; }
+  .heroSub { font-size: 0.8rem; line-height: 1.4; }
+  .heroBtns { gap: 0.5rem; }
+  .heroBtns .btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
+
+  .statsItem { padding: 0.8rem 0.6rem; gap: 0.5rem; }
+  .statIcon { width: 32px; height: 32px; font-size: 0.7rem; }
+  .statNum { font-size: 1.2rem; }
+  .statLabel { font-size: 0.65rem; }
+
+  .benefitsCard { padding: 1.2rem 0.9rem; }
+  .benefitsTitle { font-size: 1rem; }
+
+  .prevCard { padding: 1.4rem 1rem; }
+  .prevIcon { width: 45px; height: 45px; }
+  .prevCard h3 { font-size: 0.95rem; }
+  .prevCard p { font-size: 0.78rem; }
+
+  .orb1 { width: 120px; height: 120px; }
 }
 
 /* =========================

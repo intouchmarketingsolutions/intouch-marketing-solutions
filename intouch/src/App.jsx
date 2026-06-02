@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import ErrorBoundary from './components/ErrorBoundary'
 
 // Public layout
 import Navbar from './components/Navbar/Navbar'
@@ -81,7 +82,7 @@ export default function App() {
   const isAdmin = pathname.startsWith(ADMIN_BASE)
 
   return (
-    <>
+    <ErrorBoundary>
       <ScrollToTop />
       {isAdmin ? (
         <Routes>
@@ -90,6 +91,6 @@ export default function App() {
       ) : (
         <PublicLayout />
       )}
-    </>
+    </ErrorBoundary>
   )
 }

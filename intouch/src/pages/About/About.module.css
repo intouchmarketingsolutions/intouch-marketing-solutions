@@ -366,43 +366,79 @@
 @media (max-width: 1024px) {
   .featuresWrap { grid-template-columns: repeat(3, 1fr); }
   .videoBox { height: 420px; }
+  .intro { padding: 5.5rem 4%; }
+  .grid { gap: 3rem; }
 }
 
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .videoBox { height: 280px; }
+  .videoBox { height: 320px; }
   .orbit { display: none; }
-  .featuresWrap { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .featuresWrap { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
   .whyRow { flex-direction: column; gap: 2rem; padding: 1.5rem; margin-bottom: 2.5rem; }
   .whyImg { max-width: 100%; }
   .whyImg img { height: 240px; }
-  .intro { padding: 5rem 5%; }
+  .intro { padding: 4.5rem 4%; }
+  .why { padding: 4.5rem 4%; }
 }
 
 @media (max-width: 768px) {
-  .intro { padding: 4rem 5%; }
-  .why { padding: 5rem 5%; }
-  .lead { font-size: 1rem; }
-  .typewriter { font-size: 1.5rem; }
+  .intro { padding: 3.5rem 4%; }
+  .why { padding: 3.5rem 4%; }
+  .lead { font-size: 0.98rem; line-height: 1.6; }
+  .typewriter { font-size: 1.8rem; line-height: 1.2; }
+  .videoBox { height: 280px; }
+  .featuresWrap { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .whyRow { padding: 1.4rem; gap: 1.8rem; margin-bottom: 2rem; }
+  .whyImg img { height: 220px; }
+  .title { font-size: 2.1rem; }
+  .lead { font-size: 0.96rem; }
 }
 
 @media (max-width: 600px) {
-  .featuresWrap { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-  .title { font-size: 1.9rem; }
-  .typewriter { font-size: 1.4rem; }
+  .intro { padding: 3rem 3%; }
+  .why { padding: 3rem 3%; }
+  .featuresWrap { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .title { font-size: 1.85rem; }
+  .typewriter { font-size: 1.5rem; }
+  .lead { font-size: 0.92rem; }
+  .videoBox { height: 240px; }
+  .whyRow { padding: 1.2rem; gap: 1.5rem; margin-bottom: 1.8rem; }
+  .whyContent h3 { font-size: 1.15rem; }
+  .whyContent p { font-size: 0.88rem; line-height: 1.6; }
+  .whyImg img { height: 200px; }
 }
 
 @media (max-width: 480px) {
-  .intro { padding: 3.5rem 4%; }
-  .why { padding: 3.5rem 4%; }
+  .intro { padding: 2.5rem 3%; }
+  .why { padding: 2.5rem 3%; }
   .videoBox { height: 200px; }
   .featuresWrap { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-  .whyRow { padding: 1.2rem; gap: 1.5rem; margin-bottom: 1.5rem; }
-  .whyContent h3 { font-size: 1.2rem; }
-  .whyContent p { font-size: 0.9rem; }
+  .featureItem { padding: 1rem 0.8rem; }
+  .featureLogo { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .featureText { font-size: 0.78rem; }
+  .whyRow { padding: 1.1rem; gap: 1.3rem; margin-bottom: 1.4rem; }
+  .whyContent h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .whyContent p { font-size: 0.82rem; line-height: 1.5; }
   .whyImg img { height: 180px; }
-  .title { font-size: 1.7rem; }
-  .lead { font-size: 0.95rem; }
-  .text p { font-size: 0.9rem; }
-  .bubble { width: 36px; height: 36px; font-size: 0.8rem; }
+  .title { font-size: 1.6rem; letter-spacing: -0.3px; }
+  .typewriter { font-size: 1.3rem; }
+  .lead { font-size: 0.88rem; }
+  .text p { font-size: 0.85rem; line-height: 1.5; }
+  .bubble { width: 36px; height: 36px; font-size: 0.75rem; }
+  .grid { gap: 1.8rem; }
+}
+
+@media (max-width: 360px) {
+  .intro { padding: 2rem 2.5%; }
+  .why { padding: 2rem 2.5%; }
+  .title { font-size: 1.45rem; }
+  .typewriter { font-size: 1.15rem; }
+  .lead { font-size: 0.82rem; }
+  .videoBox { height: 180px; }
+  .featuresWrap { gap: 0.6rem; }
+  .featureItem { padding: 0.9rem 0.7rem; }
+  .whyRow { padding: 1rem; gap: 1.2rem; }
+  .whyContent h3 { font-size: 1rem; }
+  .whyContent p { font-size: 0.78rem; }
 }

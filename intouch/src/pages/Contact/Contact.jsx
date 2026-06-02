@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Contact.module.css'
+import { validateEmail, validatePhone } from '../../utils/validation'
 
-const WA_NUMBER = '919876543210'
+const WA_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '917483649426'
 
 const INFO = [
   { icon:<FaMapMarkerAlt/>, title:'Address',       content:'Udupi, Karnataka 576101, India' },
@@ -16,10 +17,37 @@ export default function Contact() {
   useFadeUp()
   const [form, setForm] = useState({ name:'', phone:'', email:'', message:'' })
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!form.name || !form.phone || !form.message) { alert('Please fill all required fields.'); return }
+    setError('')
+
+    if (!form.name.trim()) {
+      setError('Please enter your name.')
+      return
+    }
+
+    if (!form.phone.trim()) {
+      setError('Please enter your phone number.')
+      return
+    }
+
+    if (!validatePhone(form.phone)) {
+      setError('Please enter a valid phone number.')
+      return
+    }
+
+    if (form.email && !validateEmail(form.email)) {
+      setError('Please enter a valid email address.')
+      return
+    }
+
+    if (!form.message.trim()) {
+      setError('Please enter a message.')
+      return
+    }
+
     const text = encodeURIComponent(
       `Hi Intouch Marketing Solutions!\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
     )
@@ -75,6 +103,15 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                {error && (
+                  <div style={{
+                    background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                    color: '#f87171', borderRadius: 8, padding: '0.65rem 1rem',
+                    fontSize: '0.84rem', marginBottom: '1rem',
+                  }}>
+                    ⚠ {error}
+                  </div>
+                )}
                 <div className="form-group">
                   <label>Full Name *</label>
                   <input className="form-control" placeholder="Your name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required />

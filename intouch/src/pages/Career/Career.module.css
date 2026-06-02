@@ -262,31 +262,69 @@
    RESPONSIVE
 ========================= */
 @media (max-width: 1024px) {
-  .perksGrid { grid-template-columns: repeat(3, 1fr); }
-  .jobsGrid { grid-template-columns: repeat(2, 1fr); }
+  .perksGrid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .jobsGrid { grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+  .perks { padding: 5.5rem 4%; }
+  .jobs { padding: 5.5rem 4%; }
+}
+
+@media (max-width: 900px) {
+  .perksGrid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .jobsGrid { grid-template-columns: 1fr; gap: 1.3rem; }
+  .perks { padding: 4.5rem 4%; }
+  .jobs { padding: 4.5rem 4%; }
+  .perk { padding: 1.8rem 1.3rem; }
 }
 
 @media (max-width: 768px) {
-  .perksGrid { grid-template-columns: 1fr 1fr; }
-  .jobsGrid { grid-template-columns: 1fr; }
-  .perks { padding: 4rem 5%; }
-  .jobs { padding: 4rem 5%; }
-  .apply { padding: 4rem 5%; }
-  .jobDesc { font-size: 0.85rem; }
+  .perksGrid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .jobsGrid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .perks { padding: 3.5rem 4%; }
+  .jobs { padding: 3.5rem 4%; }
+  .apply { padding: 3.5rem 4%; }
+  .jobDesc { font-size: 0.87rem; line-height: 1.6; }
+  .perk { padding: 1.6rem 1.2rem; }
+  .formWrap { padding: 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .perksGrid { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .jobsGrid { gap: 1rem; }
+  .perks { padding: 3rem 3%; }
+  .jobs { padding: 3rem 3%; }
+  .apply { padding: 3rem 3%; }
+  .perk { padding: 1.5rem 1.1rem; }
+  .perkIcon { font-size: 2.1rem; margin-bottom: 0.8rem; }
+  .perk h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .perk p { font-size: 0.82rem; }
+  .jobCard { padding: 1.5rem 1.3rem; }
+  .jobTop { gap: 0.6rem; }
+  .formWrap { padding: 1.3rem 1.1rem; }
 }
 
 @media (max-width: 480px) {
   .perksGrid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-  .formWrap { padding: 1.2rem; }
-  .perks { padding: 3rem 4%; }
-  .jobs { padding: 3rem 4%; }
-  .apply { padding: 3rem 4%; }
+  .jobsGrid { gap: 1rem; }
+  .formWrap { padding: 1.1rem 1rem; }
+  .perks { padding: 2.5rem 3%; }
+  .jobs { padding: 2.5rem 3%; }
+  .apply { padding: 2.5rem 3%; }
   .jobTop { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-  .perk { padding: 1.5rem 1rem; }
-  .perkIcon { font-size: 2rem; }
-  .perk h4 { font-size: 0.92rem; }
-  .perk p { font-size: 0.82rem; }
-  .jobCard { padding: 1.5rem; }
-  .jobMeta span { font-size: 0.75rem; }
-  .badge { font-size: 0.65rem; }
+  .perk { padding: 1.3rem 0.95rem; }
+  .perkIcon { font-size: 1.9rem; margin-bottom: 0.7rem; }
+  .perk h4 { font-size: 0.88rem; margin-bottom: 0.35rem; }
+  .perk p { font-size: 0.78rem; line-height: 1.5; }
+  .jobCard { padding: 1.3rem 1.1rem; }
+  .jobMeta span { font-size: 0.72rem; }
+  .badge { font-size: 0.62rem; padding: 0.3rem 0.65rem; }
+  .jobDesc { font-size: 0.82rem; }
+}
+
+@media (max-width: 360px) {
+  .perksGrid { gap: 0.7rem; }
+  .perk { padding: 1.2rem 0.85rem; }
+  .perkIcon { font-size: 1.7rem; margin-bottom: 0.6rem; }
+  .perk h4 { font-size: 0.82rem; }
+  .perk p { font-size: 0.75rem; }
+  .jobCard { padding: 1.1rem 0.95rem; }
 }

@@ -86,7 +86,6 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-
       {/* ================= HERO ================= */}
       <section className={styles.hero}>
         <video className={styles.video} autoPlay muted loop playsInline>
@@ -131,7 +130,7 @@ export default function Home() {
             Services That <span>Drive Results</span>
           </h2>
           <p className="sub fade-up">
-            From branding to performance marketing — we cover every dimension of your digital growth.
+            From branding to performance marketing â€” we cover every dimension of your digital growth.
           </p>
         </div>
 
@@ -146,14 +145,14 @@ export default function Home() {
               <div className={styles.prevIcon}><item.Icon size={30} /></div>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
-              <span className={styles.learnMore}>Learn More →</span>
+              <span className={styles.learnMore}>Learn More â†’</span>
             </Link>
           ))}
         </div>
 
         <div className={styles.previewBtn}>
           <Link to="/services" className="btn btn-outline fade-up">
-            View All →
+            View All â†’
           </Link>
         </div>
 
@@ -190,7 +189,7 @@ export default function Home() {
       </h2>
 
       <p className={styles.showcaseDesc}>
-        At Intouch Marketing Solutions, we help businesses grow online with creative marketing, professional websites, and result-driven strategies. Our goal is simple — attract more customers, increase brand visibility, and generate quality leads for your business.
+        At Intouch Marketing Solutions, we help businesses grow online with creative marketing, professional websites, and result-driven strategies. Our goal is simple â€” attract more customers, increase brand visibility, and generate quality leads for your business.
 
 Whether you're a startup or an established company, we provide customized digital solutions that help you stand out, connect with your audience, and achieve real business growth.
 
@@ -259,7 +258,7 @@ Whether you're a startup or an established company, we provide customized digita
             </p>
 
             <Link to="/contact" className="btn btn-primary">
-              Get Free Consultation →
+              Get Free Consultation â†’
             </Link>
           </div>
         </div>
@@ -267,7 +266,7 @@ Whether you're a startup or an established company, we provide customized digita
 
         <section className={styles.trustSection}>
   <div className={styles.trustBadge}>
-    ⭐⭐⭐⭐⭐ 
+    â­â­â­â­â­ 
   </div>
 
   <h2 className={styles.trustTitle}>

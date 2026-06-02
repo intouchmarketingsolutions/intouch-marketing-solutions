@@ -15,17 +15,25 @@ export default function AdminJobs() {
   const [confirm, setConfirm] = useState(null)
   const [editing, setEditing] = useState(null)
   const [form,    setForm]    = useState(BLANK)
+  const [error,   setError]   = useState('')
 
   const fetchJobs = async () => {
     setLoading(true)
-    const { data } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
-    setJobs(data ?? [])
-    setLoading(false)
+    try {
+      const { data, error: err } = await supabase.from('jobs').select('*').order('created_at', { ascending: false })
+      if (err) throw err
+      setJobs(data ?? [])
+    } catch (err) {
+      console.error('Error fetching jobs:', err)
+      setError('Failed to load jobs. Please refresh.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => { fetchJobs() }, [])
 
-  const openAdd = () => { setEditing(null); setForm(BLANK); setModal(true) }
+  const openAdd = () => { setEditing(null); setForm(BLANK); setError(''); setModal(true) }
 
   const openEdit = (job) => {
     setEditing(job.id)
@@ -34,28 +42,56 @@ export default function AdminJobs() {
       experience: job.experience, salary: job.salary ?? '',
       description: job.description, requirements: job.requirements ?? '',
     })
+    setError('')
     setModal(true)
   }
 
   const handleSave = async (e) => {
     e.preventDefault()
-    if (!form.title.trim() || !form.description.trim()) return
-    setSaving(true)
-    if (editing) {
-      await supabase.from('jobs').update({ ...form, updated_at: new Date().toISOString() }).eq('id', editing)
-    } else {
-      await supabase.from('jobs').insert({ ...form })
+    setError('')
+
+    if (!form.title.trim()) {
+      setError('Please enter a job title.')
+      return
     }
-    setSaving(false)
-    setModal(false)
-    fetchJobs()
+
+    if (!form.description.trim()) {
+      setError('Please enter a job description.')
+      return
+    }
+
+    setSaving(true)
+    try {
+      if (editing) {
+        const { error: err } = await supabase.from('jobs').update({ ...form, updated_at: new Date().toISOString() }).eq('id', editing)
+        if (err) throw err
+      } else {
+        const { error: err } = await supabase.from('jobs').insert({ ...form })
+        if (err) throw err
+      }
+      setSaving(false)
+      setModal(false)
+      setError('')
+      fetchJobs()
+    } catch (err) {
+      console.error(err)
+      setSaving(false)
+      setError(err.message || 'Failed to save job. Please try again.')
+    }
   }
 
   const handleDelete = async () => {
     if (!confirm) return
-    await supabase.from('jobs').delete().eq('id', confirm)
-    setConfirm(null)
-    fetchJobs()
+    try {
+      const { error: err } = await supabase.from('jobs').delete().eq('id', confirm)
+      if (err) throw err
+      setConfirm(null)
+      setError('')
+      fetchJobs()
+    } catch (err) {
+      console.error(err)
+      setError(err.message || 'Failed to delete job. Please try again.')
+    }
   }
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))

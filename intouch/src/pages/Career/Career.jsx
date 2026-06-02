@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { FaMapMarkerAlt, FaBriefcase, FaCloudUploadAlt } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Career.module.css'
+import { validateEmail, validatePhone, validateDocFile, getFileValidationError } from '../../utils/validation'
 
 import { supabase } from '../../admin/supabase/client'
 
@@ -20,6 +21,7 @@ export default function Career() {
 
   const [jobs,        setJobs]        = useState([])
   const [jobsLoading, setJobsLoading] = useState(true)
+  const [jobsError,   setJobsError]   = useState('')
 
   useFadeUp(jobs)
   const [position,    setPosition]    = useState('')
@@ -32,18 +34,38 @@ export default function Career() {
   const [form,        setForm]        = useState(BLANK)
 
   useEffect(() => {
-    const SUPABASE_URL = 'https://egmtwupmzeqijntbkknq.supabase.co'
-    const ANON_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnbXR3dXBtemVxaWpudGJra25xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNTQzNjQsImV4cCI6MjA5NDgzMDM2NH0.aLknX6AsNhZarcG109DLF8v0skAzYWWJuJdMBraBA1k'
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_API_URL || 'https://egmtwupmzeqijntbkknq.supabase.co'
+    const ANON_KEY = import.meta.env.VITE_SUPABASE_API_KEY
+
+    if (!ANON_KEY) {
+      setJobsError('Configuration error: Missing Supabase API key. Please contact support.')
+      setJobsLoading(false)
+      return
+    }
 
     async function loadJobs() {
       try {
-        const res  = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=*&order=created_at.desc`, {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=*&order=created_at.desc`, {
           headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
         })
+        
+        if (!res.ok) {
+          throw new Error(`API Error: ${res.status} ${res.statusText}`)
+        }
+        
         const data = await res.json()
-        if (Array.isArray(data)) setJobs(data)
-      } catch {}
-      finally { setJobsLoading(false) }
+        if (Array.isArray(data)) {
+          setJobs(data)
+        } else {
+          throw new Error('Invalid response format')
+        }
+      } catch (err) {
+        console.error('Error loading jobs:', err)
+        setJobsError('Failed to load job positions. Please try again later.')
+        setJobs([])
+      } finally {
+        setJobsLoading(false)
+      }
     }
     loadJobs()
   }, [])
@@ -56,8 +78,19 @@ export default function Career() {
   const handleFile = (e) => {
     const file = e.target.files[0]
     if (!file) return
+
+    // Validate file
+    const validationError = getFileValidationError(file, 'doc')
+    if (validationError) {
+      setError(validationError)
+      setResumeFile(null)
+      setFileName('')
+      return
+    }
+
     setResumeFile(file)
     setFileName(file.name)
+    setError('')
   }
 
   const uploadResume = async (file) => {
@@ -75,24 +108,47 @@ export default function Career() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!form.name || !form.email || !position) {
-      setError('Please fill in all required fields and select a position.')
+
+    // Validate required fields
+    if (!form.name.trim()) {
+      setError('Please enter your full name.')
       return
     }
+
+    if (!form.email.trim()) {
+      setError('Please enter your email address.')
+      return
+    }
+
+    if (!validateEmail(form.email)) {
+      setError('Please enter a valid email address.')
+      return
+    }
+
+    if (form.phone && !validatePhone(form.phone)) {
+      setError('Please enter a valid phone number.')
+      return
+    }
+
+    if (!position) {
+      setError('Please select a position to apply for.')
+      return
+    }
+
     setSubmitting(true)
     try {
       let resume_url = null, resume_path = null
       if (resumeFile) {
         const result = await uploadResume(resumeFile)
-        resume_url  = result.url
+        resume_url = result.url
         resume_path = result.path
       }
       const { error } = await supabase.from('applications').insert({
-        name:        form.name,
-        email:       form.email,
-        phone:       form.phone,
-        experience:  form.experience,
-        message:     form.message,
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        experience: form.experience,
+        message: form.message,
         position,
         resume_url,
         resume_path,
@@ -101,7 +157,7 @@ export default function Career() {
       setSubmitted(true)
     } catch (err) {
       console.error(err)
-      setError('Something went wrong. Please try again or email us directly.')
+      setError('Failed to submit application. Please try again or email us directly.')
     } finally {
       setSubmitting(false)
       setProgress(0)
@@ -131,9 +187,19 @@ export default function Career() {
 
       <section className={styles.jobs}>
         <div className="center">
-
           <h2 className="heading fade-up">Current <span>Job Openings</span></h2>
         </div>
+
+        {jobsError && (
+          <div style={{
+            textAlign: 'center', padding: '2rem 1rem', margin: '0 auto', maxWidth: 500,
+            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+            borderRadius: '12px', color: '#f87171', fontSize: '0.9rem',
+          }}>
+            ⚠️ {jobsError}
+          </div>
+        )}
+
         {jobsLoading ? (
           <p style={{ textAlign: 'center', color: 'var(--text2)', padding: '2rem' }}>
             Loading positions…

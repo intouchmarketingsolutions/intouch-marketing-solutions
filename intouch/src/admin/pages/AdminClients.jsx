@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { supabase } from '../supabase/client'
 import AdminLayout from '../components/AdminLayout'
+import { validateImageFile, getFileValidationError } from '../../utils/validation'
 
 const BLANK = { name: '', website: '', industry: '' }
 
@@ -14,13 +15,21 @@ export default function AdminClients() {
   const [form,     setForm]     = useState(BLANK)
   const [logoFile, setLogoFile] = useState(null)
   const [preview,  setPreview]  = useState(null)
+  const [error,    setError]    = useState('')
   const fileRef = useRef()
 
   const fetchClients = async () => {
     setLoading(true)
-    const { data } = await supabase.from('clients').select('*').order('created_at', { ascending: false })
-    setClients(data ?? [])
-    setLoading(false)
+    try {
+      const { data, error: err } = await supabase.from('clients').select('*').order('created_at', { ascending: false })
+      if (err) throw err
+      setClients(data ?? [])
+    } catch (err) {
+      console.error('Error fetching clients:', err)
+      setError('Failed to load clients. Please refresh.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => { fetchClients() }, [])
@@ -30,14 +39,26 @@ export default function AdminClients() {
     setLogoFile(null)
     setPreview(null)
     setProgress(0)
+    setError('')
     setModal(true)
   }
 
   const handleFile = (e) => {
     const file = e.target.files[0]
     if (!file) return
+
+    // Validate file
+    const validationError = getFileValidationError(file, 'image')
+    if (validationError) {
+      setError(validationError)
+      setLogoFile(null)
+      setPreview(null)
+      return
+    }
+
     setLogoFile(file)
     setPreview(URL.createObjectURL(file))
+    setError('')
   }
 
   const uploadLogo = async (file) => {
@@ -45,17 +66,28 @@ export default function AdminClients() {
     const path = `${Date.now()}.${ext}`
 
     setProgress(10)
-    const { error } = await supabase.storage.from('client-logos').upload(path, file, { upsert: false })
-    if (error) throw error
-    setProgress(100)
+    try {
+      const { error: uploadErr } = await supabase.storage.from('client-logos').upload(path, file, { upsert: false })
+      if (uploadErr) throw uploadErr
+      setProgress(100)
 
-    const { data: { publicUrl } } = supabase.storage.from('client-logos').getPublicUrl(path)
-    return { url: publicUrl, path }
+      const { data: { publicUrl } } = supabase.storage.from('client-logos').getPublicUrl(path)
+      return { url: publicUrl, path }
+    } catch (err) {
+      console.error('Logo upload error:', err)
+      throw new Error('Failed to upload logo. Please try again.')
+    }
   }
 
   const handleSave = async (e) => {
     e.preventDefault()
-    if (!form.name.trim()) return
+    setError('')
+
+    if (!form.name.trim()) {
+      setError('Please enter a client name.')
+      return
+    }
+
     setSaving(true)
     try {
       let logo_url = null, logo_path = null
@@ -64,11 +96,14 @@ export default function AdminClients() {
         logo_url  = result.url
         logo_path = result.path
       }
-      await supabase.from('clients').insert({ ...form, logo_url, logo_path })
+      const { error: dbErr } = await supabase.from('clients').insert({ ...form, logo_url, logo_path })
+      if (dbErr) throw dbErr
       setModal(false)
+      setError('')
       fetchClients()
     } catch (err) {
       console.error(err)
+      setError(err.message || 'Failed to save client. Please try again.')
     } finally {
       setSaving(false)
       setProgress(0)
