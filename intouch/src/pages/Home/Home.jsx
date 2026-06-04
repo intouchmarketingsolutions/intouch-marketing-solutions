@@ -145,17 +145,17 @@ export default function Home() {
               <div className={styles.prevIcon}><item.Icon size={30} /></div>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
-              <span className={styles.learnMore}>Learn More â†’</span>
+              <span className={styles.learnMore}>Learn More </span>
             </Link>
           ))}
         </div>
 
         <div className={styles.previewBtn}>
           <Link to="/services" className="btn btn-outline fade-up">
-            View All â†’
+            View All
           </Link>
         </div>
-
+ 
         {/* BENEFITS */}
         <div className={styles.benefitsWrap}>
           <div className={styles.benefitsCard}>
@@ -258,16 +258,14 @@ Whether you're a startup or an established company, we provide customized digita
             </p>
 
             <Link to="/contact" className="btn btn-primary">
-              Get Free Consultation â†’
+              Get Free Consultation 
             </Link>
           </div>
         </div>
 
 
         <section className={styles.trustSection}>
-  <div className={styles.trustBadge}>
-    â­â­â­â­â­ 
-  </div>
+  
 
   <h2 className={styles.trustTitle}>
     Trusted By <span>120+ Brands</span>
@@ -282,3 +280,5 @@ Whether you're a startup or an established company, we provide customized digita
     </div>
   )
 }
+
+
