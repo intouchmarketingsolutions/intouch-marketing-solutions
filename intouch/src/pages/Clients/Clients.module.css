@@ -1178,28 +1178,8 @@
   .testimonials { padding: 4rem 4%; }
   .testiGrid { grid-template-columns: 1fr; }
   .cta { padding: 4rem 5%; }
-  .ctaTitle { font-size: clamp(1.6rem, 5vw, 2.5rem);
-  .logoSection {
-    padding: 4rem 5%;
-  }
-
-  .logoGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .logoCard {
-    height: 100px;
-  }
-
-  .logoTitle {
-    font-size: 2.5rem;
-  }
-
-  .logoStats {
-    gap: 2rem;
-  }
-} }
+  .ctaTitle { font-size: clamp(1.6rem, 5vw, 2.5rem); }
+}
 
 
 @media (max-width: 600px) {

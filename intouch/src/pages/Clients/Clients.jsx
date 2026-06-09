@@ -152,7 +152,7 @@ function OrbCanvas() {
     const cTop = new THREE.Color(0x06b6d4)
     const cMid = new THREE.Color(0x7c3aed)
     const cBot = new THREE.Color(0xe040fb)
-
+       
     for (let i = 0; i < posAttr.count; i++) {
       const t   = THREE.MathUtils.clamp((posAttr.getY(i) / R + 1) * 0.5, 0, 1)
       const col = t > 0.5 ? cMid.clone().lerp(cTop, (t - 0.5) * 2)

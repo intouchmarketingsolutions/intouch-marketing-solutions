@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block admin panel from indexing
+Disallow: /secure-admin-panel-x92/
+
+Sitemap: https://www.intouchmarketingsolutions.com/sitemap.xml

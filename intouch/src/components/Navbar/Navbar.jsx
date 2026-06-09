@@ -108,7 +108,7 @@ export default function Navbar() {
                 <NavLink to="/services/10" onClick={closeMenu}>Graphic Design</NavLink>
                 <NavLink to="/services/11" onClick={closeMenu}>Video Editing</NavLink>
                 <NavLink to="/services/12" onClick={closeMenu}>Branding</NavLink>
-                <NavLink to="/services/13" onClick={closeMenu}>Ad shots</NavLink>
+                <NavLink to="/services/13" onClick={closeMenu}>Ad Shots</NavLink>
               </div>
               <div className={styles.megaCol}>
                 <h4>Technology</h4>

@@ -130,7 +130,7 @@ export default function Home() {
             Services That <span>Drive Results</span>
           </h2>
           <p className="sub fade-up">
-            From branding to performance marketing â€” we cover every dimension of your digital growth.
+            From branding to performance marketing — we cover every dimension of your digital growth.
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export default function Home() {
       </h2>
 
       <p className={styles.showcaseDesc}>
-        At Intouch Marketing Solutions, we help businesses grow online with creative marketing, professional websites, and result-driven strategies. Our goal is simple â€” attract more customers, increase brand visibility, and generate quality leads for your business.
+        At Intouch Marketing Solutions, we help businesses grow online with creative marketing, professional websites, and result-driven strategies. Our goal is simple — attract more customers, increase brand visibility, and generate quality leads for your business.
 
 Whether you're a startup or an established company, we provide customized digital solutions that help you stand out, connect with your audience, and achieve real business growth.
 

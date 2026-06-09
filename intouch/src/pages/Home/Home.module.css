@@ -1920,6 +1920,8 @@
 
 @media(max-width:900px){
 
+.showcaseSection { padding: 80px 5%; }
+
 .showcaseContent{
   grid-template-columns:1fr;
   gap:50px;
@@ -1937,6 +1939,34 @@
   margin-top:20px;
 }
 
+.videoMain { height: 420px; }
+
+}
+
+@media(max-width:768px){
+  .showcaseSection { padding: 60px 5%; }
+  .videoMain { height: 320px; }
+  .showcaseTitle { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+}
+
+@media(max-width:600px){
+  .showcaseSection { padding: 48px 4%; }
+  .videoMain { height: 260px; }
+  .showcaseTitle { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+  .showcaseDesc { font-size: 0.92rem; }
+}
+
+@media(max-width:480px){
+  .showcaseSection { padding: 36px 4%; }
+  .videoMain { height: 220px; }
+  .showcaseTitle { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .showcaseDesc { font-size: 0.88rem; line-height: 1.65; }
+  .showcaseBadge { font-size: 0.72rem; padding: 8px 14px; }
+}
+
+@media(max-width:380px){
+  .showcaseSection { padding: 28px 3%; }
+  .videoMain { height: 180px; }
 }
 /* =========================
    NEW SECTIONS RESPONSIVE
