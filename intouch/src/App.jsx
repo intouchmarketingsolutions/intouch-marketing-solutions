@@ -18,6 +18,11 @@ import Clients      from './pages/Clients/Clients'
 import Career       from './pages/Career/Career'
 import Contact      from './pages/Contact/Contact'
 import StartProject from './pages/StartProject/StartProject'
+import Login        from './pages/Login/Login'
+
+// Site-wide auth (Firebase)
+import { AuthProvider as SiteAuthProvider } from './context/AuthContext'
+import SiteProtectedRoute from './components/ProtectedRoute'
 
 // Admin — completely isolated
 import { AuthProvider }     from './admin/context/AuthContext'
@@ -43,10 +48,19 @@ function PublicLayout() {
       <Routes>
         <Route path="/"             element={<Home />} />
         <Route path="/about"        element={<About />} />
-        <Route path="/services"     element={<Services />} />
+        <Route path="/login"        element={<Login />} />
+        <Route path="/register"     element={<Login />} />
+        <Route
+  path="/services"
+  element={<SiteProtectedRoute><Services /></SiteProtectedRoute>}
+/>
         <Route
   path="/services/:id"
-  element={<ServiceDetail />}
+  element={<SiteProtectedRoute><ServiceDetail /></SiteProtectedRoute>}
+/>
+        <Route
+  path="/services/video-editing"
+  element={<SiteProtectedRoute><VideoEditingPage /></SiteProtectedRoute>}
 />
         <Route path="/reviews"      element={<Reviews />} />
         <Route path="/clients"      element={<Clients />} />
@@ -54,7 +68,6 @@ function PublicLayout() {
         <Route path="/contact"      element={<Contact />} />
         <Route path="/start-project" element={<StartProject />} />
         <Route path="*"             element={<Navigate to="/" replace />} />
-        <Route path="/services/video-editing" element={<VideoEditingPage />}/>
       </Routes>
       <Footer />
       <ChatBot />
@@ -89,7 +102,9 @@ export default function App() {
           <Route path={`${ADMIN_BASE}/*`} element={<AdminRoutes />} />
         </Routes>
       ) : (
-        <PublicLayout />
+        <SiteAuthProvider>
+          <PublicLayout />
+        </SiteAuthProvider>
       )}
     </ErrorBoundary>
   )

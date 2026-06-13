@@ -437,3 +437,16 @@ select.form-control option {
   .sub { font-size: 0.75rem; line-height: 1.4; }
   .btn { padding: 0.5rem 0.9rem; font-size: 0.7rem; }
 }
+
+.auth-spinner {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid var(--border2);
+  border-top-color: var(--primary);
+  animation: auth-spin 0.8s linear infinite;
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}

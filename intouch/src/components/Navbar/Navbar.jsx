@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import { FaArrowRight } from 'react-icons/fa'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { FaArrowRight, FaUserCircle, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import styles from './Navbar.module.css'
 import logo from '../../assets/intouch.png'
+import { useAuth } from '../../context/AuthContext'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   const [mega, setMega] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
   const megaCloseTimer = useRef(null)
+  const accountRef = useRef(null)
+
+  const { currentUser, logout } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -17,11 +23,33 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (accountRef.current && !accountRef.current.contains(e.target)) {
+        setAccountOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [])
+
   const closeMenu = () => {
     setOpen(false)
     setDropdown(false)
     setMega(false)
+    setAccountOpen(false)
   }
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } finally {
+      closeMenu()
+      navigate('/')
+    }
+  }
+
+  const displayName = currentUser?.displayName || currentUser?.email || 'Account'
 
   const openMega = () => {
     clearTimeout(megaCloseTimer.current)
@@ -128,11 +156,43 @@ export default function Navbar() {
 
         </ul>
 
-        {/* RIGHT: CTA + HAMBURGER */}
+        {/* RIGHT: AUTH + CTA + HAMBURGER */}
         <div className={styles.navRight}>
           <Link to="/contact" className={styles.ctaBtn} onClick={closeMenu}>
             Get Free Quote <FaArrowRight size={11} />
           </Link>
+
+          {/* AUTH: desktop */}
+          <div className={styles.authArea} ref={accountRef}>
+            {currentUser ? (
+              <>
+                <button
+                  className={styles.authIconBtn}
+                  onClick={() => setAccountOpen((v) => !v)}
+                  aria-label="Account menu"
+                >
+                  <FaUserCircle size={22} />
+                </button>
+                <div className={`${styles.accountMenu} ${accountOpen ? styles.show : ''}`}>
+                  <div className={styles.accountInfo}>
+                    <FaUser size={14} />
+                    <span>{displayName}</span>
+                  </div>
+                  <Link to="/start-project" className={styles.accountItem} onClick={closeMenu}>
+                    Profile / Account
+                  </Link>
+                  <button className={styles.accountItem} onClick={handleLogout}>
+                    <FaSignOutAlt size={13} /> Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <Link to="/login" className={styles.authIconBtn} aria-label="Sign in" onClick={closeMenu}>
+                <FaUserCircle size={22} />
+              </Link>
+            )}
+          </div>
+
           <button
             className={`${styles.ham} ${open ? styles.hamOpen : ''}`}
             onClick={() => setOpen(!open)}
@@ -152,6 +212,25 @@ export default function Navbar() {
         <NavLink to="/services" className={styles.dlink} onClick={closeMenu}>Services</NavLink>
         <NavLink to="/reviews" className={styles.dlink} onClick={closeMenu}>Reviews</NavLink>
         <NavLink to="/clients" className={styles.dlink} onClick={closeMenu}>Clients</NavLink>
+
+        {/* AUTH: mobile */}
+        {currentUser ? (
+          <>
+            <div className={styles.drawerAccount}>
+              <FaUserCircle size={18} />
+              <span>{displayName}</span>
+            </div>
+            <Link to="/start-project" className={styles.dlink} onClick={closeMenu}>Profile / Account</Link>
+            <button className={`${styles.dlink} ${styles.drawerLogout}`} onClick={handleLogout}>
+              <FaSignOutAlt size={13} /> Logout
+            </button>
+          </>
+        ) : (
+          <NavLink to="/login" className={styles.dlink} onClick={closeMenu}>
+            <FaUserCircle size={15} /> Sign In
+          </NavLink>
+        )}
+
         <Link to="/contact" className={styles.drawerCta} onClick={closeMenu}>
           Get Free Quote <FaArrowRight size={12} />
         </Link>
