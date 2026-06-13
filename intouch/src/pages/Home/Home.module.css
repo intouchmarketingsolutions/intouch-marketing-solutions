@@ -75,6 +75,17 @@
   max-width: 1280px;
   padding: 0 80px;
 }
+
+.heroImage {
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  z-index: 2;
+  max-height: 95%;
+  max-width: 70%;
+  object-fit: contain;
+  pointer-events: none;
+}
 .heroSub{
   max-width:650px;
   margin-top:24px;
@@ -121,6 +132,8 @@
   letter-spacing: -1px;
   text-shadow: 0 2px 20px rgba(0,0,0,0.6);
   animation: fadeUp 0.9s 0.1s ease both;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .heroTitle span {
@@ -269,6 +282,11 @@
   font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: 0.3px;
+}
+
+.statText {
+  min-width: 0;
+  flex: 1;
 }
 
 /* =========================
@@ -914,6 +932,7 @@
   .orb1 { width: 260px; height: 260px; left: -100px; }
   .orb2 { display: none; }
   .cube3 { display: none; }
+  .heroImage { max-width: 45%; max-height: 70%; opacity: 0.85; }
 }
 
 /* Landscape Tablet */
@@ -926,13 +945,46 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .hero { height: 68vw; min-height: 320px; max-height: 500px; margin-top: var(--nav-h); }
+  .hero {
+    position: relative;
+    height: auto;
+    min-height: 620px;
+    max-height: none;
+    margin-top: var(--nav-h);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 32px 0 28px;
+    overflow: hidden;
+  }
 
-  .heroContent { padding: 0 24px; }
+  .heroContent { position: relative; z-index: 3; padding: 0 24px; }
   .heroTitle { font-size: 2.4rem; }
   .heroSub { max-width: 100%; font-size: 1rem; }
   .heroBtns { flex-direction: column; align-items: stretch; gap: 0.8rem; }
   .heroBtns .btn { width: 100%; justify-content: center; }
+
+  .overlay { z-index: 2; }
+
+  .heroImage {
+    display: block;
+    position: absolute;
+    top: auto;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    width: 70%;
+    max-width: 300px;
+    max-height: 60%;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    z-index: 1;
+    opacity: 0.85;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
   .benefitsWrap { padding: 0 4%; }
   .benefitsGrid { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -949,24 +1001,36 @@
   .ctaText { padding: 2rem 1.8rem; }
   .ctaSub { max-width: 100%; }
 
+  .statsBar { padding: 28px 2% 40px; overflow-x: hidden; }
   .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem;
     border-top: 1px solid var(--border2);
   }
   .statItem {
-    padding: 1.5rem 1.2rem;
+    padding: 0.4rem 0.3rem;
     border-right: none;
-    border-bottom: 1px solid var(--border2);
-    gap: 0.9rem;
-    justify-content: flex-start;
+    border-bottom: none;
+    gap: 0.2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 0;
+    min-height: 0;
   }
-  .statItem:nth-child(odd)  { border-right: 1px solid var(--border2); }
-  .statItem:last-child,
-  .statItem:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-  .statIcon { width: 44px; height: 44px; font-size: 1rem; }
-  .statNum  { font-size: 1.65rem; }
-  .statLabel { font-size: 0.78rem; }
+  .statItem:nth-child(odd)  { border-right: none; }
+  .statText { flex: none; width: 100%; min-width: 0; }
+  .statIcon { width: 30px; height: 30px; font-size: 0.75rem; }
+  .statNum  { font-size: 1.1rem; }
+  .statLabel {
+    margin-top: 0.15rem;
+    font-size: 0.62rem;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+  }
 
   .orb1 { width: 200px; height: 200px; left: -80px; }
   .orb3 { display: none; }
@@ -974,14 +1038,22 @@
   .cube2 { display: none; }
   .overlay::after { display: none; }
 
-  .preview { padding: 3rem 0 4rem; }
+  .preview { padding: 1.5rem 0 2.5rem; }
+  .previewHeader { margin-bottom: 2rem; }
   .previewGrid { padding: 0 4%; grid-template-columns: 1fr; gap: 1.2rem; }
   .prevCard { height: auto; min-height: 280px; overflow: visible; padding: 2rem 1.6rem; }
   .prevIcon { width: 60px; height: 60px; margin-bottom: 1.2rem; }
   .prevCard h3 { font-size: 1.1rem; }
   .prevCard p { font-size: 0.88rem; }
 
-  .sectionSub { max-width: 100%; margin-bottom: 2.5rem; font-size: 0.95rem; }
+  .sectionSub { max-width: 100%; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+  .benefitsWrap { margin-top: 1.5rem; }
+  .videoCtaSection { padding: 1.5rem 0 2.5rem; }
+  .galleryHeader { margin-bottom: 1.5rem; }
+  .ctaBox { margin-top: 1.5rem; }
+  .processSection { padding: 2.5rem 0; }
+  .testimonialSection { padding: 2.5rem 0; }
 }
 
 /* Medium Mobile */
@@ -992,11 +1064,13 @@
   .heroSub { font-size: 0.96rem; line-height: 1.6; }
   .heroBadge { font-size: 0.62rem; padding: 0.4rem 1rem; }
 
-  .statsGrid { grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--border2); }
-  .statItem { padding: 1.3rem 1rem; gap: 0.8rem; }
-  .statIcon { width: 40px; height: 40px; font-size: 0.9rem; }
-  .statNum { font-size: 1.55rem; }
-  .statLabel { font-size: 0.75rem; }
+  .statsBar { padding: 24px 2% 36px; overflow-x: hidden; }
+  .statsGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.35rem; border-top: 1px solid var(--border2); }
+  .statItem { padding: 0.35rem 0.25rem; gap: 0.18rem; flex-direction: column; align-items: center; text-align: center; min-width: 0; min-height: 0; }
+  .statText { flex: none; width: 100%; min-width: 0; }
+  .statIcon { width: 28px; height: 28px; font-size: 0.72rem; }
+  .statNum { font-size: 1rem; }
+  .statLabel { margin-top: 0.12rem; font-size: 0.58rem; line-height: 1.15; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
 
   .benefitsCard { padding: 1.8rem 1.3rem; }
   .benefitsTitle { font-size: 1.15rem; }
@@ -1009,7 +1083,7 @@
   .prevCard p { font-size: 0.85rem; }
   .learnMore { font-size: 0.85rem; }
   
-  .previewHeader { margin-bottom: 2.8rem; padding: 0 3%; }
+  .previewHeader { margin-bottom: 1.75rem; padding: 0 3%; }
   .sectionSub { font-size: 0.92rem; }
 }
 
@@ -1023,15 +1097,14 @@
   .heroBtns .btn { width: 100%; padding: 0.65rem 1.2rem; }
   .heroBadge { font-size: 0.58rem; padding: 0.35rem 0.9rem; margin-bottom: 1rem; }
 
-  .statsBar { padding: 2rem 0; }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); gap: 0; }
-  .statItem { padding: 1rem 0.8rem; gap: 0.6rem; flex-direction: column; align-items: center; text-align: center; justify-content: center; border-right: none !important; border-bottom: 1px solid var(--border2); }
+  .statsBar { padding: 1.5rem 2% 2rem; overflow-x: hidden; }
+  .statsGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.25rem; }
+  .statItem { padding: 0.3rem 0.2rem; gap: 0.15rem; flex-direction: column; align-items: center; text-align: center; justify-content: center; border-right: none !important; border-bottom: none; min-width: 0; min-height: 0; }
   .statItem:nth-child(odd)  { border-right: none; }
-  .statItem:last-child,
-  .statItem:nth-child(n-2) { border-bottom: none; }
-  .statIcon { width: 36px; height: 36px; font-size: 0.8rem; margin-bottom: 0.4rem; }
-  .statNum  { font-size: 1.35rem; }
-  .statLabel { font-size: 0.7rem; margin-top: 0.3rem; }
+  .statText { flex: none; width: 100%; min-width: 0; }
+  .statIcon { width: 26px; height: 26px; font-size: 0.66rem; margin-bottom: 0; }
+  .statNum  { font-size: 0.9rem; }
+  .statLabel { font-size: 0.54rem; margin-top: 0.1rem; line-height: 1.1; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
 
   .benefitsCard { padding: 1.4rem 1rem; }
   .benefitsGrid { grid-template-columns: 1fr; gap: 1rem; }
@@ -1049,7 +1122,7 @@
   .prevCard p { font-size: 0.82rem; line-height: 1.5; }
   .learnMore { font-size: 0.8rem; }
 
-  .previewHeader { margin-bottom: 2.2rem; padding: 0 2%; }
+  .previewHeader { margin-bottom: 1.5rem; padding: 0 2%; }
   .sectionSub { font-size: 0.88rem; }
 
   .orb1 { width: 150px; height: 150px; left: -60px; top: 10%; }
@@ -1068,10 +1141,10 @@
   .heroBtns { gap: 0.5rem; }
   .heroBtns .btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
 
-  .statsItem { padding: 0.8rem 0.6rem; gap: 0.5rem; }
-  .statIcon { width: 32px; height: 32px; font-size: 0.7rem; }
-  .statNum { font-size: 1.2rem; }
-  .statLabel { font-size: 0.65rem; }
+  .statItem { padding: 0.3rem 0.15rem; gap: 0.12rem; min-height: 0; }
+  .statIcon { width: 24px; height: 24px; font-size: 0.6rem; }
+  .statNum { font-size: 0.82rem; }
+  .statLabel { font-size: 0.5rem; margin-top: 0.08rem; }
 
   .benefitsCard { padding: 1.2rem 0.9rem; }
   .benefitsTitle { font-size: 1rem; }

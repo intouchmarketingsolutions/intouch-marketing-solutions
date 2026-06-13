@@ -414,7 +414,7 @@
 ============================================= */
 .gallerySection {
   background: #000;
-  padding: 3rem 0;
+  padding: 1.5rem 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -423,8 +423,6 @@
 
 .galleryRow {
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
 .galleryTrack {
@@ -459,12 +457,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.85) saturate(1.1);
-  transition: filter 0.3s ease, transform 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .galleryCard:hover img {
-  filter: brightness(1) saturate(1.3);
   transform: scale(1.05);
 }
 
@@ -476,7 +472,7 @@
   position: relative;
   overflow: hidden;
 
-  padding: 5rem 0 4rem;
+  padding: 2rem 0;
 
   background:
     radial-gradient(circle at top,
@@ -709,22 +705,6 @@
   overflow:hidden;
   width:100%;
   margin-top:2rem;
-
-  mask-image:linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
-
-  -webkit-mask-image:linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
 }
 
 .logoTrack,
@@ -1008,13 +988,13 @@
 ============================================= */
 .testimonials {
   background: #07050f;
-  padding: 5rem 5%;
+  padding: 2.5rem 5%;
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 
 .testiHeader {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .testiSub { color: rgba(241,245,249,0.45); font-size: 1rem; margin-top: 0.5rem; }
@@ -1100,7 +1080,7 @@
 .cta {
   position: relative;
   background: #07050f;
-  padding: 8rem 5%;
+  padding: 3rem 5%;
   text-align: center;
   overflow: hidden;
   border-top: 1px solid rgba(255,255,255,0.05);
@@ -1169,22 +1149,22 @@
   .heroStats { flex-wrap: wrap; justify-content: center; }
   .heroStatItem { flex: 0 0 45%; border-right: none; border-bottom: 1px solid rgba(99,102,241,0.12); }
   .heroStatItem:nth-child(odd) { border-right: 1px solid rgba(99,102,241,0.12); }
-  .heroMain { padding: 0 5% 4rem; }
+  .heroMain { padding: 0 5% 1.5rem; }
 }
 
 @media (max-width: 768px) {
   .heroTitle { font-size: clamp(1.8rem, 6vw, 2.5rem); }
   .galleryCard { width: 240px; height: 155px; }
-  .testimonials { padding: 4rem 4%; }
+  .testimonials { padding: 2rem 4%; }
   .testiGrid { grid-template-columns: 1fr; }
-  .cta { padding: 4rem 5%; }
+  .cta { padding: 2rem 5%; }
   .ctaTitle { font-size: clamp(1.6rem, 5vw, 2.5rem); }
 }
 
 
 @media (max-width: 600px) {
   .galleryCard { width: 200px; height: 130px; }
-  .heroMain { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
+  .heroMain { padding-top: calc(var(--nav-h) + 1.5rem); padding-bottom: 1.5rem; }
   .heroStatItem { flex: 0 0 100%; border-right: none; padding: 1.2rem 1.5rem; }
   .heroTitle { font-size: 2rem; }
   .heroBadge { font-size: 0.65rem; }
@@ -1204,8 +1184,8 @@
   .filterSection { padding: 2.5rem 4% 1.5rem; }
   .gridSection { padding: 1.5rem 4% 3rem; }
   .testiGrid { grid-template-columns: 1fr; }
-  .testimonials { padding: 3rem 4%; }
-  .cta { padding: 3rem 4%; }
+  .testimonials { padding: 1.5rem 4%; }
+  .cta { padding: 1.5rem 4%; }
   .ctaTitle { font-size: 1.8rem; letter-spacing: -0.5px; }
   .ctaSub { font-size: 0.9rem; max-width: 100%; }
   .filterHeader { gap: 1rem; flex-direction: column; align-items: flex-start; }
@@ -1214,7 +1194,7 @@
   .gemSvg { width: 240px; height: 240px; }
   .gemGlow { width: 280px; }
   .aurora { inset: -140px; }
-  .heroMain { padding: 0 4% 3.5rem; }
+  .heroMain { padding: 0 4% 1.5rem; }
   .heroBadge { font-size: 0.6rem; letter-spacing: 1.5px; }
   .testiCard { padding: 1.5rem; }
   .quote { font-size: 0.9rem; }
@@ -1228,4 +1208,76 @@
 @media (max-width: 380px) {
   .grid { grid-template-columns: 1fr; }
   .heroTitle { font-size: 1.5rem; }
+}
+
+/* ===== Mobile: hero stats grid / testimonials carousel ===== */
+@media (max-width: 768px) {
+  /* Hero stats -> fixed 2-column grid, no scroll */
+  .heroStats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.75rem 16px;
+  }
+
+  .heroStatItem {
+    flex: none;
+    min-width: 0;
+    border: none !important;
+    gap: 0.6rem;
+    padding: 0.75rem 0.6rem;
+    align-items: flex-start;
+  }
+
+  .heroStatIcon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .heroStatText { min-width: 0; }
+
+  .heroStatText strong { font-size: 0.78rem; }
+
+  .heroStatText span {
+    font-size: 0.66rem;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Testimonials -> horizontal swipeable carousel */
+  .testiGrid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 16px 12px;
+    margin: 0 -4%;
+    gap: 12px;
+  }
+
+  .testiGrid::-webkit-scrollbar { display: none; height: 0; }
+
+  .testiCard {
+    flex: 0 0 84%;
+    min-width: 0;
+    scroll-snap-align: center;
+    padding: 1.4rem;
+    gap: 0.8rem;
+  }
+
+  .quote { font-size: 0.86rem; line-height: 1.6; }
+
+  .growthPill { font-size: 0.7rem; padding: 3px 10px; }
+
+  .avatar { width: 38px; height: 38px; font-size: 0.9rem; }
+
+  .testiAuthor strong { font-size: 0.84rem; }
+  .testiAuthor span { font-size: 0.72rem; }
 }

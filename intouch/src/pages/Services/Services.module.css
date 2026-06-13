@@ -1020,3 +1020,87 @@
   .whySub { max-width: 100%; }
   .ctaBtn { white-space: normal; text-align: center; }
 }
+
+/* ===== Mobile: shrink cube banner scene + process steps single-row grid ===== */
+.procGridMobile { display: none; }
+
+@media (max-width: 768px) {
+  /* PART 1: scale down the glowing cube/slab scene so it fully fits */
+  .cubeScene {
+    transform: scale(0.6);
+    transform-origin: center center;
+  }
+
+  /* PART 2: replace the 3-row stacked process layout with a single-row grid */
+  .procCirclesRow,
+  .procNumsRow,
+  .procCardsRow {
+    display: none !important;
+  }
+
+  .procGridMobile {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    padding: 0 2%;
+  }
+
+  .procGridItem {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+    padding: 0.8rem 0.4rem;
+    background: rgba(10,14,48,0.72);
+    border: 1px solid rgba(60,80,200,0.28);
+    border-radius: 12px;
+  }
+
+  .procGridItemMid {
+    border-color: rgba(168,85,247,0.32);
+  }
+
+  .procGridIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(14,90,180,0.4), rgba(50,70,200,0.45));
+    border: 2px solid rgba(80,120,255,0.6);
+    color: #60a5fa;
+  }
+
+  .procGridItemMid .procGridIcon {
+    background: linear-gradient(135deg, rgba(90,40,190,0.6), rgba(168,85,247,0.55));
+    border-color: rgba(168,85,247,0.85);
+    color: #d8b4fe;
+  }
+
+  .procGridNum {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: #6366f1;
+  }
+
+  .procGridItemMid .procGridNum {
+    color: #a855f7;
+  }
+
+  .procGridTitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  .procSteps {
+    display: block;
+  }
+}

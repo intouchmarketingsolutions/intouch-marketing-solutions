@@ -934,3 +934,105 @@
     font-size: 1.55rem;
   }
 }
+
+/* ===== Mobile horizontal carousels: process / tools / what-we-design ===== */
+@media (max-width: 768px) {
+  .processRow,
+  .toolsRow,
+  .designRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 16px 12px;
+    gap: 12px;
+    margin: 0 -16px;
+  }
+
+  .processRow::-webkit-scrollbar,
+  .toolsRow::-webkit-scrollbar,
+  .designRow::-webkit-scrollbar {
+    display: none;
+    height: 0;
+  }
+
+  /* Process steps */
+  .processCard {
+    flex: 0 0 140px;
+    min-width: 140px;
+    min-height: auto;
+    scroll-snap-align: start;
+  }
+
+  .stepConnector {
+    display: none;
+  }
+
+  .stepBubble {
+    width: 56px;
+    height: 56px;
+    font-size: 1rem;
+    margin: 0 auto;
+  }
+
+  .stepNumber {
+    font-size: 0.62rem;
+    margin-top: 6px;
+  }
+
+  .processCard h3 {
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
+
+  .processCard p {
+    font-size: 0.66rem;
+    line-height: 1.3;
+    margin-top: 4px;
+  }
+
+  /* Tools */
+  .toolMiniCard {
+    flex: 0 0 84px;
+    min-width: 84px;
+    scroll-snap-align: start;
+  }
+
+  .toolIconShell {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    margin: 0 auto 8px;
+  }
+
+  .toolIconShell svg {
+    font-size: 1.5rem;
+  }
+
+  .toolMiniCard span {
+    font-size: 0.68rem;
+  }
+
+  /* What we design */
+  .designCard {
+    flex: 0 0 82%;
+    min-width: 82%;
+    scroll-snap-align: center;
+  }
+
+  .designCard img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .designCard h4 {
+    font-size: 0.86rem;
+  }
+}

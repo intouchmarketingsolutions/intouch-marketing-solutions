@@ -225,6 +225,19 @@ export default function Services() {
             ))}
           </div>
 
+          {/* Mobile-only single-row grid layout */}
+          <div className={styles.procGridMobile}>
+            {PROCESS_STEPS.map((p, i) => (
+              <div key={p.num} className={`${styles.procGridItem} ${i === 2 ? styles.procGridItemMid : ''}`}>
+                <div className={styles.procGridIcon}>
+                  <p.Icon size={16} />
+                </div>
+                <div className={styles.procGridNum}>{p.num}</div>
+                <h3 className={styles.procGridTitle}>{p.title}</h3>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 

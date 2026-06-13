@@ -106,7 +106,15 @@ export default function GraphicDesignPage() {
   const [active, setActive] = useState(0)
   const wheelLock = useRef(false)
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
+  const [designActive, setDesignActive] = useState(0)
   const total = posters.length
+
+  const handleDesignScroll = useCallback((event) => {
+    const el = event.currentTarget
+    const cardWidth = el.scrollWidth / designShowcase.length
+    const idx = Math.round(el.scrollLeft / cardWidth)
+    setDesignActive(Math.min(designShowcase.length - 1, Math.max(0, idx)))
+  }, [])
 
   const navigate = useCallback((step) => {
     setActive((current) => (current + step + total) % total)
@@ -256,7 +264,7 @@ export default function GraphicDesignPage() {
 
         <div className={styles.panelBlock}>
           <p className={styles.blockLabel}>WHAT WE DESIGN</p>
-          <div className={styles.designRow}>
+          <div className={styles.designRow} onScroll={handleDesignScroll}>
             {designShowcase.map((item, index) => (
               <motion.article
                 key={item.title}
@@ -271,7 +279,11 @@ export default function GraphicDesignPage() {
               </motion.article>
             ))}
           </div>
-          <div className={styles.dots}><span className={styles.dotActive} /><span /><span /></div>
+          <div className={styles.dots}>
+            {designShowcase.map((item, index) => (
+              <span key={item.title} className={index === designActive ? styles.dotActive : undefined} />
+            ))}
+          </div>
         </div>
 
         <div className={styles.benefitsRow}>

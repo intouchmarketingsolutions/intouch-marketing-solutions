@@ -104,8 +104,7 @@ function OrbCanvas() {
     const el = mountRef.current
     if (!el) return
 
-    // Skip on mobile — too heavy, causes hang
-    if (window.innerWidth < 768) return
+    const isMobile = window.innerWidth < 768
 
     // Check WebGL support before starting
     try {
@@ -122,8 +121,8 @@ function OrbCanvas() {
 
     try {
 
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2))
     renderer.setSize(W, H)
     el.appendChild(renderer.domElement)
 
@@ -137,7 +136,7 @@ function OrbCanvas() {
     const R      = 1.9
     const OX     = 0      // horizontally centred
     const OY     = 2.0    // upper portion of canvas
-    const icoGeo = new THREE.IcosahedronGeometry(R, 2)
+    const icoGeo = new THREE.IcosahedronGeometry(R, isMobile ? 1 : 2)
 
     const icoMesh = new THREE.Mesh(icoGeo, new THREE.MeshBasicMaterial({
       color: 0x020813, transparent: true, opacity: 0.80,
@@ -188,12 +187,13 @@ function OrbCanvas() {
     const arcGroup = new THREE.Group()
     const lerp = (a, b, t) => a + (b - a) * t
 
-    const ARC_PARAMS = [
+    const ARC_PARAMS_FULL = [
       { op: 0.95, spd: 0.030 }, { op: 0.82, spd: 0.025 },
       { op: 0.66, spd: 0.020 }, { op: 0.50, spd: 0.015 },
       { op: 0.35, spd: 0.010 }, { op: 0.22, spd: 0.007 },
       { op: 0.13, spd: 0.005 }, { op: 0.07, spd: 0.003 },
     ]
+    const ARC_PARAMS = isMobile ? ARC_PARAMS_FULL.slice(0, 4) : ARC_PARAMS_FULL
 
     // Cyan arcs — upper half, wide left fan → converge above orb → moderate right spread (L→R)
     ARC_PARAMS.forEach(({ op, spd }, i) => {
@@ -229,51 +229,53 @@ function OrbCanvas() {
       arcGroup.add(arc)
     })
 
-    // Accent arcs — 2 cyan + 2 pink hugging the orb surface
-    const accentC = makeArc([
-      new THREE.Vector3(-10, OY + 0.3, 0.18),
-      new THREE.Vector3(OX-4, OY + 0.22, 0.1),
-      new THREE.Vector3(OX,   OY + 0.18, 0),
-      new THREE.Vector3(OX+4, OY + 0.1, -0.1),
-      new THREE.Vector3(12,   OY - 0.3, -0.18),
-    ], '#67e8f9', 1.0)
-    accentC.userData.spd = 0.036
-    arcGroup.add(accentC)
+    // Accent arcs — 2 cyan + 2 pink hugging the orb surface (desktop only, perf)
+    if (!isMobile) {
+      const accentC = makeArc([
+        new THREE.Vector3(-10, OY + 0.3, 0.18),
+        new THREE.Vector3(OX-4, OY + 0.22, 0.1),
+        new THREE.Vector3(OX,   OY + 0.18, 0),
+        new THREE.Vector3(OX+4, OY + 0.1, -0.1),
+        new THREE.Vector3(12,   OY - 0.3, -0.18),
+      ], '#67e8f9', 1.0)
+      accentC.userData.spd = 0.036
+      arcGroup.add(accentC)
 
-    const accentC2 = makeArc([
-      new THREE.Vector3(-10, OY + 1.4, 0.14),
-      new THREE.Vector3(OX-4, OY + 0.9, 0.08),
-      new THREE.Vector3(OX,   OY + 0.55, 0),
-      new THREE.Vector3(OX+4, OY + 0.4, -0.08),
-      new THREE.Vector3(12,   OY + 0.55, -0.14),
-    ], '#06b6d4', 0.88)
-    accentC2.userData.spd = 0.031
-    arcGroup.add(accentC2)
+      const accentC2 = makeArc([
+        new THREE.Vector3(-10, OY + 1.4, 0.14),
+        new THREE.Vector3(OX-4, OY + 0.9, 0.08),
+        new THREE.Vector3(OX,   OY + 0.55, 0),
+        new THREE.Vector3(OX+4, OY + 0.4, -0.08),
+        new THREE.Vector3(12,   OY + 0.55, -0.14),
+      ], '#06b6d4', 0.88)
+      accentC2.userData.spd = 0.031
+      arcGroup.add(accentC2)
 
-    const accentP = makeArc([
-      new THREE.Vector3(-10, OY - 0.3, 0.18),
-      new THREE.Vector3(OX-4, OY - 0.22, 0.1),
-      new THREE.Vector3(OX,   OY - 0.18, 0),
-      new THREE.Vector3(OX+4, OY - 0.1, -0.1),
-      new THREE.Vector3(12,   OY + 0.3, -0.18),
-    ], '#f0abfc', 1.0)
-    accentP.userData.spd = 0.036
-    arcGroup.add(accentP)
+      const accentP = makeArc([
+        new THREE.Vector3(-10, OY - 0.3, 0.18),
+        new THREE.Vector3(OX-4, OY - 0.22, 0.1),
+        new THREE.Vector3(OX,   OY - 0.18, 0),
+        new THREE.Vector3(OX+4, OY - 0.1, -0.1),
+        new THREE.Vector3(12,   OY + 0.3, -0.18),
+      ], '#f0abfc', 1.0)
+      accentP.userData.spd = 0.036
+      arcGroup.add(accentP)
 
-    const accentP2 = makeArc([
-      new THREE.Vector3(-10, OY - 1.4, 0.14),
-      new THREE.Vector3(OX-4, OY - 0.9, 0.08),
-      new THREE.Vector3(OX,   OY - 0.55, 0),
-      new THREE.Vector3(OX+4, OY - 0.4, -0.08),
-      new THREE.Vector3(12,   OY - 0.55, -0.14),
-    ], '#c026d3', 0.88)
-    accentP2.userData.spd = 0.031
-    arcGroup.add(accentP2)
+      const accentP2 = makeArc([
+        new THREE.Vector3(-10, OY - 1.4, 0.14),
+        new THREE.Vector3(OX-4, OY - 0.9, 0.08),
+        new THREE.Vector3(OX,   OY - 0.55, 0),
+        new THREE.Vector3(OX+4, OY - 0.4, -0.08),
+        new THREE.Vector3(12,   OY - 0.55, -0.14),
+      ], '#c026d3', 0.88)
+      accentP2.userData.spd = 0.031
+      arcGroup.add(accentP2)
+    }
 
     scene.add(arcGroup)
 
     // ── Star field ──
-    const COUNT = 200
+    const COUNT = isMobile ? 80 : 200
     const pPos  = new Float32Array(COUNT * 3)
     const pCol  = new Float32Array(COUNT * 3)
     for (let i = 0; i < COUNT; i++) {
@@ -296,7 +298,8 @@ function OrbCanvas() {
     // ── Bloom post-processing ──
     const composer = new EffectComposer(renderer)
     composer.addPass(new RenderPass(scene, camera))
-    composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 1.9, 0.45, 0.0))
+    const bloomRes = isMobile ? new THREE.Vector2(W * 0.6, H * 0.6) : new THREE.Vector2(W, H)
+    composer.addPass(new UnrealBloomPass(bloomRes, 1.9, 0.45, 0.0))
 
     let raf
     const clock = new THREE.Clock()

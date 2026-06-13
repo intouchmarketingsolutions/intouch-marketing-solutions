@@ -4,7 +4,8 @@ import { FaArrowDown, FaUsers, FaBriefcase, FaUserTie, FaChartLine, FaGlobe, FaP
 import useFadeUp from '../../hooks/useFadeUp'
 import styles from './Home.module.css'
 
-import bgVideo from '../../assets/WEBSITE VIDEO .mp4'
+import bgVideo from '../../assets/WEBSITE VIDEO.mp4'
+import heroImg from '../../assets/marketing.png'
 import showcaseVideo from '../../assets/Intouch-css.mp4'
 import cardWeb    from '../../assets/web-development.jpg'
 import cardDesign from '../../assets/Graphic-Design.png'
@@ -73,7 +74,7 @@ function StatItem({ value, suffix = '', label, Icon }) {
   return (
     <div className={`${styles.statItem} fade-up`}>
       <div className={styles.statIcon}><Icon size={22} /></div>
-      <div>
+      <div className={styles.statText}>
         <div className={styles.statNum}>{count}{suffix}</div>
         <div className={styles.statLabel}>{label}</div>
       </div>
@@ -100,10 +101,10 @@ export default function Home() {
   <span className={styles.heroTitleBlue}>Real Growth</span>
 </h1>
 
-<p className={styles.heroSub}>
-  Helping businesses across India increase leads, sales and brand visibility through SEO, Web Development, Social Media Marketing and Paid Advertising.
-</p>
+
         </div>
+
+        <img src={heroImg} alt="Digital Marketing" className={styles.heroImage} />
       </section>
 
       {/* ================= STATS ================= */}
