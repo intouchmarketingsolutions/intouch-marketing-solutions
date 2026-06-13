@@ -12,16 +12,28 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
-const app = initializeApp(firebaseConfig)
+let app = null
+let auth = null
+let googleProvider = null
 
-export const auth = getAuth(app)
-export const googleProvider = new GoogleAuthProvider()
-
-// Analytics only works in supported browser environments
-isSupported().then((supported) => {
-  if (supported && firebaseConfig.measurementId) {
-    getAnalytics(app)
+try {
+  if (!firebaseConfig.apiKey) {
+    throw new Error('Missing Firebase configuration (VITE_FIREBASE_* env vars).')
   }
-}).catch(() => {})
 
+  app = initializeApp(firebaseConfig)
+  auth = getAuth(app)
+  googleProvider = new GoogleAuthProvider()
+
+  // Analytics only works in supported browser environments
+  isSupported().then((supported) => {
+    if (supported && firebaseConfig.measurementId) {
+      getAnalytics(app)
+    }
+  }).catch(() => {})
+} catch (err) {
+  console.error('❌ Firebase initialization failed:', err.message)
+}
+
+export { auth, googleProvider }
 export default app
