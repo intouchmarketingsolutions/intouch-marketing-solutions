@@ -28,6 +28,7 @@ import SiteProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider }     from './admin/context/AuthContext'
 import ProtectedRoute       from './admin/components/ProtectedRoute'
 import AdminLogin           from './admin/pages/AdminLogin'
+import AdminResetPassword   from './admin/pages/AdminResetPassword'
 import Dashboard            from './admin/pages/Dashboard'
 import AdminJobs            from './admin/pages/AdminJobs'
 import AdminClients         from './admin/pages/AdminClients'
@@ -80,6 +81,7 @@ function AdminRoutes() {
     <AuthProvider>
       <Routes>
         <Route path="login"       element={<AdminLogin />} />
+        <Route path="reset-password" element={<AdminResetPassword />} />
         <Route path="dashboard"   element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="jobs"        element={<ProtectedRoute><AdminJobs /></ProtectedRoute>} />
         <Route path="clients"     element={<ProtectedRoute><AdminClients /></ProtectedRoute>} />

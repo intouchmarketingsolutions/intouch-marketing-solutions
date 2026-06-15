@@ -22,6 +22,18 @@ export function AuthProvider({ children }) {
     if (error) throw error
   }
 
+  const resetPassword = async (email) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/secure-admin-panel-x92/reset-password`,
+    })
+    if (error) throw error
+  }
+
+  const updatePassword = async (newPassword) => {
+    const { error } = await supabase.auth.updateUser({ password: newPassword })
+    if (error) throw error
+  }
+
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -39,7 +51,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, logout, resetPassword, updatePassword }}>
       {!loading && children}
     </AuthContext.Provider>
   )
