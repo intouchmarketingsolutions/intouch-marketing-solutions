@@ -35,7 +35,7 @@ export default function Login() {
   const [info, setInfo] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { signIn, signUp, signInWithGoogle, resetPassword } = useAuth()
+  const { signIn, signUp, signInWithGoogle, resetPassword, logout } = useAuth()
   const navigate = useNavigate()
 
   const redirectTo = initialLocation.state?.from?.pathname || '/services'
@@ -61,10 +61,16 @@ export default function Login() {
     try {
       if (mode === 'signup') {
         await signUp(name.trim(), email.trim(), password)
+        await logout()
+        setName('')
+        setPassword('')
+        setConfirmPassword('')
+        setInfo('Account created! Please sign in to continue.')
+        setMode('signin')
       } else {
         await signIn(email.trim(), password)
+        navigate(redirectTo, { replace: true })
       }
-      navigate(redirectTo, { replace: true })
     } catch (err) {
       setError(friendlyError(err))
     } finally {
