@@ -14,6 +14,7 @@ import {
   SiZapier, SiLooker, SiGooglesearchconsole
 } from 'react-icons/si'
 import { SERVICES } from '../../data/services'
+import SEO from '../../components/SEO/SEO'
 import styles from './ServiceDetail.module.css'
 import useFadeUp from '../../hooks/useFadeUp'
 import heroImg from '../../assets/web1.png'
@@ -182,6 +183,11 @@ export default function ServiceDetail() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title={`${service.title} | Intouch Marketing Solutions - Udupi, Karnataka`}
+        description={service.desc}
+        path={`/services/${service.id}`}
+      />
 
       {/* =================== HERO =================== */}
       <section className={styles.hero}>

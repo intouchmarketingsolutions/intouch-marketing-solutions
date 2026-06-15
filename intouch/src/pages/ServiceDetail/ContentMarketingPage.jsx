@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa'
 import { SERVICES } from '../../data/services'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './ContentMarketingPage.module.css'
 
 const HIGHLIGHTS = [
@@ -37,6 +38,11 @@ export default function ContentMarketingPage() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title="Content Marketing | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Content strategies that attract and retain customers - blogs, social content and campaigns from Intouch Marketing Solutions in Udupi, Karnataka."
+        path="/services/8"
+      />
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <div className={`${styles.heroCopy} fade-up`}>

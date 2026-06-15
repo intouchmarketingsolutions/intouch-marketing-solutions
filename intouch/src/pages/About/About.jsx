@@ -16,6 +16,7 @@ import {
 } from 'react-icons/fa'
 
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './About.module.css'
 
 // ✅ IMPORTANT: no spaces in file names
@@ -128,6 +129,11 @@ export default function About() {
 
   return (
     <div className="page-wrap">
+      <SEO
+        title="About Us | Intouch Marketing Solutions - Digital Marketing Agency Udupi"
+        description="Learn about Intouch Marketing Solutions - a passionate team of digital marketers, designers and developers in Udupi, Karnataka helping brands grow with data-driven strategies."
+        path="/about"
+      />
 
       {/* INTRO */}
       <section className={styles.intro}>

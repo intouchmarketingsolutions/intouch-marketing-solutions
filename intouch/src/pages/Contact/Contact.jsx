@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './Contact.module.css'
 import { validateEmail, validatePhone } from '../../utils/validation'
 
@@ -57,7 +58,11 @@ export default function Contact() {
 
   return (
     <div className="page-wrap">
-      
+      <SEO
+        title="Contact Us | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Get in touch with Intouch Marketing Solutions for digital marketing, SEO, web development and design services in Udupi, Karnataka. Call, email or visit us today."
+        path="/contact"
+      />
 
       <section className={styles.section}>
         <div className={styles.grid}>

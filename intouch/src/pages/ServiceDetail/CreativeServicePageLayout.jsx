@@ -9,6 +9,7 @@ import {
   FaShareAlt,
 } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './CreativeServicePageLayout.module.css'
 
 const HIGHLIGHTS = [
@@ -28,6 +29,11 @@ export default function CreativeServicePageLayout({ service, content }) {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title={`${service.title} | Intouch Marketing Solutions - Udupi, Karnataka`}
+        description={content.summary}
+        path={`/services/${service.id}`}
+      />
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <div className={`${styles.heroCopy} fade-up`}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FaArrowDown, FaUsers, FaBriefcase, FaUserTie, FaChartLine, FaGlobe, FaPaintBrush, FaBullhorn, FaChevronLeft, FaChevronRight, FaLightbulb, FaRocket, FaDollarSign } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './Home.module.css'
 
 import bgVideo from '../../assets/WEBSITE VIDEO.mp4'
@@ -87,6 +88,11 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title="Intouch Marketing Solutions | Digital Marketing Agency in Udupi, Karnataka"
+        description="Intouch Marketing Solutions is a results-driven digital marketing agency in Udupi, Karnataka. We offer SEO, Social Media Marketing, Web Development, Graphic Design, Video Editing, Branding and Google Ads to help businesses grow online."
+        path="/"
+      />
       {/* ================= HERO ================= */}
       <section className={styles.hero}>
         <video className={styles.video} autoPlay muted loop playsInline>

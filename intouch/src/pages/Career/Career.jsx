@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { FaMapMarkerAlt, FaBriefcase, FaCloudUploadAlt } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './Career.module.css'
 import { validateEmail, validatePhone, validateDocFile, getFileValidationError } from '../../utils/validation'
 
@@ -168,7 +169,11 @@ export default function Career() {
 
   return (
     <div className="page-wrap">
-    
+      <SEO
+        title="Careers | Join Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Explore career opportunities at Intouch Marketing Solutions. Join our team of digital marketers, designers and developers in Udupi, Karnataka and grow your career with us."
+        path="/career"
+      />
 
       <section className={styles.perks}>
         <div className="center">

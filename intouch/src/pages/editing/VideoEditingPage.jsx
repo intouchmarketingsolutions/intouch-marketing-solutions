@@ -17,6 +17,7 @@ import {
   FaSearch,
   FaYoutube,
 } from "react-icons/fa";
+import SEO from "../../components/SEO/SEO";
 import "./VideoEditingPage.css";
 import VideoCoverflow from "./VideoCoverflow";
 
@@ -125,6 +126,11 @@ const showcaseVideos = [
 export default function VideoEditingPage() {
   return (
     <div className="videoPage">
+      <SEO
+        title="Video Editing Services | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Professional video editing services for brands, social media and ad campaigns - reels, brand stories, promos and more from Intouch Marketing Solutions."
+        path="/services/video-editing"
+      />
 
       <section className="videoHero">
 

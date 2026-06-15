@@ -4,6 +4,7 @@ import React from 'react'
 import { FaStar } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
 import { REVIEWS } from '../../data/reviews'
+import SEO from '../../components/SEO/SEO'
 import styles from './Reviews.module.css'
 
 function Card({ name, role, initials, text, stars }) {
@@ -64,6 +65,11 @@ export default function Reviews() {
 
   return (
     <div className="page-wrap">
+      <SEO
+        title="Client Reviews | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="See what our clients say about working with Intouch Marketing Solutions - real reviews from businesses we've helped grow through digital marketing, design and development."
+        path="/reviews"
+      />
 
       {/* Hero */}
       <div className="page-hero">

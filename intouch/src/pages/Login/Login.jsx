@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGoogle, FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useAuth } from '../../context/AuthContext'
+import SEO from '../../components/SEO/SEO'
 import styles from './Login.module.css'
 
 const FRIENDLY_ERRORS = {
@@ -109,6 +110,12 @@ export default function Login() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title={mode === 'signin' ? 'Sign In | Intouch Marketing Solutions' : 'Sign Up | Intouch Marketing Solutions'}
+        description="Sign in or create an account to access Intouch Marketing Solutions' services and manage your projects."
+        path={mode === 'signin' ? '/login' : '/register'}
+        noindex
+      />
       <div className={styles.card}>
         <div className={styles.header}>
           <h1 className={styles.title}>

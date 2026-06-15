@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { FaArrowRight, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaRupeeSign, FaUserTie, FaWhatsapp } from 'react-icons/fa'
 import { SERVICES } from '../../data/services'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './StartProject.module.css'
 import { validateEmail, validatePhone, validatePrice } from '../../utils/validation'
 
@@ -125,6 +126,11 @@ export default function StartProject() {
 
   return (
     <div className="page-wrap">
+      <SEO
+        title="Start Your Project | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Ready to grow your business? Start your project with Intouch Marketing Solutions and let our team craft a custom digital marketing strategy for you."
+        path="/start-project"
+      />
       <section className={styles.page}>
         <div className={`${styles.intro} fade-up`}>
           <span className="tag">Start Your Project</span>

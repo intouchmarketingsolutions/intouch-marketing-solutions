@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa'
 
 import { SERVICES } from '../../data/services'
+import SEO from '../../components/SEO/SEO'
 import styles from './Services.module.css'
 import computerImg from '../../assets/computer.png'
 
@@ -52,6 +53,11 @@ export default function Services() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title="Our Services | SEO, Social Media, Web Development & More | Intouch Marketing"
+        description="Explore our digital marketing services in Udupi, Karnataka - SEO, Social Media Marketing, Web Development, Graphic Design, Branding, Video Editing, Google Ads and Content Marketing."
+        path="/services"
+      />
 
       {/* ================= HERO ================= */}
       <section className={styles.hero}>

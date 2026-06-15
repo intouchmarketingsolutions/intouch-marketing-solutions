@@ -22,6 +22,7 @@ import {
   FaSwatchbook
 } from 'react-icons/fa'
 import { SiFigma } from 'react-icons/si'
+import SEO from '../../components/SEO/SEO'
 import styles from './GraphicDesignPage.module.css'
 import g1 from '../../assets/graphic design/g1.jpg'
 import g2 from '../../assets/graphic design/g2.jpg'
@@ -137,6 +138,11 @@ export default function GraphicDesignPage() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title="Graphic Design | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Creative designs that elevate your brand identity - logos, social media creatives, branding and more from Intouch Marketing Solutions in Udupi, Karnataka."
+        path="/services/10"
+      />
       <section className={styles.hero} onWheel={handleWheel}>
         <div className={styles.bgLayer} />
         <div className={styles.gridLayer} />

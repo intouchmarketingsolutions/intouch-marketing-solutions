@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa'
 import { SERVICES } from '../../data/services'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './SocialMediaPage.module.css'
 
 const HIGHLIGHTS = [
@@ -37,6 +38,11 @@ export default function SocialMediaPage() {
 
   return (
     <div className={styles.page}>
+      <SEO
+        title="Social Media Marketing | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Build a strong social presence and engage your audience with Intouch Marketing Solutions' social media marketing services in Udupi, Karnataka."
+        path="/services/6"
+      />
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <div className={`${styles.heroCopy} fade-up`}>

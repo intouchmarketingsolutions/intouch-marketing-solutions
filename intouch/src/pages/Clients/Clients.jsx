@@ -6,6 +6,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { Link } from 'react-router-dom'
 import { FaStar, FaArrowRight, FaCheckCircle, FaFire, FaGlobe, FaUtensils, FaIndustry, FaHotel, FaShoppingBag, FaRocket, FaUsers, FaBriefcase, FaUserTie, FaChartLine } from 'react-icons/fa'
 import useFadeUp from '../../hooks/useFadeUp'
+import SEO from '../../components/SEO/SEO'
 import styles from './Clients.module.css'
 
 /* ── gallery images (service work samples) ── */
@@ -389,6 +390,11 @@ export default function Clients() {
   
   return (
     <div className={styles.page}>
+      <SEO
+        title="Our Clients | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Discover the brands and businesses Intouch Marketing Solutions has partnered with across Udupi and Karnataka to deliver digital marketing, design and development success."
+        path="/clients"
+      />
 
       {/* ══════════════ HERO ══════════════ */}
       <section className={styles.hero}>

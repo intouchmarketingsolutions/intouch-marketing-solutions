@@ -24,6 +24,7 @@ import {
   FaSlidersH,
 } from 'react-icons/fa'
 import { SERVICES as SERVICE_LIST } from '../../data/services'
+import SEO from '../../components/SEO/SEO'
 import styles from './BrandingPage.module.css'
 
 import koppasLogo from '../../assets/Branding/koppas final logo.png'
@@ -130,6 +131,11 @@ function FadeIn({ children, className = '', delay = 0 }) {
 export default function BrandingPage() {
   return (
     <div className={styles.page}>
+      <SEO
+        title="Branding | Intouch Marketing Solutions - Udupi, Karnataka"
+        description="Build a strong and memorable brand identity with Intouch Marketing Solutions - branding strategy, visual identity and guidelines in Udupi, Karnataka."
+        path="/services/12"
+      />
       <header className={styles.navBar}>
         <div className={styles.logoWordmark}>
           <span>inTouch</span>
